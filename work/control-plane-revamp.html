@@ -1,0 +1,952 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cutting the Clicks Out of Running Infrastructure for 30+ Companies · Rohit Kumar</title>
+  <meta name="description" content="Redesigning the control plane engineers use to run infrastructure other companies depend on." />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/animations.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="wrap">
+      <a href="../index.html" class="nav-brand">Rohit Kumar</a>
+      <div class="nav-links">
+        <a href="../index.html#work" class="hide-mobile">Work</a>
+        <a href="../index.html#how-i-work" class="hide-mobile">How I work</a>
+        <a href="mailto:you@email.com">Contact</a>
+        <button class="theme-toggle" data-theme-toggle aria-label="Toggle color theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="cs-hero">
+    <div class="wrap">
+      <div class="cs-kicker reveal">
+        <a href="../index.html">Work</a>
+        <span>/</span>
+        <span>Facets</span>
+      </div>
+
+      <h1 class="reveal">Cutting <span class="hl">57%</span> of the clicks out of running production infrastructure for <span class="hl">30+</span> companies</h1>
+      <p class="lede reveal">
+        Facets is a self-service infrastructure platform: platform teams codify infrastructure as
+        blueprints, developers self-serve environments, and Facets generates the Terraform underneath.
+        <strong>Over 30 companies run production on it.</strong> I led the redesign end to end and
+        <strong>built a good number of the screens myself, in the live React codebase.</strong>
+      </p>
+
+      <!-- At-a-glance panel -->
+      <div class="glance-panel">
+        <div class="glance-grid">
+          <div class="glance-col">
+            <div class="glance-card reveal">
+              <span class="glance-label">Product<span class="glance-subtitle">Facets</span></span>
+              <p>A self-service infrastructure platform. Platform teams codify infrastructure as blueprints in Git, developers self-serve environments, and <strong>Facets generates the Terraform underneath</strong>, across AWS, GCP, Azure, and Kubernetes.</p>
+            </div>
+            <div class="glance-card reveal">
+              <span class="glance-label">Details</span>
+              <div class="details-row">
+                <div class="dr-value">Solo Product Designer. Owned the design, and <span class="hl">shipped a good number of the screens myself in code</span></div>
+                <div class="dr-label">role</div>
+              </div>
+              <div class="details-row">
+                <div class="dr-value">1 CTO · 1 Product Manager · 2 Frontend Engineers</div>
+                <div class="dr-label">team</div>
+              </div>
+              <div class="details-row">
+                <div class="dr-value">Figma · Claude Code · Mixpanel</div>
+                <div class="dr-label">tools</div>
+              </div>
+              <div class="details-row">
+                <div class="dr-value">About 5.5 months, shipped in two versions (V1, then V2)</div>
+                <div class="dr-label">timeline</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glance-col">
+            <div class="glance-card-group reveal">
+              <div class="glance-subsection">
+                <span class="glance-label">Problem<span class="glance-subtitle">Built for the Backend</span></span>
+                <p>Everyday tasks took too many clicks and the navigation was confusing. It was built around the backend, not the two people living in it all day: <strong>developers and DevOps</strong>. An earlier redesign had already been rejected.</p>
+              </div>
+              <div class="glance-subsection">
+                <span class="glance-label">Solution<span class="glance-subtitle">A Job-First Redesign</span></span>
+                <p>I rebuilt it around what those two people actually do, with org and project work on their own navigation. A new Project Overview cut the flagship daily task from <strong class="hl">14 clicks to 6</strong>.</p>
+              </div>
+              <div class="glance-subsection">
+                <span class="glance-label">Result<span class="glance-subtitle">A Clean Launch</span></span>
+                <p><strong class="hl">100%</strong> of customers moved off the two legacy UIs, one issue fixed same-day, and satisfaction rose from <strong class="hl">5.8 to 8.4</strong> out of 10.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="glance-impact reveal">
+            <span class="glance-impact-label">Impact</span>
+            <div class="glance-stats">
+              <div class="glance-stat">
+                <div class="stat-num">57%</div>
+                <div class="stat-title">Fewer clicks</div>
+                <div class="stat-sub">On the flagship daily task. Down from 14 clicks to 6.</div>
+              </div>
+              <div class="glance-stat">
+                <div class="stat-num">100%</div>
+                <div class="stat-title">Customer migration</div>
+                <div class="stat-sub">One reported issue, fixed the same day. Both legacy Angular UIs retired for good.</div>
+              </div>
+              <div class="glance-stat">
+                <div class="stat-num">8.4/10</div>
+                <div class="stat-title">Satisfaction</div>
+                <div class="stat-sub">Up from 5.8, same cohort, measured before and after.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ba-carousel reveal" data-ba-carousel>
+        <button class="ba-nav ba-nav-prev" type="button" data-ba-prev aria-label="Previous comparison">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6" /></svg>
+        </button>
+
+        <div class="ba-viewport">
+          <div class="ba-track" data-ba-track>
+
+            <div class="ba-slide is-active" data-ba-slide>
+              <div class="ba-slider" data-ba-slider tabindex="0" role="slider" aria-label="Drag to compare the old and new Projects dashboard" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+                <div class="ba-frame">
+                  <img class="ba-img" src="../assets/img/compare/projects-before.png" alt="Old Facets Projects dashboard" draggable="false" />
+                  <div class="ba-after" data-ba-after>
+                    <img class="ba-img" src="../assets/img/compare/projects-after.png" alt="Redesigned Facets Projects dashboard" draggable="false" />
+                  </div>
+                  <span class="ba-tag ba-tag-before">Before</span>
+                  <span class="ba-tag ba-tag-after">After</span>
+                  <div class="ba-handle" data-ba-handle aria-hidden="true">
+                    <span class="ba-handle-line"></span>
+                    <span class="ba-handle-grip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 7l-5 5 5 5M10 7l5 5-5 5" /></svg></span>
+                  </div>
+                </div>
+              </div>
+              <div class="ba-caption">Projects dashboard</div>
+            </div>
+
+            <div class="ba-slide" data-ba-slide>
+              <div class="ba-slider" data-ba-slider tabindex="0" role="slider" aria-label="Drag to compare the old and new Module Registry" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+                <div class="ba-frame">
+                  <img class="ba-img" src="../assets/img/compare/module-registry-before.png" alt="Old Facets Module Registry" draggable="false" />
+                  <div class="ba-after" data-ba-after>
+                    <img class="ba-img" src="../assets/img/compare/module-registry-after.png" alt="Redesigned Facets Module Registry" draggable="false" />
+                  </div>
+                  <span class="ba-tag ba-tag-before">Before</span>
+                  <span class="ba-tag ba-tag-after">After</span>
+                  <div class="ba-handle" data-ba-handle aria-hidden="true">
+                    <span class="ba-handle-line"></span>
+                    <span class="ba-handle-grip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 7l-5 5 5 5M10 7l5 5-5 5" /></svg></span>
+                  </div>
+                </div>
+              </div>
+              <div class="ba-caption">Module Registry</div>
+            </div>
+
+            <div class="ba-slide" data-ba-slide>
+              <div class="ba-slider" data-ba-slider tabindex="0" role="slider" aria-label="Drag to compare the old and new Blueprint canvas" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+                <div class="ba-frame">
+                  <img class="ba-img" src="../assets/img/compare/blueprint-before.png" alt="Old Facets Blueprint canvas" draggable="false" />
+                  <div class="ba-after" data-ba-after>
+                    <img class="ba-img" src="../assets/img/compare/blueprint-after.png" alt="Redesigned Facets Blueprint canvas" draggable="false" />
+                  </div>
+                  <span class="ba-tag ba-tag-before">Before</span>
+                  <span class="ba-tag ba-tag-after">After</span>
+                  <div class="ba-handle" data-ba-handle aria-hidden="true">
+                    <span class="ba-handle-line"></span>
+                    <span class="ba-handle-grip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 7l-5 5 5 5M10 7l5 5-5 5" /></svg></span>
+                  </div>
+                </div>
+              </div>
+              <div class="ba-caption">Blueprint canvas</div>
+            </div>
+
+            <div class="ba-slide" data-ba-slide>
+              <div class="ba-slider" data-ba-slider tabindex="0" role="slider" aria-label="Drag to compare the old and new CI/CD flow" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+                <div class="ba-frame">
+                  <img class="ba-img" src="../assets/img/compare/cicd-before.png" alt="Old Facets CI/CD flow settings" draggable="false" />
+                  <div class="ba-after" data-ba-after>
+                    <img class="ba-img" src="../assets/img/compare/cicd-after.png" alt="Redesigned Facets CI/CD flow settings" draggable="false" />
+                  </div>
+                  <span class="ba-tag ba-tag-before">Before</span>
+                  <span class="ba-tag ba-tag-after">After</span>
+                  <div class="ba-handle" data-ba-handle aria-hidden="true">
+                    <span class="ba-handle-line"></span>
+                    <span class="ba-handle-grip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 7l-5 5 5 5M10 7l5 5-5 5" /></svg></span>
+                  </div>
+                </div>
+              </div>
+              <div class="ba-caption">CI/CD flow</div>
+            </div>
+
+            <div class="ba-slide" data-ba-slide>
+              <div class="ba-slider" data-ba-slider tabindex="0" role="slider" aria-label="Drag to compare the old and new Release flow" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+                <div class="ba-frame">
+                  <img class="ba-img" src="../assets/img/compare/release-before.png" alt="Old Facets release flow" draggable="false" />
+                  <div class="ba-after" data-ba-after>
+                    <img class="ba-img" src="../assets/img/compare/release-after.png" alt="Redesigned Facets release flow" draggable="false" />
+                  </div>
+                  <span class="ba-tag ba-tag-before">Before</span>
+                  <span class="ba-tag ba-tag-after">After</span>
+                  <div class="ba-handle" data-ba-handle aria-hidden="true">
+                    <span class="ba-handle-line"></span>
+                    <span class="ba-handle-grip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 7l-5 5 5 5M10 7l5 5-5 5" /></svg></span>
+                  </div>
+                </div>
+              </div>
+              <div class="ba-caption">Release flow</div>
+            </div>
+
+            <div class="ba-slide" data-ba-slide>
+              <div class="ba-slider" data-ba-slider tabindex="0" role="slider" aria-label="Drag to compare the old and new Environment overview" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+                <div class="ba-frame">
+                  <img class="ba-img" src="../assets/img/compare/env-overview-before.png" alt="Old Facets Environment overview" draggable="false" />
+                  <div class="ba-after" data-ba-after>
+                    <img class="ba-img" src="../assets/img/compare/env-overview-after.png" alt="Redesigned Facets Environment overview" draggable="false" />
+                  </div>
+                  <span class="ba-tag ba-tag-before">Before</span>
+                  <span class="ba-tag ba-tag-after">After</span>
+                  <div class="ba-handle" data-ba-handle aria-hidden="true">
+                    <span class="ba-handle-line"></span>
+                    <span class="ba-handle-grip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 7l-5 5 5 5M10 7l5 5-5 5" /></svg></span>
+                  </div>
+                </div>
+              </div>
+              <div class="ba-caption">Environment overview</div>
+            </div>
+
+          </div>
+        </div>
+
+        <button class="ba-nav ba-nav-next" type="button" data-ba-next aria-label="Next comparison">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6" /></svg>
+        </button>
+
+        <div class="ba-dots" data-ba-dots>
+          <button class="ba-dot is-active" type="button" data-index="0" aria-label="Show Projects dashboard comparison"></button>
+          <button class="ba-dot" type="button" data-index="1" aria-label="Show Module Registry comparison"></button>
+          <button class="ba-dot" type="button" data-index="2" aria-label="Show Blueprint canvas comparison"></button>
+          <button class="ba-dot" type="button" data-index="3" aria-label="Show CI/CD flow comparison"></button>
+          <button class="ba-dot" type="button" data-index="4" aria-label="Show Release flow comparison"></button>
+          <button class="ba-dot" type="button" data-index="5" aria-label="Show Environment overview comparison"></button>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <span class="eyebrow reveal">Context</span>
+      <h2 class="reveal">Where things stood</h2>
+      <div class="cs-points">
+        <p class="cs-body reveal"><strong>This wasn't the first attempt.</strong> Facets had already tried to redesign inside its Angular app. Customers pushed back hard enough that two UIs had to run side by side for seven to eight months, and keeping both alive took roughly a quarter of the two-person frontend team's capacity.</p>
+        <p class="cs-body reveal"><strong>A re-platform was already underway.</strong> Separately, Facets was moving its frontend from Angular to React for engineering reasons: framework limits, hiring, and long-term maintainability. Every screen was going to be rebuilt regardless.</p>
+        <p class="cs-body reveal"><strong>That made this the moment.</strong> A straight lift and shift would have carried the same interaction problems into a new framework, and the team would have paid to fix them a second time later. Since the screens were being rebuilt anyway, fixing the experience added very little extra cost.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section section-tight">
+    <div class="wrap">
+      <span class="eyebrow reveal">The problem</span>
+      <div class="impact-block reveal">
+        <p class="impact-headline">Everyday tasks took too many clicks, the navigation was confusing, and the UI was slow enough to get in the way.</p>
+      </div>
+
+      <h3 class="cs-subhead reveal">Who felt it</h3>
+      <div class="persona-grid">
+        <div class="persona-card reveal">
+          <div class="persona-role">Developers</div>
+          <p>Shipping changes.</p>
+        </div>
+        <div class="persona-card reveal">
+          <div class="persona-role">DevOps and platform engineers</div>
+          <p>Keeping environments healthy.</p>
+        </div>
+      </div>
+      <p class="cs-body reveal">Not "users" in the abstract. They ran the same screens dozens of times a day, so every extra click and every "where is this again?" added up quickly.</p>
+
+      <h3 class="cs-subhead reveal">How we knew it was real</h3>
+      <div class="glance-stats reveal">
+        <div class="glance-stat">
+          <div class="stat-num">~19/mo</div>
+          <div class="stat-title">Support tickets</div>
+          <div class="stat-sub">Around 19 a month asking who owns something, or where a setting lives.</div>
+        </div>
+        <div class="glance-stat">
+          <div class="stat-num">Drop-off</div>
+          <div class="stat-title">Mixpanel funnels</div>
+          <div class="stat-sub">Clear drop-off and doubling back. People bounced between pages to finish a single task.</div>
+        </div>
+        <div class="glance-stat">
+          <div class="stat-num">7-8 mo</div>
+          <div class="stat-title">Two UIs in parallel</div>
+          <div class="stat-sub">The previous redesign drew enough pushback to force it. The clearest signal of all.</div>
+        </div>
+      </div>
+      <p class="cs-body reveal">In interviews and sessions, the same three words kept coming up: <strong>confusing, slow, too many steps.</strong></p>
+      <p class="cs-body reveal"><strong>Cost of leaving it alone.</strong> A control plane that is slower than a script pushes people back to scripts and runbooks, the exact thing Facets exists to replace. On infrastructure that <span class="hl">30+</span> companies run in production, that is a retention risk, not a cosmetic complaint.</p>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <span class="eyebrow reveal">Prioritization</span>
+      <h2 class="reveal">Why now</h2>
+      <p class="lede reveal">We scored this on value versus effort, and it stood out on both.</p>
+      <div class="compare-grid">
+        <div class="compare-card reveal">
+          <span class="compare-tag">Value</span>
+          <h4>High</h4>
+          <p>A daily tax on <span class="hl">30+</span> paying customers' production work, the kind of friction that pushes people back to scripts.</p>
+        </div>
+        <div class="compare-card reveal">
+          <span class="compare-tag">Effort</span>
+          <h4>Unusually low</h4>
+          <p>The React re-platform was already touching every screen, so fixing the interaction model came at little extra cost, not a separate project.</p>
+        </div>
+      </div>
+      <div class="cs-points">
+        <p class="cs-body reveal"><strong>Why now specifically.</strong> The re-platform was a one-time window to fix the information architecture while every screen was being rebuilt anyway, and the seven-to-eight-month dual-UI period was still fresh for everyone.</p>
+        <p class="cs-body reveal"><strong>The upside.</strong> Removing per-task friction for around 40 daily operators, later measured at about <span class="hl">150 engineer-hours saved every month</span>, plus lower churn risk.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <span class="eyebrow reveal">Goals</span>
+      <h2 class="reveal">What success looked like, set before we built</h2>
+      <p class="lede reveal">The user goal underneath every target was simple: <strong>let someone finish a routine task, releasing, rolling out, or overriding, without hunting for where it lives.</strong> Four targets, each with a metric and a baseline, were agreed before any screen changed.</p>
+      <div class="goal-list">
+        <div class="goal-item reveal">
+          <div class="goal-num">01</div>
+          <div>
+            <div class="goal-title">Less org vs. project confusion</div>
+            <div class="goal-evidence">Support tickets asking "who owns this" or "where does this live." Baseline <span class="hl">~19 a month</span>, goal to cut it by more than half.</div>
+          </div>
+        </div>
+        <div class="goal-item reveal">
+          <div class="goal-num">02</div>
+          <div>
+            <div class="goal-title">One navigation and settings system</div>
+            <div class="goal-evidence">The separate, one-off drawer patterns across CI/CD, Release, and Role. From <span class="hl">3 patterns down to 1</span>.</div>
+          </div>
+        </div>
+        <div class="goal-item reveal">
+          <div class="goal-num">03</div>
+          <div>
+            <div class="goal-title">Fewer clicks to finish the job</div>
+            <div class="goal-evidence">Clicks to complete the flagship daily task. From <span class="hl">14 down to under half</span>.</div>
+          </div>
+        </div>
+        <div class="goal-item reveal">
+          <div class="goal-num">04</div>
+          <div>
+            <div class="goal-title">Faster to finish a task</div>
+            <div class="goal-evidence">A combined time-and-steps score across the five core flows (trigger a release, launch an environment, configure and override a resource, update an image, debug a failed release), set to <span class="hl">100</span> before the redesign, aiming for a clear reduction.</div>
+          </div>
+        </div>
+      </div>
+      <div class="cs-callout reveal">
+        <span class="cs-callout-label">How we picked what to measure</span>
+        <p>Usage is the wrong metric here: customers <em>have</em> to release, launch, and configure regardless of UI quality, so it would have flattered us without proving anything. Instead we split screens by choice. For the <strong>unavoidable</strong> ones (Release, Launch, config) we measured friction: time, clicks, drop-off. For the <strong>optional</strong> ones (dashboards, cost) we measured whether people came back and acted, because there a visit is a real vote.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section section-tight">
+    <div class="wrap">
+      <span class="eyebrow reveal">Research</span>
+      <h2 class="reveal">What research turned up</h2>
+      <p class="lede reveal">
+        We talked to the people who live in Facets and dug into the analytics, then let the overlap
+        point to where the real friction was.
+      </p>
+
+      <div class="glance-stats reveal">
+        <div class="glance-stat">
+          <div class="stat-num">14</div>
+          <div class="stat-title">Customer interviews</div>
+          <div class="stat-sub">Developers and DevOps, re-interviewed after launch for a clean before and after.</div>
+        </div>
+        <div class="glance-stat">
+          <div class="stat-num">9 of 30+</div>
+          <div class="stat-title">Orgs covered</div>
+          <div class="stat-sub">A spread across the customer base, over about three weeks.</div>
+        </div>
+        <div class="glance-stat">
+          <div class="stat-num">~1 mo</div>
+          <div class="stat-title">Mixpanel funnels</div>
+          <div class="stat-sub">Where people dropped off or doubled back inside common flows.</div>
+        </div>
+      </div>
+
+      <h3 class="cs-subhead reveal">The problems we found</h3>
+
+      <div class="pain-grid">
+        <div class="pain-card reveal">
+          <span class="pain-num">01</span>
+          <div>
+            <h4>Org, project, and environment work were tangled together</h4>
+            <p>There was no clear line between them. The same navigation showed up everywhere, even deep inside a project.</p>
+          </div>
+        </div>
+        <div class="pain-card reveal">
+          <span class="pain-num">02</span>
+          <div>
+            <h4>Moving between pages was its own task</h4>
+            <p>Jumping to the release page, the environment page, or switching between project-level and environment-level resource configuration each meant a completely different flow.</p>
+          </div>
+        </div>
+        <div class="pain-card reveal">
+          <span class="pain-num">03</span>
+          <div>
+            <h4>Small tasks took too many clicks</h4>
+            <p>Releasing a change, rolling out an update, or overriding a resource each took more steps than they should have.</p>
+          </div>
+        </div>
+        <div class="pain-card reveal">
+          <span class="pain-num">04</span>
+          <div>
+            <h4>Releasing ended on a blind commit</h4>
+            <p>The final step shipped the release with no preview of what would actually change.</p>
+          </div>
+        </div>
+        <div class="pain-card reveal">
+          <span class="pain-num">05</span>
+          <div>
+            <h4>And a long tail</h4>
+            <p>Settings drawers each behaved differently, there was no dark mode, and two icon sets were running side by side.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="cs-body reveal">
+        Some of this started as literal marker-on-laptop scribbles: mapping environment config rules,
+        dynamic launch overrides, and the color token and icon migration underneath the redesign.
+      </p>
+      <div class="process-strip reveal" aria-label="Early exploration artifacts: environment config planning, design token migration, icon migration, and navigation and information architecture planning">
+        <div class="process-track">
+          <div class="process-item" style="aspect-ratio: 900/1200;">
+            <img src="../assets/img/process/whiteboard-legend.jpg" alt="Whiteboard legend for environment mode toggles, status fields, and release rollback markers.">
+          </div>
+          <div class="process-item" style="aspect-ratio: 1303/1600;">
+            <img src="../assets/img/process/ia-env-tabs-breakdown.png" alt="Information architecture diagram breaking down the Environment tabs: Overview, Resource, Release, Secrets and Variables, and Settings.">
+          </div>
+          <div class="process-item" style="aspect-ratio: 900/1169;">
+            <img src="../assets/img/process/color-tokens-migration.jpg" alt="Before and after table of color design tokens migrated to hex values.">
+          </div>
+          <div class="process-item" style="aspect-ratio: 1600/738;">
+            <img src="../assets/img/process/ia-nav-layout-exploration.png" alt="Navigation layout exploration comparing vertical and horizontal nav arrangements for the project and environment context switch.">
+          </div>
+          <div class="process-item" style="aspect-ratio: 900/1200;">
+            <img src="../assets/img/process/whiteboard-url-routing.jpg" alt="Whiteboard notes mapping URL routing, PW overrides, and rollback details for environment config.">
+          </div>
+          <div class="process-item" style="aspect-ratio: 1600/1049;">
+            <img src="../assets/img/process/ia-navigation-flow.png" alt="Navigation flow diagram mapping Project Overview quick actions, release data, and environment listing.">
+          </div>
+          <div class="process-item" style="aspect-ratio: 900/946;">
+            <img src="../assets/img/process/icon-migration-table.jpg" alt="Table mapping old Ant Design icons to new Phosphor icons across settings sidebars.">
+          </div>
+          <div class="process-item" style="aspect-ratio: 1032/1600;">
+            <img src="../assets/img/process/ia-project-tabs-breakdown.png" alt="Information architecture diagram breaking down the Project tabs: Overview, Blueprint, Secrets and Variables, Pipeline, and Settings.">
+          </div>
+          <div class="process-item" style="aspect-ratio: 900/1200;">
+            <img src="../assets/img/process/whiteboard-env-config.jpg" alt="Whiteboard notes on environment rule stacks, cloud registries, and dynamic dependent launch.">
+          </div>
+          <div class="process-item" style="aspect-ratio: 900/1200;" aria-hidden="true">
+            <img src="../assets/img/process/whiteboard-legend.jpg" alt="">
+          </div>
+          <div class="process-item" style="aspect-ratio: 1303/1600;" aria-hidden="true">
+            <img src="../assets/img/process/ia-env-tabs-breakdown.png" alt="">
+          </div>
+          <div class="process-item" style="aspect-ratio: 900/1169;" aria-hidden="true">
+            <img src="../assets/img/process/color-tokens-migration.jpg" alt="">
+          </div>
+          <div class="process-item" style="aspect-ratio: 1600/738;" aria-hidden="true">
+            <img src="../assets/img/process/ia-nav-layout-exploration.png" alt="">
+          </div>
+          <div class="process-item" style="aspect-ratio: 900/1200;" aria-hidden="true">
+            <img src="../assets/img/process/whiteboard-url-routing.jpg" alt="">
+          </div>
+          <div class="process-item" style="aspect-ratio: 1600/1049;" aria-hidden="true">
+            <img src="../assets/img/process/ia-navigation-flow.png" alt="">
+          </div>
+          <div class="process-item" style="aspect-ratio: 900/946;" aria-hidden="true">
+            <img src="../assets/img/process/icon-migration-table.jpg" alt="">
+          </div>
+          <div class="process-item" style="aspect-ratio: 1032/1600;" aria-hidden="true">
+            <img src="../assets/img/process/ia-project-tabs-breakdown.png" alt="">
+          </div>
+          <div class="process-item" style="aspect-ratio: 900/1200;" aria-hidden="true">
+            <img src="../assets/img/process/whiteboard-env-config.jpg" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <span class="eyebrow reveal">The key decision</span>
+      <h2 class="reveal">The big bet: get navigation right first</h2>
+      <p class="lede reveal">
+        Every other screen sat on top of the navigation. Get it wrong and we would have had to
+        reshuffle every page later, so we settled it first. We finished the navigation and shipped it
+        in <strong>version one</strong>, along with all the org-level settings, gathered feedback,
+        folded it in, then built the rest as <strong>version two</strong>.
+      </p>
+
+      <div class="compare-grid">
+        <div class="compare-card reveal">
+          <span class="compare-tag">Explored</span>
+          <h4>Environment-first</h4>
+          <p>A top bar switched between the blueprint (project level) and the environments, and that choice rewrote the side nav beneath it.</p>
+          <div class="compare-why"><strong>Why it broke down:</strong> the two levels never lined up. Picking "Blueprint" surfaced project-only actions like Pipeline and Cost that do not exist for an environment, so the side nav kept reshuffling.</div>
+        </div>
+        <div class="compare-card is-chosen reveal">
+          <span class="compare-tag">Shipped</span>
+          <h4>Context-switch</h4>
+          <p>Open a project and everything starts at the project level with one steady side nav. To go deeper, you drill into an environment, or jump straight there from Project Overview.</p>
+          <div class="compare-why"><strong>Why it won:</strong> it matches how people already picture the hierarchy, so there is nothing to memorize, and the side nav stays consistent. You follow one path: project, then environment, then resource.</div>
+        </div>
+      </div>
+
+      <div class="cs-callout reveal">
+        <span class="cs-callout-label">A design-system call</span>
+        <p>The migration had to move fast, so we adopted <strong>Ant Design</strong> instead of building a system from scratch. We built on top of it and made custom components only where it fell short, which kept our time on the flows and the hard screens.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <span class="eyebrow reveal">What we built</span>
+      <h2 class="reveal">Designed in Figma, shipped in code</h2>
+      <p class="lede reveal">
+        This wasn't a spec thrown over the wall. Every screen was designed in Figma end to end, and I
+        wrote a good number of them in the live React codebase, pairing with Claude Code and reviewed
+        like any contributor's pull request.
+      </p>
+      <div class="glance-stats reveal">
+        <div class="glance-stat">
+          <div class="stat-num">33</div>
+          <div class="stat-title">Pull requests raised</div>
+          <div class="stat-sub">In the control-plane React codebase, reviewed like any contributor's.</div>
+        </div>
+        <div class="glance-stat">
+          <div class="stat-num">178</div>
+          <div class="stat-title">Commits shipped to main</div>
+          <div class="stat-sub">From navigation and settings through the release and secrets flows.</div>
+        </div>
+        <div class="glance-stat">
+          <div class="stat-num">13,246</div>
+          <div class="stat-title">Lines written</div>
+          <div class="stat-sub">Across the redesign, with 9,381 lines removed along the way.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section section-tight">
+    <div class="wrap">
+      <span class="eyebrow reveal">Solution</span>
+      <h2 class="reveal">The screens, and what moved</h2>
+      <p class="lede reveal">
+        One navigation model, dashboards that answer "what is the state of my thing" at a glance, and
+        a shipping flow that shows what is about to change before you commit. Three principles held it
+        together: <strong>put the action where the task already is, reuse one pattern instead of a
+        bespoke layout per screen, and show the consequences before the commit.</strong>
+      </p>
+
+      <div class="outcome-grid">
+        <div class="outcome-card is-plain wide reveal">
+          <div class="outcome-body">
+            <span class="cat-counter" aria-hidden="true">1/5</span>
+            <span class="outcome-skill">Information architecture</span>
+            <h3>Two navigations, not one shared menu</h3>
+            <p>Outside a project the sidebar shows org-level work; step inside and it is replaced entirely by project-scoped navigation. <strong>The two levels no longer share a menu</strong>, and the hierarchy is explicit: project, environment, resource.</p>
+            <div class="metric-bracket">
+              <span class="metric-bracket-label">Measured</span>
+              <div class="metric-row">
+                <span class="metric-label">Back-and-forth page hops to reach a task</span>
+                <span class="metric-delta"><span class="mv-before">3.4</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">1.1</span></span>
+              </div>
+            </div>
+          </div>
+          <div class="outcome-media outcome-media-photo">
+            <video src="../assets/video/nav-exploration-v2.mp4" poster="../assets/img/nav-exploration-v2-poster.jpg" autoplay loop muted playsinline aria-label="Screen recording of the shipped navigation, switching between org-level and project-level context."></video>
+          </div>
+        </div>
+
+        <div class="outcome-pin" data-subtotal="4">
+          <div class="outcome-card is-pin-frame">
+            <div class="outcome-body">
+              <span class="cat-counter" aria-hidden="true">2/5</span>
+              <div class="pin-slides">
+                <div class="pin-slide is-active">
+                  <span class="outcome-skill">End-to-end feature design</span>
+                  <h3>Project Overview: a new front door</h3>
+                  <p>A page that did not exist before, built so power users can start their daily tasks without clicking through the nav. <strong>It is now used more than the navigation to start work, and the flagship task dropped from 14 clicks to 6.</strong></p>
+                  <div class="metric-bracket">
+                    <span class="metric-bracket-label">Measured (new page, no before)</span>
+                    <div class="metric-row">
+                      <span class="metric-label">Visits that lead straight to an action</span>
+                      <span class="metric-delta"><span class="mv-new-tag">new</span><span class="mv-after">61%</span></span>
+                    </div>
+                    <div class="metric-row">
+                      <span class="metric-label">Bounce (visit, no action)</span>
+                      <span class="metric-delta"><span class="mv-new-tag">new</span><span class="mv-after">14%</span></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="pin-slide">
+                  <span class="outcome-skill">Systems thinking</span>
+                  <h3>Resource Overview: state without digging</h3>
+                  <p><strong>One page to read a resource's current state</strong>, with a consistent header, a history drawer, and inline environment creation. Every action is reachable from any of its pages, instead of scattered across separate screens.</p>
+                  <div class="metric-bracket">
+                    <span class="metric-bracket-label">Measured</span>
+                    <div class="metric-row">
+                      <span class="metric-label">Views to answer "current state"</span>
+                      <span class="metric-delta"><span class="mv-before">3.6</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">1.2</span></span>
+                    </div>
+                    <div class="metric-row">
+                      <span class="metric-label">Page changes to perform an action</span>
+                      <span class="metric-delta"><span class="mv-before">2.4</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">0.7</span><span class="mv-pct">71% fewer</span></span>
+                    </div>
+                    <div class="metric-row">
+                      <span class="metric-label">Rollback first-attempt success</span>
+                      <span class="metric-delta"><span class="mv-before">88%</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">97%</span></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="pin-slide">
+                  <span class="outcome-skill">End-to-end feature design</span>
+                  <h3>Environment Overview: one page instead of five tabs</h3>
+                  <p>Health, alerts, activity, and release status folded into a single page. <strong>The state of an environment is visible without switching tabs</strong>, answering both "is my release live" and "is anything about to breach a guardrail" from one layout.</p>
+                  <div class="metric-bracket">
+                    <span class="metric-bracket-label">Measured</span>
+                    <div class="metric-row">
+                      <span class="metric-label">Page views and visit frequency vs. the old pages</span>
+                      <span class="metric-delta"><span class="mv-after">+38%</span></span>
+                    </div>
+                    <div class="metric-row">
+                      <span class="metric-label">Time from alert firing to first view</span>
+                      <span class="metric-delta"><span class="mv-before">14 min</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">5 min</span><span class="mv-pct">64% faster</span></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="pin-slide">
+                  <span class="outcome-skill">Data &amp; visual design</span>
+                  <h3>A cost page people can actually read</h3>
+                  <p>Rebuilt charts and unified tooltips, so the numbers read at a glance instead of scattered across inconsistent visualizations.</p>
+                  <div class="metric-bracket">
+                    <span class="metric-bracket-label">Measured</span>
+                    <div class="metric-row">
+                      <span class="metric-label">7-day repeat-visit rate</span>
+                      <span class="metric-delta"><span class="mv-before">19%</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">44%</span></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="outcome-media">
+              <div class="pin-layer is-active outcome-media-photo">
+                <video src="../assets/video/project-overview.mp4" poster="../assets/img/project-overview-poster.jpg" autoplay loop muted playsinline aria-label="Screen recording of the Project Overview page."></video>
+              </div>
+              <div class="pin-layer outcome-media-photo">
+                <video src="../assets/video/resource-overview.mp4" poster="../assets/img/resource-overview-poster.jpg" autoplay loop muted playsinline aria-label="Screen recording of the Resource Overview page."></video>
+              </div>
+              <div class="pin-layer outcome-media-photo">
+                <video src="../assets/video/environment-overview.mp4" poster="../assets/img/environment-overview-poster.jpg" autoplay loop muted playsinline aria-label="Screen recording of the Environment Overview page."></video>
+              </div>
+              <div class="pin-layer outcome-media-photo">
+                <video src="../assets/video/cost-page.mp4" poster="../assets/img/cost-page-poster.jpg" autoplay loop muted playsinline aria-label="Screen recording of the redesigned Cost page."></video>
+              </div>
+            </div>
+            <div class="pin-dots" aria-hidden="true">
+              <span class="stack-dot is-active"></span>
+              <span class="stack-dot"></span>
+              <span class="stack-dot"></span>
+              <span class="stack-dot"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="outcome-pin" data-subtotal="3">
+          <div class="outcome-card is-pin-frame">
+            <div class="outcome-body">
+              <span class="cat-counter" aria-hidden="true">3/5</span>
+              <div class="pin-slides">
+                <div class="pin-slide is-active">
+                  <span class="outcome-skill">Systems thinking</span>
+                  <h3>Picking a release strategy, the same way every time</h3>
+                  <p>The release-strategy drawer adopted the shared drawer pattern used across settings. <strong>One layout and one save behavior, replacing a one-off built just for this screen.</strong></p>
+                  <div class="metric-bracket">
+                    <span class="metric-bracket-label">Measured</span>
+                    <div class="metric-row">
+                      <span class="metric-label">Pre-save validation error rate</span>
+                      <span class="metric-delta"><span class="mv-before">27%</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">9%</span></span>
+                    </div>
+                    <div class="metric-row">
+                      <span class="metric-label">Time to save</span>
+                      <span class="metric-delta"><span class="mv-before">95s</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">52s</span><span class="mv-pct">45% faster</span></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="pin-slide">
+                  <span class="outcome-skill">Systems thinking</span>
+                  <h3>Triggering a release without second-guessing it</h3>
+                  <p>The release flow now ends in a <strong>two-step review that shows exactly what is about to change before you commit</strong>, replacing a blind "Confirm." Blocked releases interrupt early, and destructive changes need an off-by-default toggle.</p>
+                  <div class="metric-bracket">
+                    <span class="metric-bracket-label">Measured</span>
+                    <div class="metric-row">
+                      <span class="metric-label">Time in UI to submit</span>
+                      <span class="metric-delta"><span class="mv-before">70s</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">33s</span><span class="mv-pct">53% faster</span></span>
+                    </div>
+                    <div class="metric-row">
+                      <span class="metric-label">Re-attempts before shipping</span>
+                      <span class="metric-delta"><span class="mv-before">2.3</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">1.1</span></span>
+                    </div>
+                    <div class="metric-row">
+                      <span class="metric-label">UI-attributable failure rate</span>
+                      <span class="metric-delta"><span class="mv-before">34%</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">12%</span></span>
+                    </div>
+                    <div class="metric-row">
+                      <span class="metric-label">"Ignore &amp; Proceed" on the validation interrupt</span>
+                      <span class="metric-delta"><span class="mv-new-tag">new</span><span class="mv-after">9%</span></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="pin-slide">
+                  <span class="outcome-skill">Craft &amp; visual design</span>
+                  <h3>Seeing what's actually running, image by image</h3>
+                  <p>A visual-only redesign of the Images tab. Same underlying data and behavior, with a clearer read on which image versions are running where.</p>
+                  <div class="metric-bracket">
+                    <span class="metric-bracket-label">Measured</span>
+                    <div class="metric-row">
+                      <span class="metric-label">Version-confusion tickets / month</span>
+                      <span class="metric-delta"><span class="mv-before">7</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">2</span></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="outcome-media">
+              <div class="pin-layer is-active outcome-media-photo">
+                <video src="../assets/video/cicd-drawers.mp4" poster="../assets/img/cicd-drawers-poster.jpg" autoplay loop muted playsinline aria-label="Screen recording of the unified CI/CD drawer pattern."></video>
+              </div>
+              <div class="pin-layer outcome-media-photo">
+                <video src="../assets/video/release-drawer.mp4" poster="../assets/img/release-drawer-poster.jpg" autoplay loop muted playsinline aria-label="Screen recording of the redesigned release drawer."></video>
+              </div>
+              <div class="pin-layer outcome-media-photo">
+                <video src="../assets/video/images-tab.mp4" poster="../assets/img/images-tab-poster.jpg" autoplay loop muted playsinline aria-label="Screen recording of the redesigned Images tab."></video>
+              </div>
+            </div>
+            <div class="pin-dots" aria-hidden="true">
+              <span class="stack-dot is-active"></span>
+              <span class="stack-dot"></span>
+              <span class="stack-dot"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="outcome-card is-plain reveal">
+          <div class="outcome-body">
+            <span class="cat-counter" aria-hidden="true">4/5</span>
+            <span class="outcome-skill">End-to-end feature design</span>
+            <h3>Every secret and variable, compared across environments</h3>
+            <p><strong>One view lists every secret and variable across every environment</strong>, with reveal gated by permission and editing from the same place. Every resource that references a variable is listed alongside it, so changing one is not a guess.</p>
+            <div class="metric-bracket">
+              <span class="metric-bracket-label">Measured</span>
+              <div class="metric-row">
+                <span class="metric-label">Time to compare a value across environments</span>
+                <span class="metric-delta"><span class="mv-before">95s</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">20s</span><span class="mv-pct">79% faster</span></span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">"Copy Reference" usage rate</span>
+                <span class="metric-delta"><span class="mv-new-tag">new</span><span class="mv-after">62%</span></span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">Reveal permission-denied rate</span>
+                <span class="metric-delta"><span class="mv-new-tag">new</span><span class="mv-after">4%</span></span>
+              </div>
+            </div>
+          </div>
+          <div class="outcome-media outcome-media-photo">
+            <video src="../assets/video/secrets-variables.mp4" poster="../assets/img/secrets-variables-poster.jpg" autoplay loop muted playsinline aria-label="Screen recording of the Secrets and Variables comparison view."></video>
+          </div>
+        </div>
+
+        <div class="outcome-card is-plain wide reveal">
+          <div class="outcome-body">
+            <span class="cat-counter" aria-hidden="true">5/5</span>
+            <span class="outcome-skill">Craft &amp; systems design</span>
+            <h3>Dark mode, built from scratch</h3>
+            <p>Token architecture for light and dark built from the ground up, the groundwork most teams discover they need only after shipping. <strong>The icon system took two migrations to get right</strong> (Phosphor, then Lucide), and the toggle triggers a circular reveal from the exact point you click.</p>
+            <div class="metric-bracket">
+              <span class="metric-bracket-label">Measured</span>
+              <div class="metric-row">
+                <span class="metric-label">30-day dark-mode adoption</span>
+                <span class="metric-delta"><span class="mv-new-tag">new</span><span class="mv-after">70%</span></span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">7-day retention on dark mode</span>
+                <span class="metric-delta"><span class="mv-new-tag">new</span><span class="mv-after">91%</span></span>
+              </div>
+            </div>
+          </div>
+          <div class="outcome-media outcome-media-photo">
+            <video src="../assets/video/dark-mode.mp4" poster="../assets/img/dark-mode-poster.jpg" autoplay loop muted playsinline aria-label="Screen recording of dark mode and the circular reveal toggle."></video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <span class="eyebrow reveal">Launch</span>
+      <h2 class="reveal">How we shipped it</h2>
+      <p class="lede reveal">
+        This runs production that other companies depend on, so there was no big-bang cutover. We
+        shipped in two versions.
+      </p>
+      <div class="compare-grid">
+        <div class="compare-card reveal">
+          <span class="compare-tag">Version 1</span>
+          <h4>The foundation</h4>
+          <p>Navigation, plus all org-level settings and configuration. It went out first, so the highest-dependency work was settled and customers had something real to react to before we built on top of it.</p>
+        </div>
+        <div class="compare-card reveal">
+          <span class="compare-tag">Version 2</span>
+          <h4>The full redesign</h4>
+          <p>The project and environment dashboards, the shipping flow, secrets and variables, and dark mode. Built after V1 feedback was in.</p>
+        </div>
+      </div>
+      <div class="cs-callout reveal">
+        <span class="cs-callout-label">How V2 reached customers</span>
+        <p>Gated per customer org behind a feature flag, so any org could roll back without a redeploy. It went to a pilot group first, then to everyone, with the old UI kept as a fallback for a short bake period before both legacy UIs were retired. <strong>Within four weeks, every customer had accepted and adopted the new UI, with 100% feature adoption.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <span class="eyebrow reveal">Impact</span>
+      <h2 class="reveal">What happened</h2>
+      <p class="lede reveal">
+        Measured against the four targets set up front, comparing each customer org against itself,
+        before and after its own cutover.
+      </p>
+
+      <div class="goal-list">
+        <div class="goal-item reveal">
+          <div class="goal-num">01</div>
+          <div>
+            <div class="goal-title">Less org vs. project confusion</div>
+            <div class="goal-evidence">Tickets asking who owns something or where it lives fell from ~19 a month to <strong>7 within two months, a 63% drop</strong>.</div>
+          </div>
+        </div>
+        <div class="goal-item reveal">
+          <div class="goal-num">02</div>
+          <div>
+            <div class="goal-title">One navigation and settings system</div>
+            <div class="goal-evidence">The three one-off drawer patterns across CI/CD, Release, and Role are now <strong>a single shared pattern</strong>, which is what makes a flow predictable the first time you see it.</div>
+          </div>
+        </div>
+        <div class="goal-item reveal">
+          <div class="goal-num">03</div>
+          <div>
+            <div class="goal-title">Fewer clicks to finish the job</div>
+            <div class="goal-evidence"><strong>57% fewer clicks</strong> on the flagship daily task, down from 14 to 6.</div>
+          </div>
+        </div>
+        <div class="goal-item reveal">
+          <div class="goal-num">04</div>
+          <div>
+            <div class="goal-title">Faster to finish a task</div>
+            <div class="goal-evidence">The combined time-and-steps score across the five core tasks fell from 100 to <strong>54, a 46% reduction</strong>.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glance-stats reveal" style="margin-top: 40px;">
+        <div class="glance-stat">
+          <div class="stat-num">8.4/10</div>
+          <div class="stat-title">Satisfaction</div>
+          <div class="stat-sub">Up from 5.8, same 14-person cohort, before and after.</div>
+        </div>
+        <div class="glance-stat">
+          <div class="stat-num">100%</div>
+          <div class="stat-title">Customer migration</div>
+          <div class="stat-sub">One post-launch issue, fixed the same day. Both legacy UIs retired.</div>
+        </div>
+        <div class="glance-stat">
+          <div class="stat-num">~150 hrs</div>
+          <div class="stat-title">Saved every month</div>
+          <div class="stat-sub">Engineer-hours across ~40 daily operators, from the click cut alone.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="cs-section section-tight">
+    <div class="wrap">
+      <span class="eyebrow reveal">Reflection</span>
+      <h2 class="reveal">What I learned</h2>
+
+      <div class="reflect-block reveal">
+        <h4>🤖 Worked, and I'd do it again</h4>
+        <p class="reflect-highlight"><mark>There was no existing workflow for a designer shipping straight into production.</mark></p>
+        <ul class="reflect-list">
+          <li><strong>Designing directly in code.</strong> Figma directions went into the live React codebase through Claude Code, as PRs reviewed like any contributor's, with no separate design-to-engineering handoff.</li>
+          <li><strong>One consistent pattern over several "good enough" ones,</strong> even when it meant redoing recent work.</li>
+        </ul>
+      </div>
+
+      <div class="reflect-block reveal">
+        <h4>⏱️ What I'd do differently</h4>
+        <p class="reflect-highlight"><mark>Lock the foundation first.</mark></p>
+        <ul class="reflect-list">
+          <li>Two dashboards shipped before the dark-mode tokens were final, which forced avoidable rework a few weeks later. Freezing the tokens first would have prevented it.</li>
+        </ul>
+      </div>
+
+      <div class="reflect-block reveal">
+        <h4>🧭 What I had to navigate</h4>
+        <p class="reflect-highlight"><mark>Every change was reviewed by the engineers building the same product.</mark></p>
+        <ul class="reflect-list">
+          <li>Working inside someone else's codebase, I scoped changes to be reviewable under the existing conventions and chose carefully which refactors were worth pushing for.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span class="footer-note">© 2026 Rohit Kumar</span>
+      <div class="footer-links">
+        <a href="../index.html">Back to work</a>
+        <a href="mailto:you@email.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
