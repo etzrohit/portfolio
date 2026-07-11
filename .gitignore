@@ -1,1 +1,10 @@
 .DS_Store
+
+# Internal planning/context docs — kept locally, not published
+CASE_STUDY_STRUCTURE.md
+CASE_STUDY_TEMPLATE.md
+case-study-structure.md
+UX_METRICS_FRAMEWORK.md
+work/*-context.md
+work/*-case-study.md
+work/resume-stories.md

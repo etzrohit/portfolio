@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automating the creation and management of Loyalty Promotion. · Rohit Kumar</title>
+  <meta name="description" content="Automating promotion creation and management for CPG brands, turning thousands of manually written rules into a bulk CSV upload flow." />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/animations.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="wrap">
+      <a href="../index.html" class="nav-brand">Rohit Kumar</a>
+      <div class="nav-links">
+        <a href="../index.html#work" class="hide-mobile">Work</a>
+        <a href="../index.html#how-i-work" class="hide-mobile">How I work</a>
+        <a href="mailto:you@email.com">Contact</a>
+        <button class="theme-toggle" data-theme-toggle aria-label="Toggle color theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="cs-hero">
+    <div class="wrap">
+      <div class="cs-kicker reveal">
+        <a href="../index.html">Work</a>
+        <span>/</span>
+        <span>Loyalty Promotion</span>
+      </div>
+
+      <h1 class="reveal">Automating the creation and management of Loyalty Promotion.</h1>
+      <p class="lede reveal"><em>This case study is about adding new features and </em><em><strong>improving the user experience on top of the existing UI</strong></em><em>, using the current design components. It's </em><em><strong>not a complete UI redesign</strong></em><em>—the main goal was to enhance functionality and solve user problems without changing the design that's already in place.</em></p>
+    </div>
+  </header>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div style="display:flex; gap:24px; flex-wrap:wrap;" class="reveal">
+        <div style="flex:1; min-width:280px;">
+          <h3 class="cs-subhead">Background context</h3>
+        </div>
+        <div style="flex:1; min-width:280px;">
+          <p class="cs-body"><strong>What is a loyalty program?</strong></p>
+          <p class="cs-body">A loyalty program is a marketing strategy that rewards customers for returning to a brand, encouraging them to keep shopping and make more purchases. Customers earn coupons and points based on their engagement and activities, like transactions, helping brands influence behavior, build loyalty, and boost repeat business.</p>
+          <p class="cs-body"><strong>What is a promotion?</strong></p>
+          <p class="cs-body">Promotions are short-term loyalty programs that offer extra rewards on top of the basic loyalty program. You might have seen, that during a festival season or to promote a specific product, brands can boost sales by giving customers additional points or coupons.</p>
+          <blockquote><p>A most basic example of promotion can be: <br>- If a customer buys something worth more than $500, they get 50 points.<br>- In flipkart if you buy something you get 4 supercoins for each 100 rupess you spend. Similarly in case of credit cards you get rewards based on the purchase you do.</p></blockquote>
+          <p class="cs-body">To make these possible brands write these these above conditions in the form of rules(codes) to create the promotion.</p>
+          <p class="cs-body"><strong>What is CPG, FMCD, and FMEG?</strong></p>
+          <p class="cs-body">Consumer packaged goods (CPGs) refer to <strong>the space within an industry that features goods that consumers use in everyday life.</strong> </p>
+          <details>
+            <summary><strong>FMCD &amp; FMEG Brands are a subset of CPG.</strong></summary>
+            <ul>
+              <li><strong>FMCD (Fast-moving consumer durables)</strong> - FMCDs are durables like TVs, refrigerators, washing machines, microwave ovens, etc which have a longer shelf life in years.</li>
+              <li><strong>FMEG (Fast-moving electrical goods)</strong> - A subcategory of the above includes household multi-use products like bulbs, LED, etc.</li>
+            </ul>
+          </details>
+          <p class="cs-body"><strong>How does this industry function? </strong>The 4 Ps of Marketing for These Industries</p>
+          <details>
+            <summary>Product</summary>
+            <ul>
+              <li>Offer a variety of high-quality and innovative products that meet various consumer needs.</li>
+              <li>Focus on continuous innovation and sustainability aspects of products.</li>
+              <li>Build a strong brand image and emphasize value proposition.</li>
+            </ul>
+          </details>
+          <details>
+            <summary>Price</summary>
+            <ul>
+              <li>Set prices based on perceived value and market competitiveness.</li>
+              <li>Utilize strategic price promotions and bundles to attract customers.</li>
+              <li>Implement differentiated pricing strategies for different segments and channels.</li>
+            </ul>
+          </details>
+          <details>
+            <summary>Place (Distribution)</summary>
+            <ul>
+              <li>Establish a wide distribution network across different channels, including traditional and emerging platforms.</li>
+              <li>Manage channels effectively to ensure product availability and promotion.</li>
+            </ul>
+          </details>
+          <details>
+            <summary>Promotion</summary>
+            <ul>
+              <li>Develop integrated marketing campaigns utilizing various promotional channels.</li>
+              <li>Build strong brand communication through advertising, public relations, and social media.</li>
+              <li>Tailor marketing messages and campaigns to specific customer segments.</li>
+              <li>Create valuable content and engage with customers on social media.</li>
+            </ul>
+          </details>
+          <p class="cs-body"><strong>How this feature helps brands directly deliver on the 3 Ps</strong></p>
+          <details>
+            <summary>Price (Incentivization)</summary>
+            <ul>
+              <li><strong>Loyalty engine</strong> to personalize pricing and quickly respond to the market competition</li>
+              <li><strong>Gamify the incentivization</strong> in alignment with pricing strategy to improve engagement</li>
+            </ul>
+          </details>
+          <details>
+            <summary>Place (Distribution)</summary>
+            <ul>
+              <li><strong>Simplify hierarchy management</strong> and reporting; Empower stakeholders with data</li>
+              <li>Channel based incentive structures with high flexibility in the configurations</li>
+            </ul>
+          </details>
+          <details>
+            <summary>Promotions</summary>
+            <ul>
+              <li>Help execute <strong>segmented communications &amp; promotions</strong></li>
+              <li>Personalize onboarding &amp; engagement campaigns</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div style="display:flex; gap:24px; flex-wrap:wrap;" class="reveal">
+        <div style="flex:1; min-width:280px;">
+          <h3 class="cs-subhead"><strong>Problem Statement</strong></h3>
+        </div>
+        <div style="flex:1; min-width:280px;">
+          <p class="cs-body">A CPG company has to write 1000s lines of rules to create a promotion on top of it, management (editing, testing, and distribution) of these rules manually is both time-consuming and error-prone. </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div style="display:flex; gap:24px; flex-wrap:wrap;" class="reveal">
+        <div style="flex:1; min-width:280px;">
+          <h3 class="cs-subhead">Introduction</h3>
+        </div>
+        <div style="flex:1; min-width:280px;">
+          <p class="cs-body">This feature allows brands to automate promotion creation, and management in bulk bringing down writing 1000s of rules to using an upload-based system. With the help of this feature, brands can now deliver the right promotion to the right distributors, retailers, and consumers efficiently and faster.</p>
+          <ul>
+            <li>When creating a promotion, users will have two options:
+              <ul>
+                <li>Create a manual workflow (existing flow)</li>
+                <li>Upload rules in bulk (new flow)</li>
+              </ul>
+            </li>
+            <li>Users will select a template.</li>
+            <li>They’ll upload a CSV file containing the promotion rules.</li>
+            <li>Once uploaded, the system will validate the CSV against the selected template and flag any errors.</li>
+            <li>Users can then simulate the rule using an existing test transaction.</li>
+            <li>After this, the user can submit the promotion for approval.</li>
+            <li>The approver can either accept or reject the promotion, adding any necessary notes.</li>
+          </ul>
+        </div>
+      </div>
+      <figure class="reveal">
+        <img src="../assets/img/case-studies/loyalty-promotion/img-01.png" alt="Screenshot of the existing promotion creation flow" loading="lazy">
+      </figure>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div style="display:flex; gap:24px; flex-wrap:wrap;" class="reveal">
+        <div style="flex:1; min-width:280px;">
+          <h3 class="cs-subhead">Core users</h3>
+        </div>
+        <div style="flex:1; min-width:280px;">
+          <ul>
+            <li><strong>Brand Managers:</strong> The point of contact between the brand and Capillary. They gather all requirements from the brand and manage the brand’s loyalty program.</li>
+            <li><strong>Loyalty Program Administrators:</strong> The configurators who handle all the setup and configuration related to the brand's loyalty program.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div style="display:flex; gap:24px; flex-wrap:wrap;" class="reveal">
+        <div style="flex:1; min-width:280px;">
+          <h3 class="cs-subhead">Research</h3>
+        </div>
+        <div style="flex:1; min-width:280px;">
+          <p class="cs-body"><strong>Understanding the current behaviors of brand managers and loyalty program administrators in gathering requirements from the brands.</strong></p>
+          <figure>
+            <img src="../assets/img/case-studies/loyalty-promotion/img-02.png" alt="Rectangle 4.png" loading="lazy">
+          </figure>
+          <details>
+            <summary>It began with multiple calls with various brand managers and their program administrators to understand their current behaviors and the jobs they need to accomplish (JTBD).</summary>
+            <ul>
+              <li>How do they gather requirements for different promotions?</li>
+              <li>Once the requirements are received, how do they create promotions and track all the promotions created? With so many promotions, how do they manage their distribution?</li>
+              <li>How do they test the created promotions?</li>
+              <li>After creating a promotion, what changes are typically made, and how frequently?</li>
+              <li>How do they manage promotions that have already been created?</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div style="display:flex; gap:24px; flex-wrap:wrap;" class="reveal">
+        <div style="flex:1; min-width:280px;">
+          <h3 class="cs-subhead">Understanding the Problem</h3>
+        </div>
+        <div style="flex:1; min-width:280px;">
+          <p class="cs-body"><strong>How does the current system work?</strong></p>
+          <p class="cs-body">Right now, the promotion creation page uses a workflow where rules are manually written for each promotion. These rules are structured in sets (Parent), where each set can have multiple conditions (Child), and each condition can contain several rules.</p>
+          <p class="cs-body">These conditions follow an if/else logic. For example: If condition 1 is true, then issue points; otherwise, check condition 2.</p>
+          <figure>
+            <img src="../assets/img/case-studies/loyalty-promotion/img-03.png" alt="Flow diagram of how sets, conditions and rules are linked" loading="lazy">
+            <figcaption>Flow diagram of how sets, conditions and rules are linked</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div style="display:flex; gap:24px; flex-wrap:wrap;" class="reveal">
+        <div style="flex:1; min-width:280px;">
+          <h4>Example Promotion</h4>
+        </div>
+        <div style="flex:1; min-width:280px;">
+          <p class="cs-body">Let’s take an example of promotion to understand how promotion is created and what are the main problems.</p>
+          <p class="cs-body">Brands provide these sheets to the brand manager which contain details of the promotion like start date, end date, SKU, Product category, benefits to be given, etc.</p>
+          <figure>
+            <img src="../assets/img/case-studies/loyalty-promotion/img-04.png" alt="Screenshot 2024-09-20 at 2.54.00 PM.png" loading="lazy">
+          </figure>
+          <p class="cs-body">In the above sheet, there are three highlighted columns in green containing promotion details like product code, type and no of points to be awarded.</p>
+          <blockquote><p>Simple explaination of what’s written in that sheet:<br>- if a customer buys product 1 (whose product code is FPA837405000041) from shoes category then award that customer with 225 points.<br>- if a customer buys product 2 (whose product code is FFPA843800200600) from watch category then award that customer with 5 points.</p></blockquote>
+          <p class="cs-body">These are the data that will go in the rules and act as the spine of the promotion. These data types can be different for different brands.</p>
+          <figure>
+            <img src="../assets/img/case-studies/loyalty-promotion/img-05.png" alt="image.png" loading="lazy">
+          </figure>
+          <p class="cs-body">Above we have 3 Product types, and 100 Products in each type</p>
+          <ul>
+            <li>For shoes, the total rules will be 100 (10 rules for P1 and 90 for P4), similarly 100 for watches and glasses as well</li>
+            <li>For this simple configuration, the total number of rules becomes 300. This is the case when there are only two variables such as Type and Product code.</li>
+          </ul>
+          <p class="cs-body">This is how the rules are written when there are different variables:</p>
+          <figure>
+            <img src="../assets/img/case-studies/loyalty-promotion/img-06.png" alt="rules of a promotion in workflow" loading="lazy">
+            <figcaption>rules of a promotion in workflow</figcaption>
+          </figure>
+          <p class="cs-body">If the product user buys matches any of the product codes mentioned above in condition 1 they will get the points, if not the system will check in conditions 3, 4, and so on.</p>
+          <blockquote><p>This example covers rules with only one variable (product code) if more variables like product type, shop location etc come in picture the rules will become more nested.</p></blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div style="display:flex; gap:24px; flex-wrap:wrap;" class="reveal">
+        <div style="flex:1; min-width:280px;">
+          <h4>Key Problems</h4>
+        </div>
+        <div style="flex:1; min-width:280px;">
+          <p class="cs-body">Some of the major problems that users are facing is:</p>
+          <ol>
+            <li><strong>Scalability Issues:</strong> The parent-child and if-else logic become cumbersome and inefficient for large-scale programs. The system struggles with managing more than 100 promotions effectively.</li>
+            <li><strong>Nested Rules:</strong> Rules can be nested, creating a complex hierarchy that's tough to debug. This can make the structure resemble code, which is challenging for non-technical users to understand and manage.</li>
+            <li><strong>Accuracy and Trust:</strong> The existing UX does little to assist users in configuring promotions, leading to potential errors and a lack of trust in the system.</li>
+            <li><strong>Hard to Edit:</strong> The client provides a points table based on customer, SKU, and transaction attributes that change monthly or quarterly. The current loyalty rule setup complicates finding the exact rule across multiple sets and conditions for accurate updates.</li>
+            <li><strong>Not Suitable for Brands with Multiple Loyalty Programs:</strong> Clients often need to award points to retailers, dealers, and distributors within a single transaction. Common solutions create separate organizations, leading to complicated data mapping.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div style="display:flex; gap:24px; flex-wrap:wrap;" class="reveal">
+        <div style="flex:1; min-width:280px;">
+          <h3 class="cs-subhead">Solution</h3>
+        </div>
+        <div style="flex:1; min-width:280px;">
+          <p class="cs-body">Based on the insights, we decided to utilize the sheet provided by brands, because we were able to identify a pattern in the promotion.</p>
+          <p class="cs-body">For example: Company X promotions are driven by the following factors:</p>
+          <ul>
+            <li><strong>Product (SKU/category, etc.):</strong> There can be up to 100 different products.</li>
+            <li><strong>Location (Area/Zone, etc.):</strong> This leads to hundreds of combinations, with 4-5 zones, 10-20 regions per zone, and further divided into areas.</li>
+          </ul>
+          <p class="cs-body">This structure can result in thousands of rules (e.g., 100 products x 100 locations  = 10,000 rules)</p>
+          <blockquote><p>We created few templates for different types of promotions which can cover around 80% of the brands use-case. The idea was that the user will upload the sheet provided by brand and the system will map this data with the selected template and create the promotion without user writing any rule. </p></blockquote>
+          <p class="cs-body">How does a template work and eliminate the rule-writing process:</p>
+          <p class="cs-body">Here's what happens when you select a template and upload a file:</p>
+          <ul>
+            <li>Each template is mapped with some function. </li>
+            <li>For eg: A template X is mapped with Fn(a,b) and Fn(x,y)</li>
+            <li>The values of a,b, and x,y are coming from the columns of the file uploaded by the user.
+              <figure>
+                <img src="../assets/img/case-studies/loyalty-promotion/img-07.png" alt="image.png" loading="lazy">
+              </figure>
+            </li>
+            <li>Each column, like category or line item, uses an AND condition (they all need to match) and is linked with a function in the backend. </li>
+            <li>Each row is a rule and operates on OR logic (if any row fits, the rule applies).</li>
+            <li>There can be multiple templates for a single brand covering different types of promotions. The user will have to select the template based on the type of promotion they want to create.</li>
+            <li>In this example, for Row 1, if all the columns match, the system will give 100 points. The same applies to Row 2. If everything matches, 100 points will be provided.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div style="display:flex; gap:24px; flex-wrap:wrap;" class="reveal">
+        <div style="flex:1; min-width:280px;">
+          <h4>Template creation process</h4>
+        </div>
+        <div style="flex:1; min-width:280px;">
+          <p class="cs-body"><em>I did a ton of research and exploration for the template creation, but I can’t share all the details. What I can share is how I simplified the existing workflow and turned it into a user-friendly template.</em></p>
+          <figure>
+            <img src="../assets/img/case-studies/loyalty-promotion/img-08.png" alt="Promotion details sheet provided by a brand to their brand manager" loading="lazy">
+            <figcaption>Promotion details sheet provided by a brand to their brand manager</figcaption>
+          </figure>
+          <p class="cs-body">I started by looking at the different promotion sheets from the brand and how they were currently implementing these promotions in the workflow.</p>
+          <p class="cs-body">For example, take the brand “ABC.” They have two loyalty programs: one for customers(Cx) and another for distributors(Dx). Most promotions focus on a few KPIs, like SKU, transaction value, and other custom KPIs.</p>
+          <ul>
+            <li>Here’s a simple case: they might say, “Give XYZ points on these 100 SKUs.” To do this, the configurators have to repeat the same rules over and over using “OR” logic, only changing the SKU values that too for two times for loyalty promotion Cx and Dx.</li>
+          </ul>
+          <blockquote><p>This gets more complicated with multiple sets and conditions. When they have to handle different benefits or categories using “AND/OR” logic.</p></blockquote>
+          <p class="cs-body">The process for creating the template involves:</p>
+          <ul>
+            <li>Removing any irrelevant data for promotion creation.</li>
+            <li>Filtering and organizing the data needed for the UI and the template (which data we will ask in UI and which data we will fetch from the uploaded file).
+              <figure>
+                <img src="../assets/img/case-studies/loyalty-promotion/img-09.png" alt="A look at the final excel which was provided by brand after simplification" loading="lazy">
+                <figcaption>A look at the final excel which was provided by brand after simplification</figcaption>
+              </figure>
+            </li>
+            <li>Analyzing the promotion variations for each brand to determine how many templates are needed to cover 80-90% of use cases.</li>
+            <li>A lot of edge cases and other factors came into consideration which I can’t disclose. </li>
+          </ul>
+          <p class="cs-body">Here is how the current workflow is converted into the template.</p>
+          <figure>
+            <img src="../assets/img/case-studies/loyalty-promotion/img-10.png" alt="Converting workflow into template" loading="lazy">
+            <figcaption>Converting workflow into template</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <div style="display:flex; gap:24px; flex-wrap:wrap;" class="reveal">
+        <div style="flex:1; min-width:280px;">
+          <h3 class="cs-subhead">Core Objectives</h3>
+        </div>
+        <div style="flex:1; min-width:280px;">
+          <ul>
+            <li><strong>Increase efficiency: </strong>Streamline rule creation and management for large-scale promotions.</li>
+            <li>Improve accuracy: Minimise human errors and ensure consistency in rule application.</li>
+            <li><strong>Enhance agility:</strong> Quickly respond to market changes and launch targeted promotions.</li>
+            <li><strong>Boost engagement: </strong>Drive higher participation and loyalty among all stakeholders.</li>
+            <li><strong>Measure effectiveness:</strong> Track performance and optimize promotions based on data insights.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <h3 class="cs-subhead reveal">Designs: First-time promotion creation using the bulk upload flow</h3>
+      <p class="cs-body reveal">We explored numerous enhancements and sub-features but eventually narrowed it down to just the essential ones for phase 1.</p>
+      <h4 class="reveal">File upload flow</h4>
+      <ol class="reveal">
+        <li>Promotion rule selection is added to the existing flow:
+          <ul>
+            <li><strong>Manual Rule:</strong> This is the old flow where configurators create promotions by writing rules in the workflow.</li>
+            <li><strong>Upload Rules:</strong> This option allows users to skip the old workflow and directly upload a CSV file to create the promotion.</li>
+          </ul>
+        </li>
+        <li>If the user selects the “Upload Rule” option, the system will prompt them to choose a template.</li>
+      </ol>
+      <figure class="reveal">
+        <img src="../assets/img/case-studies/loyalty-promotion/img-11.png" alt="Template selection screen" loading="lazy">
+      </figure>
+      <ol class="reveal">
+        <li>Once the template is selected, a preview of the template is displayed.
+          <ul>
+            <li>The preview includes the expression name, expression definition, and its type.</li>
+          </ul>
+        </li>
+      </ol>
+      <figure class="reveal">
+        <img src="../assets/img/case-studies/loyalty-promotion/img-12.png" alt="Template preview screen" loading="lazy">
+      </figure>
+      <ol class="reveal">
+        <li>After selecting the template, the user will upload the CSV file.
+          <ul>
+            <li>A preview of the template mapping with the uploaded file will be shown after the upload.
+              <p class="cs-body">↗️ Background context on how template and file mapping work.</p>
+            </li>
+            <li>The preview includes the mapping of column headers from the uploaded file to the column headers in the template, the column header types, and a preview of the information.</li>
+          </ul>
+        </li>
+      </ol>
+      <figure class="reveal">
+        <img src="../assets/img/case-studies/loyalty-promotion/img-13.png" alt="CSV upload and mapping preview screen" loading="lazy">
+      </figure>
+      <ol class="reveal">
+        <li>Once the file is uploaded, the user will need to validate it.
+          <ul>
+            <li>The validation checks for any errors in the uploaded file. If errors are found, the system will provide a new file highlighting the erroneous rows.</li>
+          </ul>
+        </li>
+      </ol>
+      <figure class="reveal">
+        <img src="../assets/img/case-studies/loyalty-promotion/img-14.png" alt="File validation screen" loading="lazy">
+      </figure>
+      <h4 class="reveal">Define Action</h4>
+      <ol class="reveal">
+        <li>Define Action basically means determining what will happen once the rules are satisfied. Actions represent the benefits, which can take the form of points, coupons, or vouchers. For phase 1, we are focusing solely on points.</li>
+      </ol>
+      <figure class="reveal">
+        <img src="../assets/img/case-studies/loyalty-promotion/img-15.png" alt="Define Action screen" loading="lazy">
+      </figure>
+      <p class="cs-body reveal">Why is it necessary to define an action when the number of points to be given to the user is already in the uploaded file?</p>
+      <ul class="reveal">
+        <li>A point action includes various metadata, such as:
+          <ul>
+            <li>Earn and expiry conditions for those points.</li>
+            <li>Whether the points are percentage-based (e.g., 10% of the transaction value) or fixed value (e.g., 100 or 200 points).</li>
+          </ul>
+        </li>
+        <li>The uploaded file only includes the point value, but it doesn't contain the other metadata.</li>
+        <li>For a promotion, all points awarded share the same metadata.</li>
+        <li>Therefore, the user only needs to specify the number of points in the file, while the other metadata will be provided through the action details.</li>
+      </ul>
+      <figure class="reveal">
+        <img src="../assets/img/case-studies/loyalty-promotion/img-16.png" alt="Point action metadata screen" loading="lazy">
+      </figure>
+      <h4 class="reveal">Simulation of Promotion</h4>
+      <ol class="reveal">
+        <li>Once the promotion configuration is complete, the user can test it by passing sample transactions.
+          <ul>
+            <li>After selecting a customer, all transactions for that customer will be displayed.</li>
+            <li>Since many promotions apply only when the transaction amount exceeds a certain value, showing the transaction amount upfront is crucial. This helps the user decide whether to test the promotion with that transaction or not.</li>
+          </ul>
+        </li>
+      </ol>
+      <figure class="reveal">
+        <img src="../assets/img/case-studies/loyalty-promotion/img-17.png" alt="Customer transaction selection screen" loading="lazy">
+      </figure>
+      <ol class="reveal">
+        <li>Based on the selected customer and transaction number, the details of that specific transaction will be displayed.
+          <ul>
+            <li>Users can adjust the amount, quantity, and discount for each transaction because many promotions apply only when the line item quantity exceeds a certain threshold. This allows users the flexibility to customize the bill as needed for testing.</li>
+          </ul>
+        </li>
+      </ol>
+      <figure class="reveal">
+        <img src="../assets/img/case-studies/loyalty-promotion/img-18.png" alt="Transaction detail editing screen" loading="lazy">
+      </figure>
+      <ol class="reveal">
+        <li>After testing the promotion, the points details will be visible for each line item.
+          <ul>
+            <li>Since multiple promotions can apply to a single transaction, users will see a breakdown of the allotted points, showing which promotions are applicable and how the points are distributed among each promotion.</li>
+          </ul>
+        </li>
+      </ol>
+      <figure class="reveal">
+        <img src="../assets/img/case-studies/loyalty-promotion/img-19.png" alt="Points breakdown screen" loading="lazy">
+      </figure>
+      <ol class="reveal">
+        <li><strong>Compare with Original Earn:</strong> If the user wants to see how the points change across all applicable promotions, they can turn on this toggle.
+          <ul>
+            <li>In the original earn view, users can see that the tested promotion “spin-the-wheel” didn’t award any points because it isn’t live yet. Initially, the “Christmas offer” was giving 150 points, but now it’s only giving 100 points.</li>
+          </ul>
+        </li>
+      </ol>
+      <figure class="reveal">
+        <img src="../assets/img/case-studies/loyalty-promotion/img-20.png" alt="Compare with Original Earn screen" loading="lazy">
+      </figure>
+      <ol class="reveal">
+        <li>Once the simulation is complete, the user can send the promotion for approval.
+          <ul>
+            <li>The approver will review the transactions simulated for this promotion. If they believe any other transactions should be tested before going live, they can test those and then make the promotion live.</li>
+          </ul>
+        </li>
+      </ol>
+      <figure class="reveal">
+        <img src="../assets/img/case-studies/loyalty-promotion/img-21.png" alt="Approval submission screen" loading="lazy">
+      </figure>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <h3 class="cs-subhead reveal">Results</h3>
+      <ul class="reveal">
+        <li>This was the MVP of a larger project where we aimed to test its scalability with a few brands.</li>
+        <li>The brands loved this new approach because it saves configurators a lot of time. Editing anything post-creation is straightforward; they just need to edit the file and re-upload it instead of sifting through sets and conditions to find the right rule.</li>
+        <li>The simulation flow effectively reduces errors. Previously, promotions went live in the testing environment, and configurators would have to correct errors afterward, which was time-consuming and less effective.</li>
+        <li>Every stakeholder understands the CSV file and how these rules work, which helps drive higher participation and loyalty among all parties involved.</li>
+        <li>The project's extension includes many new features, like creating multiple promotions by uploading data and developing complex promotions with milestones and streaks, which I can't discuss in detail here.</li>
+      </ul>
+      <blockquote class="reveal"><p>Thank you for taking the time to explore this case study! I hope you found it insightful and informative. If you have any questions or would like to discuss this project further, feel free to <a href="http://www.linkedin.com/in/rohitux">connect with me</a>. I’d love to hear your thoughts!</p></blockquote>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span class="footer-note">© 2026 Rohit Kumar</span>
+      <div class="footer-links">
+        <a href="../index.html">Back to work</a>
+        <a href="mailto:you@email.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
