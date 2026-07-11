@@ -519,16 +519,68 @@
 .goal-title {
   font-size: 16.5px;
   font-weight: 700;
+  align-self: center;
 }
 
-.goal-evidence {
-  margin-top: 6px;
+/* ---------------------------------------------
+   Metric table (goals / success criteria)
+--------------------------------------------- */
+
+.cs-table-wrap {
+  margin-top: 32px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow-x: auto;
+  box-shadow: 0 20px 40px -32px rgba(0, 0, 0, 0.45);
+}
+
+.cs-table {
+  width: 100%;
+  min-width: 680px;
+  table-layout: fixed;
+  border-collapse: collapse;
   font-size: 14.5px;
-  color: var(--text-secondary);
 }
 
-.goal-evidence strong {
+.cs-table th {
+  text-align: left;
+  padding: 14px 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  background: color-mix(in srgb, var(--text) 3.5%, var(--bg));
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.cs-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
+  vertical-align: middle;
+}
+
+.cs-table tr:last-child td {
+  border-bottom: none;
+}
+
+.cs-table-num {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.cs-table-target {
   color: var(--text);
+  font-weight: 700;
+}
+
+.cs-table td .metric-delta {
+  flex-wrap: wrap;
+  row-gap: 4px;
 }
 
 /* ---------------------------------------------
@@ -894,6 +946,10 @@ body.lightbox-open {
   color: var(--text-tertiary);
 }
 
+.glance-stats + .cs-subhead {
+  margin-top: 46px;
+}
+
 .cs-points {
   margin-top: 24px;
   display: flex;
@@ -1251,12 +1307,10 @@ body.lightbox-open {
 }
 
 .glance-subsection {
-  padding: 34px 0;
-  border-top: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  padding: 30px 0;
 }
 
 .glance-subsection:first-child {
-  border-top: none;
   padding-top: 38px;
 }
 
@@ -1265,7 +1319,7 @@ body.lightbox-open {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .glance-label {
@@ -1316,17 +1370,77 @@ body.lightbox-open {
 }
 
 .details-row .dr-value {
+  margin-top: 6px;
   font-size: 15.5px;
   font-weight: 700;
   color: var(--text);
 }
 
 .details-row .dr-label {
-  margin-top: 4px;
   font-size: 12px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--text-tertiary);
+}
+
+.details-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+.details-strip .details-row {
+  padding: 0 0 0 20px;
+  border-top: none;
+  border-left: 1px solid var(--border);
+}
+
+.details-strip .details-row:first-of-type,
+.details-strip .details-row:last-of-type {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.details-strip .details-row:first-of-type {
+  padding-left: 0;
+  border-left: none;
+}
+
+@media (max-width: 760px) {
+  .details-strip {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .details-strip .details-row {
+    padding: 16px 0;
+    border-top: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+    border-left: none;
+  }
+
+  .details-strip .details-row:first-of-type {
+    border-top: none;
+    padding-top: 4px;
+  }
+
+  .details-strip .details-row:last-of-type {
+    padding-bottom: 4px;
+  }
+}
+
+.glance-card .glance-stats {
+  grid-template-columns: 1fr;
+  gap: 22px;
+  margin-top: 22px;
+}
+
+.glance-card .glance-stat {
+  padding-left: 0;
+  border-left: none;
+}
+
+.glance-card .glance-stat .stat-num {
+  font-size: 30px;
 }
 
 .glance-impact {
@@ -1449,13 +1563,8 @@ body.lightbox-open {
   margin-top: 12px;
   font-size: 15.5px;
   line-height: 1.6;
-}
-
-.reflect-highlight mark {
-  background: color-mix(in srgb, var(--accent) 25%, transparent);
+  font-weight: 700;
   color: var(--text);
-  padding: 1px 4px;
-  border-radius: 3px;
 }
 
 .reflect-list {

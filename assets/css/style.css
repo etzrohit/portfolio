@@ -108,7 +108,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 68px;
+  height: 52px;
 }
 
 .nav-brand {
@@ -138,8 +138,8 @@ img {
 }
 
 .theme-toggle {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   border-radius: 999px;
   border: 1px solid var(--border-strong);
   background: var(--bg-card);
@@ -160,8 +160,8 @@ img {
 }
 
 .theme-toggle svg {
-  width: 18px;
-  height: 18px;
+  width: 15px;
+  height: 15px;
 }
 
 .theme-toggle .icon-sun {
@@ -283,6 +283,57 @@ section {
   padding: 32px 34px 36px;
 }
 
+.work-card-featured {
+  display: flex;
+}
+
+.work-card-featured .work-card-media {
+  flex: 0 0 44%;
+  aspect-ratio: auto;
+  border-bottom: none;
+  border-left: 1px solid var(--border);
+}
+
+.work-card-featured .work-card-media::after {
+  display: none;
+}
+
+.work-card-featured .work-card-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 44px 48px;
+}
+
+.work-card-media-split {
+  display: flex;
+}
+
+.work-card-media-split img {
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 760px) {
+  .work-card-featured {
+    flex-direction: column;
+  }
+
+  .work-card-featured .work-card-media {
+    flex: 0 0 auto;
+    aspect-ratio: 16 / 9;
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
+
+  .work-card-featured .work-card-body {
+    padding: 28px 26px 32px;
+  }
+}
+
 .work-card-tag {
   font-size: 12.5px;
   font-weight: 700;
@@ -337,6 +388,56 @@ section {
   width: 16px;
   height: 16px;
   transition: transform 0.2s ease;
+}
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 28px;
+}
+
+.work-card-compact .work-card-media {
+  aspect-ratio: 4 / 3;
+}
+
+.work-card-compact .work-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.work-card-compact .work-card-body {
+  padding: 24px 26px 28px;
+}
+
+.work-card-compact h3 {
+  font-size: 21px;
+  margin-top: 10px;
+}
+
+.work-card-compact p {
+  font-size: 14.5px;
+  margin-top: 10px;
+}
+
+.work-card-compact .work-card-meta {
+  margin-top: 16px;
+}
+
+.work-card-compact .view-link {
+  margin-top: 18px;
+  font-size: 13.5px;
+}
+
+.section-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-top: 56px;
 }
 
 /* ---------------- How I work ---------------- */
@@ -426,6 +527,10 @@ footer .wrap {
 
 @media (max-width: 760px) {
   .principles {
+    grid-template-columns: 1fr;
+  }
+
+  .work-grid {
     grid-template-columns: 1fr;
   }
 

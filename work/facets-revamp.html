@@ -33,12 +33,11 @@
         <span>Facets</span>
       </div>
 
-      <h1 class="reveal">Cutting <span class="hl">57%</span> of the clicks out of running production infrastructure for <span class="hl">30+</span> companies</h1>
+      <h1 class="reveal"><span class="hl">57%</span> fewer clicks running production infrastructure, for <span class="hl">30+</span> companies</h1>
       <p class="lede reveal">
-        Facets is a self-service infrastructure platform: platform teams codify infrastructure as
-        blueprints, developers self-serve environments, and Facets generates the Terraform underneath.
-        <strong>Over 30 companies run production on it.</strong> I led the redesign end to end and
-        <strong>built a good number of the screens myself, in the live React codebase.</strong>
+        Facets is a self-service infrastructure platform used by 30+ companies to run production.
+        I led the redesign end to end and <strong>built a good number of the screens myself, in the
+        live React codebase.</strong>
       </p>
 
       <!-- At-a-glance panel -->
@@ -50,22 +49,23 @@
               <p>A self-service infrastructure platform. Platform teams codify infrastructure as blueprints in Git, developers self-serve environments, and <strong>Facets generates the Terraform underneath</strong>, across AWS, GCP, Azure, and Kubernetes.</p>
             </div>
             <div class="glance-card reveal">
-              <span class="glance-label">Details</span>
-              <div class="details-row">
-                <div class="dr-value">Solo Product Designer. Owned the design, and <span class="hl">shipped a good number of the screens myself in code</span></div>
-                <div class="dr-label">role</div>
-              </div>
-              <div class="details-row">
-                <div class="dr-value">1 CTO · 1 Product Manager · 2 Frontend Engineers</div>
-                <div class="dr-label">team</div>
-              </div>
-              <div class="details-row">
-                <div class="dr-value">Figma · Claude Code · Mixpanel</div>
-                <div class="dr-label">tools</div>
-              </div>
-              <div class="details-row">
-                <div class="dr-value">About 5.5 months, shipped in two versions (V1, then V2)</div>
-                <div class="dr-label">timeline</div>
+              <span class="glance-label">Impact</span>
+              <div class="glance-stats">
+                <div class="glance-stat">
+                  <div class="stat-num">57%</div>
+                  <div class="stat-title">Fewer clicks</div>
+                  <div class="stat-sub">On the flagship daily task. Down from 14 clicks to 6.</div>
+                </div>
+                <div class="glance-stat">
+                  <div class="stat-num">100%</div>
+                  <div class="stat-title">Customer migration</div>
+                  <div class="stat-sub">One reported issue, fixed the same day. Both legacy Angular UIs retired for good.</div>
+                </div>
+                <div class="glance-stat">
+                  <div class="stat-num">8.4/10</div>
+                  <div class="stat-title">Satisfaction</div>
+                  <div class="stat-sub">Up from 5.8, same cohort, measured before and after.</div>
+                </div>
               </div>
             </div>
           </div>
@@ -88,22 +88,23 @@
           </div>
 
           <div class="glance-impact reveal">
-            <span class="glance-impact-label">Impact</span>
-            <div class="glance-stats">
-              <div class="glance-stat">
-                <div class="stat-num">57%</div>
-                <div class="stat-title">Fewer clicks</div>
-                <div class="stat-sub">On the flagship daily task. Down from 14 clicks to 6.</div>
+            <span class="glance-impact-label">Details</span>
+            <div class="details-strip">
+              <div class="details-row">
+                <div class="dr-label">role</div>
+                <div class="dr-value">Solo Product Designer — owned the design, and <span class="hl">shipped many of the screens myself in code</span></div>
               </div>
-              <div class="glance-stat">
-                <div class="stat-num">100%</div>
-                <div class="stat-title">Customer migration</div>
-                <div class="stat-sub">One reported issue, fixed the same day. Both legacy Angular UIs retired for good.</div>
+              <div class="details-row">
+                <div class="dr-label">team</div>
+                <div class="dr-value">1 CTO · 1 Product Manager · 2 Frontend Engineers</div>
               </div>
-              <div class="glance-stat">
-                <div class="stat-num">8.4/10</div>
-                <div class="stat-title">Satisfaction</div>
-                <div class="stat-sub">Up from 5.8, same cohort, measured before and after.</div>
+              <div class="details-row">
+                <div class="dr-label">tools</div>
+                <div class="dr-value">Figma · Claude Code · Mixpanel</div>
+              </div>
+              <div class="details-row">
+                <div class="dr-label">timeline</div>
+                <div class="dr-value">About 5.5 months, shipped in two versions (V1, then V2)</div>
               </div>
             </div>
           </div>
@@ -262,7 +263,7 @@
     <div class="wrap">
       <span class="eyebrow reveal">The problem</span>
       <div class="impact-block reveal">
-        <p class="impact-headline">Everyday tasks took too many clicks, the navigation was confusing, and the UI was slow enough to get in the way.</p>
+        <p class="impact-headline">Everyday tasks took too many clicks, the navigation was confusing, and the UI was slow enough to get in the way — confirmed by <strong>~19 support tickets a month</strong> and a previous redesign that already forced two UIs to run side by side for <strong>7–8 months</strong>.</p>
       </div>
 
       <h3 class="cs-subhead reveal">Who felt it</h3>
@@ -276,28 +277,7 @@
           <p>Keeping environments healthy.</p>
         </div>
       </div>
-      <p class="cs-body reveal">Not "users" in the abstract. They ran the same screens dozens of times a day, so every extra click and every "where is this again?" added up quickly.</p>
-
-      <h3 class="cs-subhead reveal">How we knew it was real</h3>
-      <div class="glance-stats reveal">
-        <div class="glance-stat">
-          <div class="stat-num">~19/mo</div>
-          <div class="stat-title">Support tickets</div>
-          <div class="stat-sub">Around 19 a month asking who owns something, or where a setting lives.</div>
-        </div>
-        <div class="glance-stat">
-          <div class="stat-num">Drop-off</div>
-          <div class="stat-title">Mixpanel funnels</div>
-          <div class="stat-sub">Clear drop-off and doubling back. People bounced between pages to finish a single task.</div>
-        </div>
-        <div class="glance-stat">
-          <div class="stat-num">7-8 mo</div>
-          <div class="stat-title">Two UIs in parallel</div>
-          <div class="stat-sub">The previous redesign drew enough pushback to force it. The clearest signal of all.</div>
-        </div>
-      </div>
-      <p class="cs-body reveal">In interviews and sessions, the same three words kept coming up: <strong>confusing, slow, too many steps.</strong></p>
-      <p class="cs-body reveal"><strong>Cost of leaving it alone.</strong> A control plane that is slower than a script pushes people back to scripts and runbooks, the exact thing Facets exists to replace. On infrastructure that <span class="hl">30+</span> companies run in production, that is a retention risk, not a cosmetic complaint.</p>
+      <p class="cs-body reveal">In interviews, the same three words kept coming up — <strong>confusing, slow, too many steps.</strong></p>
     </div>
   </section>
 
@@ -328,37 +308,50 @@
   <section class="cs-section">
     <div class="wrap">
       <span class="eyebrow reveal">Goals</span>
-      <h2 class="reveal">What success looked like, set before we built</h2>
-      <p class="lede reveal">The user goal underneath every target was simple: <strong>let someone finish a routine task, releasing, rolling out, or overriding, without hunting for where it lives.</strong> Four targets, each with a metric and a baseline, were agreed before any screen changed.</p>
-      <div class="goal-list">
-        <div class="goal-item reveal">
-          <div class="goal-num">01</div>
-          <div>
-            <div class="goal-title">Less org vs. project confusion</div>
-            <div class="goal-evidence">Support tickets asking "who owns this" or "where does this live." Baseline <span class="hl">~19 a month</span>, goal to cut it by more than half.</div>
-          </div>
-        </div>
-        <div class="goal-item reveal">
-          <div class="goal-num">02</div>
-          <div>
-            <div class="goal-title">One navigation and settings system</div>
-            <div class="goal-evidence">The separate, one-off drawer patterns across CI/CD, Release, and Role. From <span class="hl">3 patterns down to 1</span>.</div>
-          </div>
-        </div>
-        <div class="goal-item reveal">
-          <div class="goal-num">03</div>
-          <div>
-            <div class="goal-title">Fewer clicks to finish the job</div>
-            <div class="goal-evidence">Clicks to complete the flagship daily task. From <span class="hl">14 down to under half</span>.</div>
-          </div>
-        </div>
-        <div class="goal-item reveal">
-          <div class="goal-num">04</div>
-          <div>
-            <div class="goal-title">Faster to finish a task</div>
-            <div class="goal-evidence">A combined time-and-steps score across the five core flows (trigger a release, launch an environment, configure and override a resource, update an image, debug a failed release), set to <span class="hl">100</span> before the redesign, aiming for a clear reduction.</div>
-          </div>
-        </div>
+      <h2 class="reveal">Success metrics</h2>
+      <div class="cs-table-wrap reveal">
+        <table class="cs-table">
+          <colgroup>
+            <col style="width: 44px;">
+            <col style="width: 210px;">
+            <col>
+            <col style="width: 190px;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Target</th>
+              <th>Metric</th>
+              <th>Baseline → goal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="cs-table-num">01</td>
+              <td class="cs-table-target">Org vs. project confusion</td>
+              <td>Support tickets asking who owns something or where it lives</td>
+              <td><span class="metric-delta"><span class="mv-before">~19/mo</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">Cut by half+</span></span></td>
+            </tr>
+            <tr>
+              <td class="cs-table-num">02</td>
+              <td class="cs-table-target">Navigation and settings patterns</td>
+              <td>One-off drawer patterns across CI/CD, Release, and Role</td>
+              <td><span class="metric-delta"><span class="mv-before">3</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">1</span></span></td>
+            </tr>
+            <tr>
+              <td class="cs-table-num">03</td>
+              <td class="cs-table-target">Clicks to finish the job</td>
+              <td>Clicks to complete the flagship daily task</td>
+              <td><span class="metric-delta"><span class="mv-before">14</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">Under 7</span></span></td>
+            </tr>
+            <tr>
+              <td class="cs-table-num">04</td>
+              <td class="cs-table-target">Speed across the core tasks</td>
+              <td>Time-and-steps score across the 5 unavoidable tasks</td>
+              <td><span class="metric-delta"><span class="mv-before">100</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">Clear reduction</span></span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div class="cs-callout reveal">
         <span class="cs-callout-label">How we picked what to measure</span>
@@ -371,10 +364,6 @@
     <div class="wrap">
       <span class="eyebrow reveal">Research</span>
       <h2 class="reveal">What research turned up</h2>
-      <p class="lede reveal">
-        We talked to the people who live in Facets and dug into the analytics, then let the overlap
-        point to where the real friction was.
-      </p>
 
       <div class="glance-stats reveal">
         <div class="glance-stat">
@@ -399,45 +388,26 @@
       <div class="pain-grid">
         <div class="pain-card reveal">
           <span class="pain-num">01</span>
-          <div>
-            <h4>Org, project, and environment work were tangled together</h4>
-            <p>There was no clear line between them. The same navigation showed up everywhere, even deep inside a project.</p>
-          </div>
+          <h4>No clear line between org, project, and environment work — the same navigation showed up everywhere</h4>
         </div>
         <div class="pain-card reveal">
           <span class="pain-num">02</span>
-          <div>
-            <h4>Moving between pages was its own task</h4>
-            <p>Jumping to the release page, the environment page, or switching between project-level and environment-level resource configuration each meant a completely different flow.</p>
-          </div>
+          <h4>Moving between pages was its own task — release, environment, and resource config were each a different flow</h4>
         </div>
         <div class="pain-card reveal">
           <span class="pain-num">03</span>
-          <div>
-            <h4>Small tasks took too many clicks</h4>
-            <p>Releasing a change, rolling out an update, or overriding a resource each took more steps than they should have.</p>
-          </div>
+          <h4>Small, everyday actions took too many clicks: releasing, rolling out, overriding a resource</h4>
         </div>
         <div class="pain-card reveal">
           <span class="pain-num">04</span>
-          <div>
-            <h4>Releasing ended on a blind commit</h4>
-            <p>The final step shipped the release with no preview of what would actually change.</p>
-          </div>
+          <h4>Releasing ended on a blind commit, with no preview of what would change</h4>
         </div>
         <div class="pain-card reveal">
           <span class="pain-num">05</span>
-          <div>
-            <h4>And a long tail</h4>
-            <p>Settings drawers each behaved differently, there was no dark mode, and two icon sets were running side by side.</p>
-          </div>
+          <h4>A long tail: mismatched settings drawers, no dark mode, two icon sets running at once</h4>
         </div>
       </div>
 
-      <p class="cs-body reveal">
-        Some of this started as literal marker-on-laptop scribbles: mapping environment config rules,
-        dynamic launch overrides, and the color token and icon migration underneath the redesign.
-      </p>
       <div class="process-strip reveal" aria-label="Early exploration artifacts: environment config planning, design token migration, icon migration, and navigation and information architecture planning">
         <div class="process-track">
           <div class="process-item" style="aspect-ratio: 900/1200;">
@@ -502,12 +472,10 @@
   <section class="cs-section">
     <div class="wrap">
       <span class="eyebrow reveal">The key decision</span>
-      <h2 class="reveal">The big bet: get navigation right first</h2>
+      <h2 class="reveal">Decision</h2>
       <p class="lede reveal">
-        Every other screen sat on top of the navigation. Get it wrong and we would have had to
-        reshuffle every page later, so we settled it first. We finished the navigation and shipped it
-        in <strong>version one</strong>, along with all the org-level settings, gathered feedback,
-        folded it in, then built the rest as <strong>version two</strong>.
+        Every other screen sat on top of the navigation, so it shipped first, in version one, before
+        any other screen was built on top of a navigation model that might still change.
       </p>
 
       <div class="compare-grid">
@@ -534,13 +502,8 @@
 
   <section class="cs-section">
     <div class="wrap">
-      <span class="eyebrow reveal">What we built</span>
+      <span class="eyebrow reveal">What I shipped</span>
       <h2 class="reveal">Designed in Figma, shipped in code</h2>
-      <p class="lede reveal">
-        This wasn't a spec thrown over the wall. Every screen was designed in Figma end to end, and I
-        wrote a good number of them in the live React codebase, pairing with Claude Code and reviewed
-        like any contributor's pull request.
-      </p>
       <div class="glance-stats reveal">
         <div class="glance-stat">
           <div class="stat-num">33</div>
@@ -564,13 +527,7 @@
   <section class="cs-section section-tight">
     <div class="wrap">
       <span class="eyebrow reveal">Solution</span>
-      <h2 class="reveal">The screens, and what moved</h2>
-      <p class="lede reveal">
-        One navigation model, dashboards that answer "what is the state of my thing" at a glance, and
-        a shipping flow that shows what is about to change before you commit. Three principles held it
-        together: <strong>put the action where the task already is, reuse one pattern instead of a
-        bespoke layout per screen, and show the consequences before the commit.</strong>
-      </p>
+      <h2 class="reveal">Solution</h2>
 
       <div class="outcome-grid">
         <div class="outcome-card is-plain wide reveal">
@@ -819,33 +776,6 @@
 
   <section class="cs-section">
     <div class="wrap">
-      <span class="eyebrow reveal">Launch</span>
-      <h2 class="reveal">How we shipped it</h2>
-      <p class="lede reveal">
-        This runs production that other companies depend on, so there was no big-bang cutover. We
-        shipped in two versions.
-      </p>
-      <div class="compare-grid">
-        <div class="compare-card reveal">
-          <span class="compare-tag">Version 1</span>
-          <h4>The foundation</h4>
-          <p>Navigation, plus all org-level settings and configuration. It went out first, so the highest-dependency work was settled and customers had something real to react to before we built on top of it.</p>
-        </div>
-        <div class="compare-card reveal">
-          <span class="compare-tag">Version 2</span>
-          <h4>The full redesign</h4>
-          <p>The project and environment dashboards, the shipping flow, secrets and variables, and dark mode. Built after V1 feedback was in.</p>
-        </div>
-      </div>
-      <div class="cs-callout reveal">
-        <span class="cs-callout-label">How V2 reached customers</span>
-        <p>Gated per customer org behind a feature flag, so any org could roll back without a redeploy. It went to a pilot group first, then to everyone, with the old UI kept as a fallback for a short bake period before both legacy UIs were retired. <strong>Within four weeks, every customer had accepted and adopted the new UI, with 100% feature adoption.</strong></p>
-      </div>
-    </div>
-  </section>
-
-  <section class="cs-section">
-    <div class="wrap">
       <span class="eyebrow reveal">Impact</span>
       <h2 class="reveal">What happened</h2>
       <p class="lede reveal">
@@ -853,38 +783,7 @@
         before and after its own cutover.
       </p>
 
-      <div class="goal-list">
-        <div class="goal-item reveal">
-          <div class="goal-num">01</div>
-          <div>
-            <div class="goal-title">Less org vs. project confusion</div>
-            <div class="goal-evidence">Tickets asking who owns something or where it lives fell from ~19 a month to <strong>7 within two months, a 63% drop</strong>.</div>
-          </div>
-        </div>
-        <div class="goal-item reveal">
-          <div class="goal-num">02</div>
-          <div>
-            <div class="goal-title">One navigation and settings system</div>
-            <div class="goal-evidence">The three one-off drawer patterns across CI/CD, Release, and Role are now <strong>a single shared pattern</strong>, which is what makes a flow predictable the first time you see it.</div>
-          </div>
-        </div>
-        <div class="goal-item reveal">
-          <div class="goal-num">03</div>
-          <div>
-            <div class="goal-title">Fewer clicks to finish the job</div>
-            <div class="goal-evidence"><strong>57% fewer clicks</strong> on the flagship daily task, down from 14 to 6.</div>
-          </div>
-        </div>
-        <div class="goal-item reveal">
-          <div class="goal-num">04</div>
-          <div>
-            <div class="goal-title">Faster to finish a task</div>
-            <div class="goal-evidence">The combined time-and-steps score across the five core tasks fell from 100 to <strong>54, a 46% reduction</strong>.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="glance-stats reveal" style="margin-top: 40px;">
+      <div class="glance-stats reveal">
         <div class="glance-stat">
           <div class="stat-num">8.4/10</div>
           <div class="stat-title">Satisfaction</div>
@@ -893,12 +792,31 @@
         <div class="glance-stat">
           <div class="stat-num">100%</div>
           <div class="stat-title">Customer migration</div>
-          <div class="stat-sub">One post-launch issue, fixed the same day. Both legacy UIs retired.</div>
+          <div class="stat-sub">Within four weeks. One post-launch issue, fixed the same day; both legacy UIs retired.</div>
         </div>
         <div class="glance-stat">
           <div class="stat-num">~150 hrs</div>
           <div class="stat-title">Saved every month</div>
           <div class="stat-sub">Engineer-hours across ~40 daily operators, from the click cut alone.</div>
+        </div>
+      </div>
+
+      <div class="goal-list" style="margin-top: 40px;">
+        <div class="goal-item reveal">
+          <div class="goal-num">01</div>
+          <div class="goal-title">Org-vs-project confusion down 63%, from ~19 to 7 tickets a month</div>
+        </div>
+        <div class="goal-item reveal">
+          <div class="goal-num">02</div>
+          <div class="goal-title">3 one-off drawer patterns consolidated into 1 shared pattern</div>
+        </div>
+        <div class="goal-item reveal">
+          <div class="goal-num">03</div>
+          <div class="goal-title">57% fewer clicks on the flagship daily task — 14 down to 6</div>
+        </div>
+        <div class="goal-item reveal">
+          <div class="goal-num">04</div>
+          <div class="goal-title">Friction score down 46%, from 100 to 54, across all 5 tasks</div>
         </div>
       </div>
 
@@ -911,8 +829,8 @@
       <h2 class="reveal">What I learned</h2>
 
       <div class="reflect-block reveal">
-        <h4>🤖 Worked, and I'd do it again</h4>
-        <p class="reflect-highlight"><mark>There was no existing workflow for a designer shipping straight into production.</mark></p>
+        <h4>Worked, and I'd do it again</h4>
+        <p class="reflect-highlight">There was no existing workflow for a designer shipping straight into production.</p>
         <ul class="reflect-list">
           <li><strong>Designing directly in code.</strong> Figma directions went into the live React codebase through Claude Code, as PRs reviewed like any contributor's, with no separate design-to-engineering handoff.</li>
           <li><strong>One consistent pattern over several "good enough" ones,</strong> even when it meant redoing recent work.</li>
@@ -920,16 +838,16 @@
       </div>
 
       <div class="reflect-block reveal">
-        <h4>⏱️ What I'd do differently</h4>
-        <p class="reflect-highlight"><mark>Lock the foundation first.</mark></p>
+        <h4>What I'd do differently</h4>
+        <p class="reflect-highlight">Lock the foundation first.</p>
         <ul class="reflect-list">
           <li>Two dashboards shipped before the dark-mode tokens were final, which forced avoidable rework a few weeks later. Freezing the tokens first would have prevented it.</li>
         </ul>
       </div>
 
       <div class="reflect-block reveal">
-        <h4>🧭 What I had to navigate</h4>
-        <p class="reflect-highlight"><mark>Every change was reviewed by the engineers building the same product.</mark></p>
+        <h4>What I had to navigate</h4>
+        <p class="reflect-highlight">Every change was reviewed by the engineers building the same product.</p>
         <ul class="reflect-list">
           <li>Working inside someone else's codebase, I scoped changes to be reviewable under the existing conventions and chose carefully which refactors were worth pushing for.</li>
         </ul>
