@@ -26,6 +26,7 @@
   --container: 1080px;
   --radius: 14px;
   --radius-sm: 8px;
+  --hero-glow-opacity: 0.16;
 
   color-scheme: dark;
 }
@@ -43,6 +44,7 @@
   --accent-strong: #0b6e53;
   --accent-contrast: #f7f6f2;
   --warn: #ad6a12;
+  --hero-glow-opacity: 0.06;
 
   color-scheme: light;
 }
@@ -112,11 +114,23 @@ img {
 }
 
 .nav-brand {
+  display: inline-flex;
+  align-items: baseline;
   font-family: var(--font-display);
   font-weight: 800;
   font-size: 19px;
   text-decoration: none;
   letter-spacing: -0.01em;
+}
+
+.nav-brand-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-left: 5px;
+  border-radius: 2px;
+  background: var(--accent);
+  opacity: 0.55;
 }
 
 .nav-links {
@@ -182,6 +196,10 @@ section {
   padding: 96px 0;
 }
 
+#work {
+  padding-top: 36px;
+}
+
 .section-tight {
   padding: 64px 0;
 }
@@ -199,43 +217,153 @@ section {
 /* ---------------- Hero ---------------- */
 
 .hero {
-  padding: 120px 0 80px;
+  position: relative;
+  padding: 40px 0 28px;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  width: 920px;
+  height: 480px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, var(--accent), transparent 68%);
+  opacity: var(--hero-glow-opacity, 0.16);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
 }
 
 .hero h1 {
-  font-size: clamp(40px, 6vw, 74px);
-  max-width: 15ch;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-style: normal;
+  font-size: clamp(32px, 4.6vw, 50px);
+  line-height: 1.22;
+  max-width: 18ch;
   letter-spacing: -0.01em;
+  text-wrap: balance;
 }
 
-.hero .lede {
-  margin-top: 28px;
-  font-size: 19px;
+.hero h1 em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.hero-sub {
+  margin-top: 12px;
+  font-size: 17px;
+  line-height: 1.55;
   color: var(--text-secondary);
-  max-width: 62ch;
+  max-width: 46ch;
+}
+
+.hero-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.btn-resume {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--bg);
+  background: var(--text);
+  text-decoration: none;
+  padding: 7px 14px;
+  border-radius: 6px;
+  transition: transform 0.15s ease, opacity 0.2s ease;
+}
+
+.btn-resume svg {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.2s ease;
+}
+
+.btn-resume:hover {
+  transform: translateY(-1px);
+  opacity: 0.85;
+}
+
+.btn-resume:hover svg {
+  transform: translateX(3px);
+}
+
+.hero-link-secondary {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 1px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.hero-link-secondary:hover {
+  color: var(--text-secondary);
+  border-color: var(--border-strong);
+}
+
+.hero-now {
+  position: relative;
+  margin-top: 26px;
+  padding-top: 22px;
+  max-width: 52ch;
+}
+
+.hero-now::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 1px;
+  background: var(--border-strong);
+}
+
+.hero-now-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--text-tertiary);
+  margin-bottom: 6px;
+}
+
+.hero-now p {
+  font-size: 16px;
+  color: var(--text-secondary);
   font-family: var(--font-body);
 }
 
-.stat-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 40px;
-}
-
-.stat-chip {
-  border: 1px solid var(--border-strong);
-  border-radius: 999px;
-  padding: 10px 18px;
-  font-size: 13.5px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  background: var(--bg-card);
-}
-
-.stat-chip strong {
+.hero-now a {
   color: var(--text);
-  font-weight: 700;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--border-strong);
+  text-underline-offset: 3px;
 }
 
 /* ---------------- Featured work card ---------------- */
@@ -288,7 +416,7 @@ section {
 }
 
 .work-card-featured .work-card-media {
-  flex: 0 0 44%;
+  flex: 0 0 48%;
   aspect-ratio: auto;
   border-bottom: none;
   border-left: 1px solid var(--border);
@@ -296,6 +424,14 @@ section {
 
 .work-card-featured .work-card-media::after {
   display: none;
+}
+
+.work-card-featured .work-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left -4px;
+  display: block;
 }
 
 .work-card-featured .work-card-body {
@@ -306,18 +442,15 @@ section {
   padding: 44px 48px;
 }
 
-.work-card-media-split {
-  display: flex;
-}
-
-.work-card-media-split img {
-  width: 50%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+.work-card-meta-nowrap {
+  flex-wrap: nowrap;
 }
 
 @media (max-width: 760px) {
+  .work-card-meta-nowrap {
+    flex-wrap: wrap;
+  }
+
   .work-card-featured {
     flex-direction: column;
   }
@@ -398,7 +531,7 @@ section {
 }
 
 .work-card-compact .work-card-media {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 2 / 1;
 }
 
 .work-card-compact .work-card-media img {
@@ -438,40 +571,6 @@ section {
   text-transform: uppercase;
   color: var(--text-tertiary);
   margin-top: 56px;
-}
-
-/* ---------------- How I work ---------------- */
-
-.principles {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-  margin-top: 44px;
-}
-
-.principle {
-  border-top: 1px solid var(--border-strong);
-  padding-top: 20px;
-}
-
-.principle .num {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 28px;
-  color: var(--accent);
-}
-
-.principle h4 {
-  font-family: var(--font-body);
-  font-size: 17px;
-  font-weight: 700;
-  margin-top: 12px;
-}
-
-.principle p {
-  margin-top: 10px;
-  color: var(--text-secondary);
-  font-size: 15px;
 }
 
 /* ---------------- Footer ---------------- */
@@ -526,10 +625,6 @@ footer .wrap {
 /* ---------------- Responsive ---------------- */
 
 @media (max-width: 760px) {
-  .principles {
-    grid-template-columns: 1fr;
-  }
-
   .work-grid {
     grid-template-columns: 1fr;
   }

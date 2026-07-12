@@ -6,8 +6,7 @@
 
 (function initTheme() {
   const stored = localStorage.getItem('theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const theme = stored || (prefersDark ? 'dark' : 'light');
+  const theme = stored || 'dark';
   document.documentElement.setAttribute('data-theme', theme);
 })();
 
@@ -22,7 +21,6 @@ function applyTheme(next) {
 
 function toggleTheme(originEvent) {
   const next = currentTheme() === 'dark' ? 'light' : 'dark';
-  const goingLight = next === 'light';
 
   if (originEvent) {
     const x = originEvent.clientX;
@@ -31,8 +29,6 @@ function toggleTheme(originEvent) {
     document.documentElement.style.setProperty('--ripple-y', y + 'px');
   }
 
-  document.documentElement.toggleAttribute('data-theme-going-light', goingLight);
-
   if (!document.startViewTransition || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     applyTheme(next);
     return;
@@ -40,6 +36,9 @@ function toggleTheme(originEvent) {
 
   const transition = document.startViewTransition(() => applyTheme(next));
 
+  // Always reveal the incoming theme as a circle growing from the click
+  // point — this stays symmetric in both directions, since the "new" view
+  // is already painted on top of the "old" one by default.
   transition.ready.then(() => {
     const x = originEvent ? originEvent.clientX : window.innerWidth / 2;
     const y = originEvent ? originEvent.clientY : window.innerHeight / 2;
@@ -52,13 +51,11 @@ function toggleTheme(originEvent) {
     const clipTo = `circle(${endRadius}px at ${x}px ${y}px)`;
 
     document.documentElement.animate(
-      {
-        clipPath: goingLight ? [clipTo, clipFrom] : [clipFrom, clipTo],
-      },
+      { clipPath: [clipFrom, clipTo] },
       {
         duration: 500,
         easing: 'ease-in-out',
-        pseudoElement: goingLight ? '::view-transition-old(root)' : '::view-transition-new(root)',
+        pseudoElement: '::view-transition-new(root)',
       }
     );
   });
