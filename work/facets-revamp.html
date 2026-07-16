@@ -34,7 +34,7 @@
       <h1 class="reveal"><span class="hl">57%</span> fewer clicks running production infrastructure, for <span class="hl">30+</span> companies</h1>
       <p class="lede reveal">
         Facets is a self-service infrastructure platform used by 30+ companies to run production.
-        I led the redesign end to end and <strong>built a good number of the screens myself, in the
+        I led the redesign end to end and <strong>built many of the screens myself, in the
         live React codebase.</strong>
       </p>
 
@@ -44,7 +44,7 @@
           <div class="glance-col">
             <div class="glance-card reveal">
               <span class="glance-label">Product<span class="glance-subtitle">Facets</span></span>
-              <p>A self-service infrastructure platform. Platform teams codify infrastructure as blueprints in Git, developers self-serve environments, and <strong>Facets generates the Terraform underneath</strong>, across AWS, GCP, Azure, and Kubernetes.</p>
+              <p>A self-service infrastructure platform. Platform teams describe their infrastructure as blueprints (config files) in Git, developers spin up their own environments, and <strong>Facets generates the Terraform underneath</strong> (the code that provisions the cloud), across AWS, GCP, Azure, and Kubernetes.</p>
             </div>
             <div class="glance-card reveal">
               <span class="glance-label">Impact</span>
@@ -71,15 +71,15 @@
           <div class="glance-col">
             <div class="glance-card-group reveal">
               <div class="glance-subsection">
-                <span class="glance-label">Problem<span class="glance-subtitle">Built for the Backend</span></span>
-                <p>Everyday tasks took too many clicks and the navigation was confusing. It was built around the backend, not the two people living in it all day: <strong>developers and DevOps</strong>. An earlier redesign had already been rejected.</p>
+                <span class="glance-label">Problem<span class="glance-subtitle">Built for the backend</span></span>
+                <p>Everyday tasks took too many clicks and the navigation was confusing. It was built around the backend, not the two people in it all day: <strong>developers and DevOps</strong>. An earlier redesign had already been rejected.</p>
               </div>
               <div class="glance-subsection">
-                <span class="glance-label">Solution<span class="glance-subtitle">A Job-First Redesign</span></span>
+                <span class="glance-label">Solution<span class="glance-subtitle">Rebuilt around the job</span></span>
                 <p>I rebuilt it around what those two people actually do, with org and project work on their own navigation. A new Project Overview cut the flagship daily task from <strong class="hl">14 clicks to 6</strong>.</p>
               </div>
               <div class="glance-subsection">
-                <span class="glance-label">Result<span class="glance-subtitle">A Clean Launch</span></span>
+                <span class="glance-label">Result<span class="glance-subtitle">A clean launch</span></span>
                 <p><strong class="hl">100%</strong> of customers moved off the two legacy UIs, one issue fixed same-day, and satisfaction rose from <strong class="hl">5.8 to 8.4</strong> out of 10.</p>
               </div>
             </div>
@@ -90,7 +90,7 @@
             <div class="details-strip">
               <div class="details-row">
                 <div class="dr-label">role</div>
-                <div class="dr-value">Sole Product Designer — owned the design, and <span class="hl">shipped many of the screens myself in code</span></div>
+                <div class="dr-value">Sole product designer. Owned the design, and <span class="hl">shipped many of the screens myself in code</span></div>
               </div>
               <div class="details-row">
                 <div class="dr-label">team</div>
@@ -248,11 +248,11 @@
   <section class="cs-section">
     <div class="wrap">
       <span class="eyebrow reveal">Context</span>
-      <h2 class="reveal">Where things stood</h2>
+      <h2 class="reveal">The screens were getting rebuilt anyway</h2>
       <div class="cs-points">
-        <p class="cs-body reveal"><strong>This wasn't the first attempt.</strong> Facets had already tried to redesign inside its Angular app. Customers pushed back hard enough that two UIs had to run side by side for seven to eight months, and keeping both alive took roughly a quarter of the two-person frontend team's capacity.</p>
-        <p class="cs-body reveal"><strong>A re-platform was already underway.</strong> Separately, Facets was moving its frontend from Angular to React for engineering reasons: framework limits, hiring, and long-term maintainability. Every screen was going to be rebuilt regardless.</p>
-        <p class="cs-body reveal"><strong>That made this the moment.</strong> A straight lift and shift would have carried the same interaction problems into a new framework, and the team would have paid to fix them a second time later. Since the screens were being rebuilt anyway, fixing the experience added very little extra cost.</p>
+        <p class="cs-body reveal"><strong>This wasn't the first attempt.</strong> Facets had already tried to redesign inside its old Angular app. Customers pushed back hard enough that two UIs ran side by side for seven to eight months, and keeping both alive ate about a quarter of the two-person frontend team.</p>
+        <p class="cs-body reveal"><strong>A rebuild was already underway.</strong> Separately, Facets was moving its frontend from Angular to React for engineering reasons: framework limits, hiring, and long-term upkeep. Every screen was going to be rebuilt regardless.</p>
+        <p class="cs-body reveal"><strong>That made this the moment.</strong> Rebuilding the screens as-is would have carried the same problems into a new framework, and the team would have paid to fix them again later. Since every screen was being rebuilt anyway, fixing the experience cost very little more.</p>
       </div>
     </div>
   </section>
@@ -261,7 +261,7 @@
     <div class="wrap">
       <span class="eyebrow reveal">The problem</span>
       <div class="impact-block reveal">
-        <p class="impact-headline">Everyday tasks took too many clicks, the navigation was confusing, and the UI was slow enough to get in the way — confirmed by <strong>~19 support tickets a month</strong> and a previous redesign that already forced two UIs to run side by side for <strong>7–8 months</strong>.</p>
+        <p class="impact-headline">Everyday tasks took too many clicks, and the navigation was confusing. About <strong>19 support tickets a month</strong> said so, and an earlier redesign had already forced two UIs to run side by side for <strong>seven to eight months</strong>.</p>
       </div>
 
       <h3 class="cs-subhead reveal">Who felt it</h3>
@@ -275,7 +275,7 @@
           <p>Keeping environments healthy.</p>
         </div>
       </div>
-      <p class="cs-body reveal">In interviews, the same three words kept coming up — <strong>confusing, slow, too many steps.</strong></p>
+      <p class="cs-body reveal">In interviews, the same three words kept coming up: <strong>confusing, slow, too many steps.</strong></p>
     </div>
   </section>
 
@@ -297,8 +297,8 @@
         </div>
       </div>
       <div class="cs-points">
-        <p class="cs-body reveal"><strong>Why now specifically.</strong> The re-platform was a one-time window to fix the information architecture while every screen was being rebuilt anyway, and the seven-to-eight-month dual-UI period was still fresh for everyone.</p>
-        <p class="cs-body reveal"><strong>The upside.</strong> Removing per-task friction for around 40 daily operators, later measured at about <span class="hl">150 engineer-hours saved every month</span>, plus lower churn risk.</p>
+        <p class="cs-body reveal"><strong>Why now specifically.</strong> The rebuild was a one-time chance to fix the navigation while every screen was being rebuilt anyway, and the seven-to-eight-month period of running two UIs was still fresh for everyone.</p>
+        <p class="cs-body reveal"><strong>The upside.</strong> Less friction for the roughly 40 people who use it daily, later measured at about <span class="hl">150 engineer-hours saved every month</span>, plus lower churn risk.</p>
       </div>
     </div>
   </section>
@@ -333,7 +333,7 @@
             <tr>
               <td class="cs-table-num">02</td>
               <td class="cs-table-target">Navigation and settings patterns</td>
-              <td>One-off drawer patterns across CI/CD, Release, and Role</td>
+              <td>One-off drawer patterns (slide-in side panels) across CI/CD, Release, and Role</td>
               <td><span class="metric-delta"><span class="mv-before">3</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">1</span></span></td>
             </tr>
             <tr>
@@ -353,7 +353,7 @@
       </div>
       <div class="cs-callout reveal">
         <span class="cs-callout-label">How we picked what to measure</span>
-        <p>Usage is the wrong metric here: customers <em>have</em> to release, launch, and configure regardless of UI quality, so it would have flattered us without proving anything. Instead we split screens by choice. For the <strong>unavoidable</strong> ones (Release, Launch, config) we measured friction: time, clicks, drop-off. For the <strong>optional</strong> ones (dashboards, cost) we measured whether people came back and acted, because there a visit is a real vote.</p>
+        <p>Plain usage is the wrong metric here. Customers <em>have</em> to release, launch, and configure no matter how good the UI is, so usage would look healthy without proving anything. So we split the screens by choice. For the ones people <strong>can't avoid</strong> (Release, Launch, config) we measured friction: time, clicks, drop-off. For the <strong>optional</strong> ones (dashboards, cost) we measured whether people came back and acted, since there a visit is a real vote.</p>
       </div>
     </div>
   </section>
@@ -386,11 +386,11 @@
       <div class="pain-grid">
         <div class="pain-card reveal">
           <span class="pain-num">01</span>
-          <h4>No clear line between org, project, and environment work — the same navigation showed up everywhere</h4>
+          <h4>The same navigation showed up everywhere, with no clear line between org, project, and environment work</h4>
         </div>
         <div class="pain-card reveal">
           <span class="pain-num">02</span>
-          <h4>Moving between pages was its own task — release, environment, and resource config were each a different flow</h4>
+          <h4>Moving between pages was its own task, since release, environment, and resource setup were each a different flow</h4>
         </div>
         <div class="pain-card reveal">
           <span class="pain-num">03</span>
@@ -398,7 +398,7 @@
         </div>
         <div class="pain-card reveal">
           <span class="pain-num">04</span>
-          <h4>Releasing ended on a blind commit, with no preview of what would change</h4>
+          <h4>Releasing ended on a blind confirm, with no preview of what would change</h4>
         </div>
         <div class="pain-card reveal">
           <span class="pain-num">05</span>
@@ -472,8 +472,8 @@
       <span class="eyebrow reveal">The key decision</span>
       <h2 class="reveal">Decision</h2>
       <p class="lede reveal">
-        Every other screen sat on top of the navigation, so it shipped first, in version one, before
-        any other screen was built on top of a navigation model that might still change.
+        Navigation came first. Every other screen sits on top of it, so we shipped it in version one,
+        before building the rest on a model that might still change.
       </p>
 
       <div class="compare-grid">
@@ -493,7 +493,7 @@
 
       <div class="cs-callout reveal">
         <span class="cs-callout-label">A design-system call</span>
-        <p>The migration had to move fast, so we adopted <strong>Ant Design</strong> instead of building a system from scratch. We built on top of it and made custom components only where it fell short, which kept our time on the flows and the hard screens.</p>
+        <p>The rebuild had to move fast, so we adopted <strong>Ant Design</strong> (an off-the-shelf component library) instead of building one from scratch. We built on top of it and made custom components only where it fell short, which kept our time on the flows and the hard screens.</p>
       </div>
     </div>
   </section>
@@ -506,11 +506,11 @@
         <div class="glance-stat">
           <div class="stat-num">33</div>
           <div class="stat-title">Pull requests raised</div>
-          <div class="stat-sub">In the control-plane React codebase, reviewed like any contributor's.</div>
+          <div class="stat-sub">In the control-plane React codebase, 19 merged, reviewed like any contributor's.</div>
         </div>
         <div class="glance-stat">
-          <div class="stat-num">178</div>
-          <div class="stat-title">Commits shipped to main</div>
+          <div class="stat-num">176</div>
+          <div class="stat-title">Commits written</div>
           <div class="stat-sub">From navigation and settings through the release and secrets flows.</div>
         </div>
         <div class="glance-stat">
@@ -532,8 +532,8 @@
           <div class="outcome-body">
             <span class="cat-counter" aria-hidden="true">1/5</span>
             <span class="outcome-skill">Information architecture</span>
-            <h3>Two navigations, not one shared menu</h3>
-            <p>Outside a project the sidebar shows org-level work; step inside and it is replaced entirely by project-scoped navigation. <strong>The two levels no longer share a menu</strong>, and the hierarchy is explicit: project, environment, resource.</p>
+            <h3>Separate navigation for each level</h3>
+            <p>Outside a project the sidebar shows org-level work; step inside and it switches entirely to project-level navigation. <strong>The two levels no longer share a menu</strong>, and the order is clear: project, then environment, then resource.</p>
             <div class="metric-bracket">
               <span class="metric-bracket-label">Measured</span>
               <div class="metric-row">
@@ -554,8 +554,8 @@
               <div class="pin-slides">
                 <div class="pin-slide is-active">
                   <span class="outcome-skill">End-to-end feature design</span>
-                  <h3>Project Overview: a new front door</h3>
-                  <p>A page that did not exist before, built so power users can start their daily tasks without clicking through the nav. <strong>It is now used more than the navigation to start work, and the flagship task dropped from 14 clicks to 6.</strong></p>
+                  <h3>Project Overview: a new starting page</h3>
+                  <p>A page that did not exist before, built so regular users can start their daily tasks without clicking through the nav. <strong>People now start work here more often than from the navigation, and the flagship task dropped from 14 clicks to 6.</strong></p>
                   <div class="metric-bracket">
                     <span class="metric-bracket-label">Measured (new page, no before)</span>
                     <div class="metric-row">
@@ -570,8 +570,8 @@
                 </div>
                 <div class="pin-slide">
                   <span class="outcome-skill">Systems thinking</span>
-                  <h3>Resource Overview: state without digging</h3>
-                  <p><strong>One page to read a resource's current state</strong>, with a consistent header, a history drawer, and inline environment creation. Every action is reachable from any of its pages, instead of scattered across separate screens.</p>
+                  <h3>Resource Overview: current state on one page</h3>
+                  <p><strong>One page to read a resource's current state</strong>, with a consistent header, a history panel, and the option to create an environment right there. Every action is reachable from any of its pages, instead of scattered across separate screens.</p>
                   <div class="metric-bracket">
                     <span class="metric-bracket-label">Measured</span>
                     <div class="metric-row">
@@ -688,8 +688,8 @@
                 </div>
                 <div class="pin-slide">
                   <span class="outcome-skill">Craft &amp; visual design</span>
-                  <h3>Seeing what's actually running, image by image</h3>
-                  <p>A visual-only redesign of the Images tab. Same underlying data and behavior, with a clearer read on which image versions are running where.</p>
+                  <h3>A clearer view of which images run where</h3>
+                  <p>A visual-only redesign of the Images tab. Same underlying data and behavior, with a clearer read on which image versions are running in which environment.</p>
                   <div class="metric-bracket">
                     <span class="metric-bracket-label">Measured</span>
                     <div class="metric-row">
@@ -751,7 +751,7 @@
             <span class="cat-counter" aria-hidden="true">5/5</span>
             <span class="outcome-skill">Craft &amp; systems design</span>
             <h3>Dark mode, built from scratch</h3>
-            <p>Token architecture for light and dark built from the ground up, the groundwork most teams discover they need only after shipping. <strong>The icon system took two migrations to get right</strong> (Phosphor, then Lucide), and the toggle triggers a circular reveal from the exact point you click.</p>
+            <p>A full set of design tokens for light and dark (the shared color and style values every screen reads from), built from the ground up. Most teams skip this until it starts causing problems. <strong>The icon system took two migrations to get right</strong> (Phosphor, then Lucide), and the toggle plays a circular reveal from the exact point you click.</p>
             <div class="metric-bracket">
               <span class="metric-bracket-label">Measured</span>
               <div class="metric-row">
@@ -775,10 +775,10 @@
   <section class="cs-section">
     <div class="wrap">
       <span class="eyebrow reveal">Impact</span>
-      <h2 class="reveal">What happened</h2>
+      <h2 class="reveal">What happened after launch</h2>
       <p class="lede reveal">
         Measured against the four targets set up front, comparing each customer org against itself,
-        before and after its own cutover.
+        before and after its own switch-over.
       </p>
 
       <div class="glance-stats reveal">
@@ -810,7 +810,7 @@
         </div>
         <div class="goal-item reveal">
           <div class="goal-num">03</div>
-          <div class="goal-title">57% fewer clicks on the flagship daily task — 14 down to 6</div>
+          <div class="goal-title">57% fewer clicks on the flagship daily task, 14 down to 6</div>
         </div>
         <div class="goal-item reveal">
           <div class="goal-num">04</div>

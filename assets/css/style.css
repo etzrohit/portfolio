@@ -413,6 +413,7 @@ section {
 
 .work-card-featured {
   display: flex;
+  margin-top: 24px;
 }
 
 .work-card-featured .work-card-media {
