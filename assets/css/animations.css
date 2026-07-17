@@ -513,6 +513,27 @@
   align-self: center;
 }
 
+.goal-item.is-gate {
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  border-radius: var(--radius-sm);
+  padding-inline: 16px;
+  margin-block: 4px;
+}
+
+.goal-item.is-gate .goal-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  align-self: center;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-size: 14px;
+}
+
 /* ---------------------------------------------
    Metric table (goals / success criteria)
 --------------------------------------------- */
@@ -1716,5 +1737,1196 @@ body.lightbox-open {
 
   .outcome-card {
     top: 68px;
+  }
+}
+
+/* ---------------------------------------------
+   Case-study diagrams (hand-authored inline SVG)
+--------------------------------------------- */
+.csd {
+  margin: 30px 0 6px;
+}
+
+.csd svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.csd-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  align-items: start;
+}
+
+.csd-panel {
+  min-width: 0;
+}
+
+.csd-cap {
+  margin: 12px 4px 0;
+  color: var(--text-tertiary);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.csd-cap strong {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+/* SVG element theming, driven by the site tokens so diagrams follow light/dark */
+.csd .d-panel {
+  fill: var(--bg-elevated);
+  stroke: var(--border);
+}
+
+.csd .d-store {
+  fill: var(--bg-card);
+  stroke: var(--border-strong);
+}
+
+.csd .d-chip {
+  fill: var(--bg);
+  stroke: var(--border);
+}
+
+.csd pre.mermaid {
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+  background: transparent;
+  border: 0;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.csd pre.mermaid[data-processed="true"] {
+  max-height: none;
+  overflow: visible;
+  opacity: 1;
+}
+
+.csd pre.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Click-to-zoom affordance on rendered diagrams */
+pre.mermaid.is-zoomable {
+  position: relative;
+  cursor: zoom-in;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s ease;
+}
+
+pre.mermaid.is-zoomable:hover {
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+}
+
+pre.mermaid.is-zoomable::after {
+  content: "\2922  Enlarge";
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 3px 10px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+pre.mermaid.is-zoomable:hover::after {
+  opacity: 1;
+}
+
+/* Doxy flow diagram used as a hero carousel slide */
+.ba-frame-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 26px 30px;
+  background: var(--bg-elevated);
+  cursor: zoom-in;
+}
+
+.ba-frame-diagram pre.mermaid {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.ba-frame-diagram pre.mermaid[data-processed="true"] {
+  opacity: 1;
+}
+
+.ba-frame-diagram pre.mermaid.is-zoomable:hover {
+  background: transparent;
+}
+
+.ba-frame-diagram pre.mermaid svg {
+  width: auto !important;
+  height: auto;
+  max-width: 100% !important;
+  max-height: 100%;
+}
+
+/* Full-screen diagram zoom overlay with pan + zoom */
+.dgm-zoom {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: none;
+  background: color-mix(in srgb, var(--bg) 16%, rgba(0, 0, 0, 0.92));
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.dgm-zoom.is-open {
+  display: block;
+  animation: modal-fade 0.2s ease;
+}
+
+.dgm-zoom-viewport {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  cursor: zoom-in;
+  touch-action: none;
+}
+
+.dgm-zoom-viewport.is-grabbing {
+  cursor: grabbing;
+}
+
+.dgm-zoom-stage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.dgm-zoom-stage svg {
+  display: block;
+  width: min(1400px, 92vw);
+  height: auto;
+  max-width: none !important;
+}
+
+.dgm-zoom-hint {
+  position: fixed;
+  top: 22px;
+  left: 24px;
+  z-index: 3;
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  background: color-mix(in srgb, var(--bg-card) 80%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 7px 14px;
+  pointer-events: none;
+}
+
+.dgm-zoom-close {
+  position: fixed;
+  top: 18px;
+  right: 20px;
+  z-index: 3;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.dgm-zoom-close:hover {
+  border-color: var(--accent);
+}
+
+.dgm-zoom-close svg {
+  width: 18px;
+  height: 18px;
+}
+
+.dgm-zoom-tools {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.6);
+}
+
+.dgm-zoom-tools button {
+  min-width: 38px;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.dgm-zoom-tools button:hover {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  color: var(--accent);
+}
+
+.dgm-zoom-tools button[data-z="reset"] {
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+}
+
+.csd .d-node {
+  fill: var(--bg-elevated);
+  stroke: var(--border-strong);
+}
+
+.csd .d-gate {
+  fill: var(--accent);
+  fill-opacity: 0.14;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+}
+
+.csd .d-gate-t {
+  fill: var(--accent);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 14.5px;
+}
+
+.csd .d-node-final {
+  fill: var(--bg-elevated);
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+.csd .d-node-accent,
+.csd .d-chip-accent {
+  fill: var(--accent);
+  fill-opacity: 0.12;
+  stroke: var(--accent);
+  stroke-opacity: 0.5;
+}
+
+.csd .d-row {
+  fill: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+}
+
+.csd .d-mut {
+  fill: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: 14px;
+}
+
+.csd .d-title {
+  fill: var(--text);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.csd .d-sep {
+  fill: var(--text-tertiary);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.09em;
+}
+
+.csd .d-accent {
+  fill: var(--accent);
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+.csd .d-count {
+  fill: var(--text-tertiary);
+  font-family: var(--font-body);
+  font-size: 12px;
+}
+
+.csd .d-line {
+  fill: none;
+  stroke: var(--border-strong);
+  stroke-width: 1.4;
+}
+
+.csd .d-flow {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.6;
+  stroke-opacity: 0.75;
+}
+
+.csd .d-dot {
+  fill: var(--accent);
+}
+
+@media (max-width: 760px) {
+  .csd-compare {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+}
+
+/* ---------------------------------------------
+   Skimmable summary + "Go in depth" pattern
+--------------------------------------------- */
+
+.skim {
+  margin-top: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 78ch;
+}
+
+.skim-item {
+  position: relative;
+  padding-left: 20px;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.skim-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.skim-item strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.section-foot {
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.depth-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--text);
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  padding: 10px 18px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.15s ease, background 0.2s ease;
+}
+
+.depth-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.depth-btn svg {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.2s ease;
+}
+
+.depth-btn:hover svg {
+  transform: translateX(3px);
+}
+
+.depth-hint {
+  font-size: 13px;
+  color: var(--text-tertiary);
+}
+
+/* ---------------------------------------------
+   Detail modal (opened by "Go in depth")
+--------------------------------------------- */
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.cs-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 6vh 16px 48px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.cs-modal.is-open {
+  display: flex;
+}
+
+.cs-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.66);
+  backdrop-filter: blur(5px);
+  animation: modal-fade 0.2s ease;
+}
+
+.cs-modal-dialog {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 780px;
+  margin: auto 0;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.7);
+  animation: modal-rise 0.28s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@keyframes modal-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modal-rise {
+  from { opacity: 0; transform: translateY(16px) scale(0.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.cs-modal-head {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 26px 34px 20px;
+  background: color-mix(in srgb, var(--bg-elevated) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.cs-modal-head .eyebrow {
+  margin-bottom: 10px;
+}
+
+.cs-modal-head h2 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(20px, 3vw, 26px);
+  letter-spacing: -0.01em;
+  max-width: 32ch;
+}
+
+.cs-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 22px;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.15s ease;
+}
+
+.cs-modal-close:hover {
+  border-color: var(--accent);
+}
+
+.cs-modal-close:active {
+  transform: scale(0.92);
+}
+
+.cs-modal-close svg {
+  width: 16px;
+  height: 16px;
+}
+
+.cs-modal-body {
+  padding: 26px 34px 38px;
+}
+
+.cs-modal-body > .lede {
+  margin-top: 0;
+  margin-bottom: 4px;
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+.cs-modal-body .pain-grid,
+.cs-modal-body .compare-grid,
+.cs-modal-body .cs-callout,
+.cs-modal-body .cs-table-wrap {
+  margin-top: 24px;
+}
+
+.cs-modal-body .pain-card.acc[open] {
+  border-color: var(--border-strong);
+}
+
+.modal-block + .modal-block {
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top: 1px solid var(--border);
+}
+
+.modal-block h3 {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.modal-block > p {
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.modal-block > p strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.cs-modal-body > p {
+  margin-top: 16px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.cs-modal-body > p:first-child {
+  margin-top: 0;
+}
+
+.cs-modal-body code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85em;
+  padding: 2px 6px;
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg));
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.cs-figure {
+  margin: 22px 0 0;
+}
+
+.cs-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.cs-figure figcaption {
+  margin-top: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-tertiary);
+}
+
+@media (max-width: 640px) {
+  .cs-modal {
+    padding: 0;
+  }
+
+  .cs-modal-dialog {
+    max-width: 100%;
+    min-height: 100%;
+    margin: 0;
+    border-radius: 0;
+    border: none;
+  }
+
+  .cs-modal-head {
+    border-radius: 0;
+    padding: 22px 20px 16px;
+  }
+
+  .cs-modal-body {
+    padding: 22px 20px 40px;
+  }
+}
+
+/* ---------------------------------------------
+   Lightweight CSS diagrams (inside detail modals)
+--------------------------------------------- */
+
+.diagram {
+  margin-top: 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--text) 2%, var(--bg));
+  padding: 24px 22px;
+}
+
+.diagram-cap {
+  margin-top: 14px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-tertiary);
+}
+
+.diagram-cap strong {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+/* Mermaid render target */
+.mermaid-box {
+  display: flex;
+  justify-content: center;
+  min-height: 60px;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.mermaid-box svg {
+  max-width: 100% !important;
+  min-width: 0;
+  height: auto;
+  display: block;
+}
+
+/* Funnel */
+.dfunnel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.dfunnel-row {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 11px 14px;
+}
+
+.dfunnel-row:nth-child(1) { width: 100%; }
+.dfunnel-row:nth-child(2) { width: 90%; }
+.dfunnel-row:nth-child(3) { width: 80%; }
+.dfunnel-row:nth-child(4) { width: 70%; }
+.dfunnel-row:nth-child(5) { width: 60%; }
+.dfunnel-row:nth-child(6) { width: 50%; }
+
+.dfunnel-row.is-leak {
+  color: var(--text);
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg-elevated));
+  border-color: var(--accent);
+}
+
+.dfunnel-tag {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-contrast);
+  background: var(--accent);
+  border-radius: 999px;
+  padding: 2px 8px;
+  vertical-align: middle;
+}
+
+/* Quadrant matrix */
+.dmatrix {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  grid-template-rows: 1fr 22px;
+  gap: 8px;
+}
+
+.dm-ylab {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.dm-xlab {
+  grid-column: 2;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.dm-plot {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background:
+    linear-gradient(var(--border), var(--border)) center / 100% 1px no-repeat,
+    linear-gradient(var(--border), var(--border)) center / 1px 100% no-repeat,
+    var(--bg-elevated);
+}
+
+.dm-q {
+  position: absolute;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.dm-q1 { top: 8px; right: 10px; }
+.dm-q2 { top: 8px; left: 10px; color: var(--accent); }
+.dm-q3 { bottom: 8px; left: 10px; }
+.dm-q4 { bottom: 8px; right: 10px; }
+
+.dm-dot {
+  position: absolute;
+  transform: translate(-50%, 50%);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.dm-dot::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
+  flex-shrink: 0;
+}
+
+/* Names collapse */
+.dnames {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 18px;
+}
+
+.dn-old {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dn-chip {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 14px;
+  text-align: center;
+}
+
+.dn-chip span {
+  color: var(--text-tertiary);
+  font-weight: 500;
+}
+
+.dn-arrow {
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dn-arrow svg {
+  width: 26px;
+  height: 26px;
+}
+
+.dn-new {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text);
+  text-align: center;
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg-elevated));
+  border: 1px solid var(--accent);
+  border-radius: 12px;
+  padding: 20px 16px;
+}
+
+/* Component system */
+.dsys {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.dsys-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.dsys-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.dsys-chip {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 7px 13px;
+}
+
+.dsys-row.is-shared .dsys-chip {
+  color: var(--text);
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg-elevated));
+  border-color: var(--accent);
+}
+
+.dsys-down {
+  color: var(--accent);
+}
+
+.dsys-down svg {
+  width: 22px;
+  height: 22px;
+}
+
+@media (max-width: 560px) {
+  .dnames {
+    grid-template-columns: 1fr;
+  }
+
+  .dn-arrow svg {
+    transform: rotate(90deg);
+  }
+
+  .dm-dot {
+    font-size: 10.5px;
+  }
+}
+
+/* ---------------------------------------------
+   Skimmable summary + "Go in depth" modal
+   (progressive disclosure: short upfront, detail inside)
+--------------------------------------------- */
+
+.skim-list {
+  list-style: none;
+  margin: 22px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.skim-list li {
+  position: relative;
+  padding-left: 30px;
+  color: var(--text-secondary);
+  font-size: 16.5px;
+  line-height: 1.5;
+}
+
+.skim-list li strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.skim-list li::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 11px;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.depth-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 26px;
+  padding: 11px 20px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+}
+
+.depth-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.depth-btn svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+}
+
+/* Inline text button that opens a modal, used mid-paragraph */
+.inline-modal-link {
+  border: 0;
+  background: none;
+  padding: 0;
+  font: inherit;
+  color: var(--accent);
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  transition: border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.inline-modal-link:hover {
+  border-bottom-color: var(--accent);
+  opacity: 0.85;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.cs-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 44px 20px;
+  overflow-y: auto;
+  background: color-mix(in srgb, var(--bg) 34%, rgba(0, 0, 0, 0.78));
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.cs-modal.is-open {
+  display: flex;
+  animation: modalFade 0.22s ease;
+}
+
+@keyframes modalFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.cs-modal-panel {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.5);
+  animation: modalRise 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Roomier modals for the docs case study */
+.cs-modal-panel.modal-lg {
+  max-width: 940px;
+}
+
+.cs-modal-panel.modal-xl {
+  max-width: 1120px;
+}
+
+@keyframes modalRise {
+  from { transform: translateY(18px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.cs-modal-head {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 22px 26px;
+  background: color-mix(in srgb, var(--bg-elevated) 90%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  border-radius: var(--radius) var(--radius) 0 0;
+  z-index: 2;
+}
+
+.cs-modal-eyebrow {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.cs-modal-title {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.cs-modal-close {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.cs-modal-close:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.cs-modal-close svg {
+  width: 16px;
+  height: 16px;
+}
+
+.cs-modal-body {
+  padding: 26px;
+}
+
+.cs-modal-body > * + * {
+  margin-top: 20px;
+}
+
+.cs-modal-body p {
+  color: var(--text-secondary);
+  font-size: 16px;
+  line-height: 1.62;
+}
+
+.cs-modal-body h4 {
+  font-family: var(--font-display);
+  font-size: 16.5px;
+  font-weight: 800;
+  margin-bottom: -8px;
+}
+
+.cs-modal-body .csd,
+.cs-modal-body .cs-table-wrap {
+  margin-top: 20px;
+}
+
+@media (max-width: 640px) {
+  .cs-modal {
+    padding: 0;
+  }
+  .cs-modal-panel {
+    max-width: none;
+    min-height: 100%;
+    border-radius: 0;
+    border: none;
+  }
+  .cs-modal-head {
+    border-radius: 0;
   }
 }

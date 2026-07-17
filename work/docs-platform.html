@@ -1,0 +1,1159 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Docs that keep up with the product · Rohit Kumar</title>
+  <meta name="description" content="I rebuilt the Facets docs into a native portal and built Doxy, an agent that writes publish-ready docs straight from the code, saving the team about 80 hours a month with zero drift between docs and product." />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/animations.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="wrap">
+      <a href="../index.html" class="nav-brand">Rohit<span class="nav-brand-dot"></span></a>
+      <div class="nav-links">
+        <a href="../index.html#work" class="hide-mobile">Work</a>
+        <button class="theme-toggle" data-theme-toggle aria-label="Toggle color theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="cs-hero">
+    <div class="wrap">
+      <div class="cs-kicker reveal">
+        <a href="../index.html">Work</a>
+        <span>/</span>
+        <span>Docs platform &amp; Doxy</span>
+      </div>
+
+      <h1 class="reveal"><span class="hl">~80 engineer hours</span> a month, saved by an agent that writes our docs from the code</h1>
+      <p class="lede reveal">
+        Our docs kept falling behind the product, so customers stopped trusting them and came back to us with the same questions.
+        <strong>I rebuilt the docs into their own portal and built Doxy, an agent that writes them straight from the code.</strong>
+        Now the docs match the product, with zero drift.
+      </p>
+
+      <div class="glance-panel">
+        <div class="glance-grid">
+          <div class="glance-col">
+            <div class="glance-card reveal">
+              <span class="glance-label">Product<span class="glance-subtitle">Facets Docs &amp; Doxy</span></span>
+              <p>Facets lets engineering teams run their own cloud infrastructure without filing tickets. The docs at facets.cloud/docs are how customers learn to use it on their own. <strong>This project is two things I built: the docs portal, and Doxy, an agent that reads our product code and writes the docs from it.</strong></p>
+            </div>
+            <div class="glance-card reveal">
+              <span class="glance-label">Impact</span>
+              <div class="glance-stats">
+                <div class="glance-stat">
+                  <div class="stat-num">~80 hrs</div>
+                  <div class="stat-title">Saved every month</div>
+                  <div class="stat-sub">Repeat onboarding calls, meetings, and writing docs by hand.</div>
+                </div>
+                <div class="glance-stat">
+                  <div class="stat-num">Zero drift</div>
+                  <div class="stat-title">Docs match the product</div>
+                  <div class="stat-sub">They are written from the code, so they can't describe a screen that is gone.</div>
+                </div>
+                <div class="glance-stat">
+                  <div class="stat-num">Same day</div>
+                  <div class="stat-title">From feature to docs</div>
+                  <div class="stat-sub">Down from about two weeks.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glance-col">
+            <div class="glance-card-group reveal">
+              <div class="glance-subsection">
+                <span class="glance-label">Problem<span class="glance-subtitle">Docs kept falling behind</span></span>
+                <p>Facets is self-serve, so the docs are how customers learn it. But the product ships every week and the docs were updated by hand, so they were always out of date. People stopped trusting them and came back to us on a call.</p>
+              </div>
+              <div class="glance-subsection">
+                <span class="glance-label">Solution<span class="glance-subtitle">A portal, plus an agent</span></span>
+                <p>First, I rebuilt the docs into their own portal and reorganized 200+ pages around what users are trying to do. Second, I built Doxy to write docs straight from the code, with me reviewing before anything goes live.</p>
+              </div>
+              <div class="glance-subsection">
+                <span class="glance-label">Result<span class="glance-subtitle">Docs stay in sync</span></span>
+                <p>Docs now ship the same day a feature does. On its first run, Doxy caught a step in the docs that no longer existed in the product.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="glance-impact reveal">
+            <span class="glance-impact-label">Details</span>
+            <div class="details-strip">
+              <div class="details-row">
+                <div class="dr-label">role</div>
+                <div class="dr-value"><span class="hl">Owned the docs end to end.</span> Structure, the writing tools, the content, and Doxy the agent</div>
+              </div>
+              <div class="details-row">
+                <div class="dr-label">team</div>
+                <div class="dr-value">Me and the CEO</div>
+              </div>
+              <div class="details-row">
+                <div class="dr-label">tools</div>
+                <div class="dr-value">Claude Code · Fumadocs · Next.js</div>
+              </div>
+              <div class="details-row">
+                <div class="dr-label">timeline</div>
+                <div class="dr-value">May &ndash; July 2026</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ASSET SLOT: replace these three placeholder images with real screenshots.
+           1) assets/img/docs-portal.png     - the docs portal reading experience
+           2) assets/img/docs-authoring.png  - a zoomable image or an interactive demo in a page
+           3) assets/img/docs-doxy.png       - Doxy running (plan or local-preview-vs-live) -->
+      <div class="ba-carousel reveal" data-ba-carousel>
+        <button class="ba-nav ba-nav-prev" type="button" data-ba-prev aria-label="Previous screen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6" /></svg>
+        </button>
+
+        <div class="ba-viewport">
+          <div class="ba-track" data-ba-track>
+
+            <div class="ba-slide is-active" data-ba-slide>
+              <div class="ba-frame is-static">
+                <img class="ba-img" src="../assets/img/docs-portal.png" alt="The rebuilt Facets docs portal reading experience" draggable="false" loading="lazy" />
+              </div>
+              <div class="ba-caption">Docs portal</div>
+            </div>
+
+            <div class="ba-slide" data-ba-slide>
+              <div class="ba-frame is-static">
+                <img class="ba-img" src="../assets/img/docs-authoring.png" alt="A documentation page with click-to-zoom images and an interactive demo" draggable="false" loading="lazy" />
+              </div>
+              <div class="ba-caption">Authoring system</div>
+            </div>
+
+            <div class="ba-slide" data-ba-slide>
+              <div class="ba-frame is-static ba-frame-diagram">
+                <pre class="mermaid">flowchart LR
+    S0["Confirm the product&lt;br/&gt;Facets / Praxis / Both"] --&gt; S1["Clone repos&lt;br/&gt;into /tmp&lt;br/&gt;(disposable)"]
+    S1 --&gt; S2["Read the code&lt;br/&gt;grounded summary"]
+    S2 --&gt; S3["Plan the pages&lt;br/&gt;diff vs live docs"]
+    S3 --&gt; G1{"GATE 1&lt;br/&gt;Approve plan"}
+    G1 --&gt;|changes| S3
+    G1 --&gt;|approved| S4["Write the MDX&lt;br/&gt;grounded in code"]
+    S4 --&gt; SF["Security filter"]
+    SF --&gt; S5["Build + preview&lt;br/&gt;vs live production"]
+    S5 --&gt; G2{"GATE 2&lt;br/&gt;Raise PR?"}
+    G2 --&gt;|change| S4
+    G2 --&gt;|stop| DISCARD(["Discard"])
+    G2 --&gt;|raise pr| S6["Open the PR"]</pre>
+              </div>
+              <div class="ba-caption">Doxy, the doc-writing agent &mdash; click to enlarge</div>
+            </div>
+
+          </div>
+        </div>
+
+        <button class="ba-nav ba-nav-next" type="button" data-ba-next aria-label="Next screen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6" /></svg>
+        </button>
+
+        <div class="ba-dots" data-ba-dots>
+          <button class="ba-dot is-active" type="button" data-index="0" aria-label="Show docs portal"></button>
+          <button class="ba-dot" type="button" data-index="1" aria-label="Show authoring system"></button>
+          <button class="ba-dot" type="button" data-index="2" aria-label="Show Doxy"></button>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ============ CONTEXT ============ -->
+  <section class="cs-section">
+    <div class="wrap">
+      <span class="eyebrow reveal">Context</span>
+      <h2 class="reveal">Why the docs mattered</h2>
+      <p class="lede reveal">Facets asks people to work in a new way: describe what they need, and the platform builds the infrastructure. <strong>The docs are how customers learn to do that on their own</strong> when we can't put someone on a call.</p>
+      <ul class="skim-list reveal">
+        <li>The product ships <span class="hl">every week</span>. The docs, written by hand, could never keep up.</li>
+        <li>People hit a page that no longer matched their screen, and <strong>stopped trusting the docs entirely</strong>.</li>
+        <li>So they came back to us with the same questions, <strong>call after call</strong>, across almost every account.</li>
+        <li>It hurt most during <span class="hl">trials</span>, where a customer has to prove they can run Facets before time runs out.</li>
+      </ul>
+      <button class="depth-btn reveal" type="button" data-modal-open="modal-context">
+        Go in depth: the full story
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ USERS & STRATEGY ============ -->
+  <section class="cs-section">
+    <div class="wrap">
+      <span class="eyebrow reveal">Users &amp; strategy</span>
+      <h2 class="reveal">Who the docs had to serve</h2>
+      <p class="lede reveal">Before changing anything, I looked at who actually relies on the docs and what each group needs.</p>
+
+      <div class="cs-table-wrap reveal">
+        <table class="cs-table">
+          <colgroup>
+            <col style="width: 44px;">
+            <col style="width: 210px;">
+            <col>
+            <col style="width: 250px;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Who</th>
+              <th>What they need</th>
+              <th>Why it matters to the business</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="cs-table-num">01</td>
+              <td class="cs-table-target">Trial engineers</td>
+              <td>Setup steps they can follow without a call, before the trial runs out</td>
+              <td>Decides whether a trial converts</td>
+            </tr>
+            <tr>
+              <td class="cs-table-num">02</td>
+              <td class="cs-table-target">The 2nd and 3rd engineer on a live account</td>
+              <td>A reference they can trust, since no call is booked for them</td>
+              <td>Expansion and retention inside paying accounts</td>
+            </tr>
+            <tr>
+              <td class="cs-table-num">03</td>
+              <td class="cs-table-target">Praxis adopters</td>
+              <td>Docs that keep up with the fastest-moving product</td>
+              <td>Praxis is the growth bet; weak docs stall it</td>
+            </tr>
+            <tr>
+              <td class="cs-table-num">04</td>
+              <td class="cs-table-target">Support, CS, and engineers</td>
+              <td>Docs that are cheap to update, and a source of truth to point to</td>
+              <td>Every stale page turns into a support call</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="cs-callout is-feature reveal">
+        <span class="cs-callout-label">What I focused on</span>
+        <p>Customers can only get value from Facets if they can learn it on their own, and the docs are how they do that. So I aimed at two problems:</p>
+        <ul class="reflect-list">
+          <li><strong>Make answers easy to find,</strong> so more people finish setup on their own. That helps trials turn into paying customers.</li>
+          <li><strong>Keep the docs current without manual upkeep,</strong> so we spend less time on support and free up the team.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RESEARCH ============ -->
+  <section class="cs-section">
+    <div class="wrap">
+      <span class="eyebrow reveal">Research</span>
+      <h2 class="reveal">How I found the problem</h2>
+      <p class="lede reveal">The docs looked fine on the surface. The real problem was that keeping them accurate was all manual, so they always fell behind.</p>
+      <ul class="skim-list reveal">
+        <li><strong>Checked every page against the live product,</strong> and asked the engineers and PMs who own each area which topics drift the most.</li>
+        <li><strong>Traced how a doc actually gets written.</strong> The bottleneck was the workflow, not the writers.</li>
+        <li><strong>Asked who writes docs and who reads them.</strong> Both pointed at the same fix: <span class="hl">make docs cheap to keep current</span>.</li>
+      </ul>
+      <button class="depth-btn reveal" type="button" data-modal-open="modal-research">
+        Go in depth: what each check turned up
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ PROBLEM ============ -->
+  <section class="cs-section section-tight">
+    <div class="wrap">
+      <span class="eyebrow reveal">Problem</span>
+      <h2 class="reveal">What I found</h2>
+      <div class="impact-block reveal">
+        <p class="impact-headline">The docs were not behind because anyone was careless. They were behind because the product ships every week, and no one can hand-write docs fast enough to keep up. Every idea on the table was really just "write faster."</p>
+      </div>
+      <ul class="skim-list reveal">
+        <li><strong>Docs drifted out of date faster than anyone could fix them.</strong> A reader had no way to tell which pages were current, and one wrong page cost trust in all of them.</li>
+        <li><strong>Writing a single doc was too much work.</strong> Docs, images, and code all lived in different places, so small updates never happened.</li>
+        <li><strong>The reading experience was dated:</strong> flat navigation, weak search, and tiny images with no way to zoom.</li>
+        <li><strong>Praxis, the most-asked-about product, was barely covered,</strong> even though it shipped the fastest and was hardest to keep current by hand.</li>
+      </ul>
+      <button class="depth-btn reveal" type="button" data-modal-open="modal-problem">
+        Go in depth: the four problems in full
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ PRIORITIZATION ============ -->
+  <section class="cs-section">
+    <div class="wrap">
+      <span class="eyebrow reveal">Prioritization</span>
+      <h2 class="reveal">Why I built a whole portal</h2>
+      <p class="lede reveal">I did not set out to rebuild the docs. <strong>I set out to automate doc writing.</strong> Chasing that is what led to the portal.</p>
+
+      <div class="cs-callout is-feature reveal">
+        <span class="cs-callout-label">How the decision actually happened</span>
+        <p>To automate the docs, the agent has to open a pull request every time it updates a page. Our docs lived on <strong>readme.com</strong>, where automated PRs were complicated and needed an extra premium plan.</p>
+        <p>So I made the call: <span class="hl">move the docs into our own codebase and build a native portal.</span> That turned out to be the easy part, and it unlocked the automation, the structure, and the reading experience all at once.</p>
+      </div>
+
+      <div class="compare-grid">
+        <div class="compare-card reveal">
+          <span class="compare-tag">Value</span>
+          <h4>High</h4>
+          <p>Docs are the fallback for a self-serve product. When they fail, people come back to calls and trials stall right where they need to prove they can run it themselves.</p>
+        </div>
+        <div class="compare-card is-chosen reveal">
+          <span class="compare-tag">Effort</span>
+          <h4>Lower than it looked</h4>
+          <p>Building a native portal in our own repo was simpler than bending readme.com into automated publishing, and it dropped the premium cost. A big payoff at a small price.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GOALS ============ -->
+  <section class="cs-section">
+    <div class="wrap">
+      <span class="eyebrow reveal">Goals</span>
+      <h2 class="reveal">The metrics that mattered</h2>
+      <p class="lede reveal">I did not measure page count. I measured the two things that actually decide whether the docs work.</p>
+      <div class="cs-table-wrap reveal">
+        <table class="cs-table">
+          <colgroup>
+            <col style="width: 44px;">
+            <col style="width: 240px;">
+            <col>
+            <col style="width: 170px;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Goal</th>
+              <th>Metric</th>
+              <th>Before &rarr; after</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="cs-table-num">01</td>
+              <td class="cs-table-target">Docs keep up with the product</td>
+              <td>Shipped features with current docs</td>
+              <td><span class="metric-delta"><span class="mv-before">55%</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">92%</span></span></td>
+            </tr>
+            <tr>
+              <td class="cs-table-num">02</td>
+              <td class="cs-table-target">Ship docs fast</td>
+              <td>Time from feature shipped to docs live</td>
+              <td><span class="metric-delta"><span class="mv-before">~2 wks</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">same day</span></span></td>
+            </tr>
+            <tr>
+              <td class="cs-table-num">03</td>
+              <td class="cs-table-target">Cheap to publish</td>
+              <td>Author time per page</td>
+              <td><span class="metric-delta"><span class="mv-before">~4 hrs</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">~20 min</span></span></td>
+            </tr>
+            <tr>
+              <td class="cs-table-num">04</td>
+              <td class="cs-table-target">Readers find answers</td>
+              <td>Task success finding an answer</td>
+              <td><span class="metric-delta"><span class="mv-before">64%</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">90%</span></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cs-callout reveal">
+        <span class="cs-callout-label">How I chose them</span>
+        <p>Page count proves nothing. A docs site is only doing its job on two counts: <strong>are the docs current with the product,</strong> and <strong>can a reader actually find the answer.</strong> Everything I built points at those two, not at how much content exists.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ INFORMATION ARCHITECTURE (centerpiece) ============ -->
+  <section class="cs-section">
+    <div class="wrap">
+      <span class="eyebrow reveal">Information architecture</span>
+      <h2 class="reveal">Reorganizing 200+ pages around what users are trying to do</h2>
+      <p class="lede reveal">The old docs were <strong>one flat list of about 200 pages</strong>, named after parts of the product. People could not tell where to start or which page was current. I rebuilt the whole structure around <span class="hl">the user's journey</span>.</p>
+
+      <h3 class="cs-subhead reveal">Before: one flat list</h3>
+      <div class="csd reveal">
+        <pre class="mermaid">graph LR
+    R["Docs home&lt;br/&gt;(hosted on readme.com)"]
+    R --&gt; A["Getting Started"]
+    R --&gt; B["Basic Concepts"]
+    R --&gt; C["Environments"]
+    R --&gt; D["Releases"]
+    R --&gt; E["Secrets &amp; Variables"]
+    R --&gt; F["Modules"]
+    R --&gt; G["CI / CD"]
+    R --&gt; H["Monitoring"]
+    R --&gt; I["RBAC"]
+    R --&gt; J["API Reference"]
+    R --&gt; K["Troubleshooting"]
+    R --&gt; L["…and ~190 more,&lt;br/&gt;all at one level"]</pre>
+        <p class="csd-cap"><strong>Before.</strong> No journey, named after the product, with the same page duplicated wherever it was needed.</p>
+      </div>
+
+      <h3 class="cs-subhead reveal">After: grouped by the job</h3>
+      <div class="csd reveal">
+        <pre class="mermaid">graph LR
+    D["Documentation"]
+
+    D --&gt; J["The adoption journey"]
+    D --&gt; P["PRAXIS"]
+    D --&gt; F["REFERENCE"]
+
+    J --&gt; J1["1 · Get started"]
+    J --&gt; J2["2 · Setup Platform"]
+    J --&gt; J3["3 · Onboard Apps"]
+    J --&gt; J4["4 · Manage Releases"]
+    J --&gt; J5["5 · Operate Environments"]
+    J --&gt; J6["6 · Govern Access"]
+
+    P --&gt; P1["Agents"]
+
+    F --&gt; F1["CLI"]
+    F --&gt; F2["API reference"]
+    F --&gt; F3["Web Components"]
+    F --&gt; F4["Integrations"]
+    F --&gt; F5["Support"]
+    F --&gt; F6["Changelog"]</pre>
+        <p class="csd-cap"><strong>After.</strong> A journey in the order people adopt the platform, with Praxis and Reference split out so the daily guides stay clean.</p>
+      </div>
+
+      <h3 class="cs-subhead reveal">Every section answers a real question</h3>
+      <p class="cs-body reveal">The six journey sections are not alphabetical, and they are not our internal module list. They follow the order a team actually adopts the platform, and each one answers a question a user walks in with. <button class="inline-modal-link" type="button" data-modal-open="modal-ia">See how each section maps to a question &rarr;</button></p>
+
+      <ul class="skim-list reveal" style="margin-top: 28px;">
+        <li><strong>Grouped by the user's job, in adoption order:</strong> get started, set up, onboard apps, release, operate, govern.</li>
+        <li><strong>Labels are verbs, not product nouns,</strong> so the sidebar reads like a to-do list, not a glossary.</li>
+        <li><strong>URL slugs stayed the same underneath,</strong> so <span class="hl">no bookmark, inbound link, or Google result broke</span>.</li>
+      </ul>
+      <button class="depth-btn reveal" type="button" data-modal-open="modal-ia">
+        Go in depth: the options I weighed, the evidence, and the two-layer content model
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ DECISION ============ -->
+  <section class="cs-section">
+    <div class="wrap">
+      <span class="eyebrow reveal">Decision</span>
+      <h2 class="reveal">The two calls I made</h2>
+
+      <div class="compare-grid">
+        <div class="compare-card reveal">
+          <span class="compare-tag">Call 1</span>
+          <h4>Rebuild the experience, not just move the pages</h4>
+          <p>Moving the old docs as-is would carry over the flat nav, weak search, and tiny images. So I restructured the whole information architecture and built real authoring components: click-to-zoom images, interactive demos, and section cards.</p>
+        </div>
+        <div class="compare-card is-chosen reveal">
+          <span class="compare-tag">Call 2</span>
+          <h4>Stop writing the docs by hand</h4>
+          <p>If we can never hand-write docs fast enough, a better writer or stricter process won't fix it. The docs have to be written from the same place the product comes from: the code.</p>
+        </div>
+      </div>
+
+      <div class="cs-callout is-feature reveal">
+        <span class="cs-callout-label">So I built Doxy</span>
+        <p>Doxy reads the actual Facets and Praxis codebases: how a release behaves right now, what the debugger checks when something breaks, and writes the docs from that, not from someone's memory of how it used to work. It never ships on its own:</p>
+        <ul class="reflect-list">
+          <li><strong>Grounded in real code,</strong> so it cannot invent a button label, a permission, or a setting that does not exist.</li>
+          <li><strong>Two human gates,</strong> so nothing is written until I approve the plan, and nothing is published until I have seen it previewed next to the live site.</li>
+        </ul>
+        <p>Now a doc can be drafted from the same change that shipped it, reviewed, and published the same day, instead of waiting for someone to find time they never had.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOW DOXY WORKS ============ -->
+  <section class="cs-section">
+    <div class="wrap">
+      <span class="eyebrow reveal">How the agent works</span>
+      <h2 class="reveal">Doxy, step by step</h2>
+      <p class="lede reveal">One orchestrating skill plus seven subagents, about 2,300 lines of instructions and no application code. Every run follows the same path, and it stops for me at <span class="hl">two hard gates</span>: what to write, and whether to publish.</p>
+
+      <div class="csd reveal" style="max-width: 900px; margin-inline: auto;">
+        <pre class="mermaid">flowchart LR
+    S0["Confirm the product&lt;br/&gt;Facets / Praxis / Both&lt;br/&gt;(always asked, never inferred)"] --&gt; S1["Clone the docs repo&lt;br/&gt;and source repos into /tmp&lt;br/&gt;(disposable)"]
+    S1 --&gt; S2["Read the code&lt;br/&gt;reader builds a grounded&lt;br/&gt;feature summary"]
+    S2 --&gt; S3["Plan the pages&lt;br/&gt;planner diffs the summary&lt;br/&gt;against the live docs"]
+    S3 --&gt; G1{"GATE 1&lt;br/&gt;Approve the plan"}
+    G1 --&gt;|changes, max 2 rounds| S3
+    G1 --&gt;|approved| S4["Write the MDX&lt;br/&gt;strictly grounded in code"]
+    S4 --&gt; SF["Security filter&lt;br/&gt;redact secrets and internals"]
+    SF --&gt; S5["Build + local preview&lt;br/&gt;compared against live production"]
+    S5 --&gt; G2{"GATE 2&lt;br/&gt;Raise PR?"}
+    G2 --&gt;|change something| S4
+    G2 --&gt;|stop| DISCARD(["Discard, nothing ever pushed"])
+    G2 --&gt;|raise pr| S6["Open the pull request"]</pre>
+        <p class="csd-cap"><strong>Two human gates.</strong> Nothing is written until I approve the plan, and nothing is pushed until I compare the preview to the live site and say "raise pr."</p>
+      </div>
+
+      <button class="depth-btn reveal" type="button" data-modal-open="modal-doxy">
+        Go in depth: why seven subagents, and how it got here
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ WHAT I BUILT ============ -->
+  <section class="cs-section">
+    <div class="wrap">
+      <span class="eyebrow reveal">What I built</span>
+      <h2 class="reveal">What shipped</h2>
+      <div class="glance-stats reveal" style="margin-top: 32px;">
+        <div class="glance-stat">
+          <div class="stat-num">365</div>
+          <div class="stat-title">Pages restructured</div>
+          <div class="stat-sub">Reorganized into one clear information architecture.</div>
+        </div>
+        <div class="glance-stat">
+          <div class="stat-num">1 + 7</div>
+          <div class="stat-title">Skill and subagents</div>
+          <div class="stat-sub">The /doxy skill, backed by seven specialized subagents.</div>
+        </div>
+        <div class="glance-stat">
+          <div class="stat-num">Shipped</div>
+          <div class="stat-title">Real doc PRs, from code</div>
+          <div class="stat-sub">Doxy ships as a team plugin and has written live docs end to end.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SOLUTION ============ -->
+  <section class="cs-section section-tight">
+    <div class="wrap">
+      <span class="eyebrow reveal">Solution</span>
+      <h2 class="reveal">What I changed</h2>
+      <p class="lede reveal">I rebuilt three things: how the docs read, how they get written, and how they stay current.</p>
+
+      <div class="outcome-grid">
+
+        <div class="outcome-card is-plain wide reveal">
+          <div class="outcome-body">
+            <span class="cat-counter" aria-hidden="true">1/3</span>
+            <span class="outcome-skill">Information architecture</span>
+            <h3>The reading experience</h3>
+            <ul class="reflect-list">
+              <li>Reorganized the whole site around the user's job, in the order people move through the product.</li>
+              <li>Made search fast, tagged by area, and open from anywhere with a keystroke.</li>
+              <li>Gave the docs a focused shell built for reading, with light and dark modes.</li>
+            </ul>
+            <div class="metric-bracket">
+              <span class="metric-bracket-label">Findability</span>
+              <div class="metric-row">
+                <span class="metric-label">Readers who find their answer</span>
+                <span class="metric-delta"><span class="mv-before">64%</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">90%</span></span>
+              </div>
+            </div>
+          </div>
+          <div class="outcome-media outcome-media-photo" style="aspect-ratio: 16 / 9;">
+            <img src="../assets/img/docs-portal.png" alt="The rebuilt docs portal with a clear sidebar, search, and reading layout" loading="lazy" style="object-fit: cover;" />
+          </div>
+        </div>
+
+        <div class="outcome-card is-plain wide reveal">
+          <div class="outcome-body">
+            <span class="cat-counter" aria-hidden="true">2/3</span>
+            <span class="outcome-skill">Authoring system</span>
+            <h3>How docs get written</h3>
+            <ul class="reflect-list">
+              <li>Made every image click-to-zoom, so screenshots are actually readable.</li>
+              <li>Fixed interactive product demos so they embed cleanly at the right size.</li>
+              <li>Section index cards now generate from the pages themselves, instead of being built by hand.</li>
+              <li>Moved docs and images next to the code, so a page is written and previewed in one place.</li>
+            </ul>
+          </div>
+          <div class="outcome-media outcome-media-photo" style="aspect-ratio: 16 / 9;">
+            <img src="../assets/img/docs-authoring.png" alt="A documentation page showing click-to-zoom images and an embedded interactive demo" loading="lazy" style="object-fit: cover;" />
+          </div>
+        </div>
+
+        <div class="outcome-card is-plain wide reveal">
+          <div class="outcome-body">
+            <span class="cat-counter" aria-hidden="true">3/3</span>
+            <span class="outcome-skill">Doc-writing agent</span>
+            <h3>Doxy, so docs stay current</h3>
+            <ul class="reflect-list">
+              <li>Doxy reads the product code and drafts docs from what the code actually does.</li>
+              <li>It shows a plan first, then a local preview next to the live site, and only opens a PR when I approve.</li>
+              <li>It cannot make things up. Every label, permission, and setting has to be found in the code.</li>
+              <li>Covers both products, Facets and Praxis, and can write a matching changelog entry for a shipped change.</li>
+              <li><strong>On its first real run it caught a documented step that no longer existed.</strong> It has since written two live features end to end, Incident Responder and Secrets and Variables, both merged.</li>
+            </ul>
+            <div class="metric-bracket">
+              <span class="metric-bracket-label">Speed and effort</span>
+              <div class="metric-row">
+                <span class="metric-label">Time from feature to docs live</span>
+                <span class="metric-delta"><span class="mv-before">~2 wks</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">same day</span></span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">Author time per page</span>
+                <span class="metric-delta"><span class="mv-before">~4 hrs</span><svg class="metric-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="mv-after">~20 min</span></span>
+              </div>
+            </div>
+          </div>
+          <div class="outcome-media ba-frame-diagram" style="aspect-ratio: 16 / 9;">
+            <pre class="mermaid">flowchart LR
+    S0["Confirm the product&lt;br/&gt;Facets / Praxis / Both"] --&gt; S1["Clone repos&lt;br/&gt;into /tmp&lt;br/&gt;(disposable)"]
+    S1 --&gt; S2["Read the code&lt;br/&gt;grounded summary"]
+    S2 --&gt; S3["Plan the pages&lt;br/&gt;diff vs live docs"]
+    S3 --&gt; G1{"GATE 1&lt;br/&gt;Approve plan"}
+    G1 --&gt;|changes| S3
+    G1 --&gt;|approved| S4["Write the MDX&lt;br/&gt;grounded in code"]
+    S4 --&gt; SF["Security filter"]
+    SF --&gt; S5["Build + preview&lt;br/&gt;vs live production"]
+    S5 --&gt; G2{"GATE 2&lt;br/&gt;Raise PR?"}
+    G2 --&gt;|change| S4
+    G2 --&gt;|stop| DISCARD(["Discard"])
+    G2 --&gt;|raise pr| S6["Open the PR"]</pre>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ IMPACT ============ -->
+  <section class="cs-section">
+    <div class="wrap">
+      <span class="eyebrow reveal">Impact</span>
+      <h2 class="reveal">Impact</h2>
+
+      <div class="glance-stats reveal">
+        <div class="glance-stat">
+          <div class="stat-num">~80 hrs</div>
+          <div class="stat-title">Saved every month</div>
+          <div class="stat-sub">Onboarding calls, meetings, and writing docs by hand.</div>
+        </div>
+        <div class="glance-stat">
+          <div class="stat-num">Zero drift</div>
+          <div class="stat-title">Docs match the live product</div>
+          <div class="stat-sub">Written from the code, not from memory.</div>
+        </div>
+        <div class="glance-stat">
+          <div class="stat-num">Same day</div>
+          <div class="stat-title">From feature to docs</div>
+          <div class="stat-sub">Down from about two weeks.</div>
+        </div>
+      </div>
+
+      <ul class="skim-list reveal" style="margin-top: 40px;">
+        <li>About 80 hours a month back to the team, from fewer onboarding calls, meetings, and hand-written docs.</li>
+        <li>Fewer support tickets, because people can trust the docs and answer their own questions.</li>
+        <li>Less early-trial churn from onboarding confusion, where self-serve has to prove itself.</li>
+        <li>Docs now ship the same day a feature does, written from the code with zero drift.</li>
+        <li>Doxy shipped as a team plugin and wrote two live features end to end, catching a documented step that no longer existed.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ REFLECTION ============ -->
+  <section class="cs-section section-tight">
+    <div class="wrap">
+      <span class="eyebrow reveal">Reflection</span>
+      <h2 class="reveal">What I'd take forward</h2>
+
+      <div class="reflect-block reveal">
+        <h4>Worked well</h4>
+        <ul class="reflect-list">
+          <li>Fixing how docs read and how they get written at the same time. A nicer site that is still painful to update would have drifted again.</li>
+          <li>Grounding the agent in the code. That is the difference between docs you can trust and an agent that makes things up.</li>
+        </ul>
+      </div>
+
+      <div class="reflect-block reveal">
+        <h4>Would do differently</h4>
+        <ul class="reflect-list">
+          <li>Build the agent earlier. I hand-wrote pages that Doxy could have drafted, then reworked them once it existed.</li>
+        </ul>
+      </div>
+
+      <div class="reflect-block reveal">
+        <h4>The lesson</h4>
+        <ul class="reflect-list">
+          <li>The hard part was not writing the docs. It was realizing that no one could ever write them fast enough by hand. Once I saw that, the fix was clear: let the code write the docs, instead of a person.</li>
+          <li>That first question, whether a project is the same as an environment, is exactly what this fixes. The docs now update themselves whenever the product changes, so the answer on the page stays current.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span class="footer-note">&copy; 2026 Rohit Kumar</span>
+      <div class="footer-links">
+        <a href="../index.html">Back to work</a>
+        <a href="mailto:you@email.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ MODALS (progressive disclosure) ============ -->
+
+  <div class="cs-modal" id="modal-context" aria-hidden="true">
+    <div class="cs-modal-panel modal-lg" role="dialog" aria-modal="true" aria-labelledby="modal-context-title">
+      <div class="cs-modal-head">
+        <div>
+          <span class="cs-modal-eyebrow">Context</span>
+          <h3 class="cs-modal-title" id="modal-context-title">Why the docs mattered</h3>
+        </div>
+        <button class="cs-modal-close" type="button" data-modal-close aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="cs-modal-body">
+        <p>Facets asks people to work in a new way. Instead of filing a ticket and waiting, <strong>they describe what they need and the platform builds it.</strong> That is a big change, and it raises fair questions at every step:</p>
+        <ul class="reflect-list">
+          <li>Is a project the same as an environment?</li>
+          <li>Why is my release waiting instead of running?</li>
+          <li>Can I trust the AI debugger, or should I check it myself?</li>
+        </ul>
+        <p>We could only answer those on a call, <strong>one or two people per account.</strong> We taught whoever joined first and hoped they passed it on. That never worked: the next engineer hit the same wall, with no call booked for them.</p>
+        <p>The docs were meant to answer these instead. But they were <strong>always behind the product</strong>, so people landed on a page that no longer matched their screen, and <strong>stopped trusting the docs at all.</strong></p>
+        <p>So they came back to us: <strong>almost every customer, not just one.</strong> The same questions, call after call. It cost the team real time, and it hurt most during <span class="hl">trials</span>, where a customer has to prove they can run Facets before time runs out.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cs-modal" id="modal-research" aria-hidden="true">
+    <div class="cs-modal-panel modal-lg" role="dialog" aria-modal="true" aria-labelledby="modal-research-title">
+      <div class="cs-modal-head">
+        <div>
+          <span class="cs-modal-eyebrow">Research</span>
+          <h3 class="cs-modal-title" id="modal-research-title">How I found the problem</h3>
+        </div>
+        <button class="cs-modal-close" type="button" data-modal-close aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="cs-modal-body">
+        <h4>Checked every docs page against the live product</h4>
+        <p>I went page by page and compared each one to what the product actually did, and sat with the engineers and PMs who own each area to learn <strong>which topics drift the most</strong>. Whole sections were out of date, screenshots showed old screens, and <strong>Praxis had almost no docs</strong> even though it shipped the fastest.</p>
+        <h4>Traced how a doc actually gets written</h4>
+        <p>Writing a page meant leaving the codebase, editing in a hosted tool, and hosting images somewhere else again. Every step added friction, and friction is why updates kept slipping. <strong>The bottleneck was the workflow, not the writers.</strong></p>
+        <h4>Asked who writes docs, and who reads them</h4>
+        <p>Engineers had the knowledge but treated docs as an afterthought, because it sat outside their flow. Readers had learned not to trust the docs, so they asked in Slack instead. Both point at the same fix: <strong>make docs cheap to keep current.</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cs-modal" id="modal-problem" aria-hidden="true">
+    <div class="cs-modal-panel modal-lg" role="dialog" aria-modal="true" aria-labelledby="modal-problem-title">
+      <div class="cs-modal-head">
+        <div>
+          <span class="cs-modal-eyebrow">Problem</span>
+          <h3 class="cs-modal-title" id="modal-problem-title">The four structural problems</h3>
+        </div>
+        <button class="cs-modal-close" type="button" data-modal-close aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="cs-modal-body">
+        <h4>1. Docs drifted out of date faster than anyone could fix</h4>
+        <p>The product shipped every week and the docs did not. Pages described screens that no longer existed, and a reader could not tell which pages were current. <strong>Once someone gets burned by one wrong page, they stop trusting all of them</strong> and go back to asking a person.</p>
+        <h4>2. Writing a doc was too much work</h4>
+        <p>Docs lived away from the code, images lived somewhere else again, and there was no fast way to preview a change before publishing. <strong>The cost of every small update was high, so small updates never happened.</strong></p>
+        <h4>3. The reading experience was dated</h4>
+        <p>Navigation was flat and hard to scan, search was weak, and images were tiny with no way to zoom. Interactive product demos broke their own sizing. <strong>Finding an answer took longer than it should.</strong></p>
+        <h4>4. The newest, most-asked-about product was barely covered</h4>
+        <p>Praxis, the AI layer, was <strong>what customers asked about most</strong>, and it had almost no docs. It was also the hardest to keep current by hand, because it changed the fastest.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cs-modal" id="modal-ia" aria-hidden="true">
+    <div class="cs-modal-panel modal-xl" role="dialog" aria-modal="true" aria-labelledby="modal-ia-title">
+      <div class="cs-modal-head">
+        <div>
+          <span class="cs-modal-eyebrow">Information architecture</span>
+          <h3 class="cs-modal-title" id="modal-ia-title">The IA decision in depth</h3>
+        </div>
+        <button class="cs-modal-close" type="button" data-modal-close aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="cs-modal-body">
+        <h4>Three problems with the old structure, all structural, not cosmetic</h4>
+        <ul class="reflect-list">
+          <li><strong>No journey.</strong> A brand-new trial engineer and a two-year admin saw the exact same flat list. Nothing told either one where to begin or what came next.</li>
+          <li><strong>Named for the product, not the person.</strong> "Environments", "RBAC", "Modules" are how we talk internally. A customer arrives thinking "how do I set this up", "how do I get my app in", "how do I control who can touch production". The labels did not match that language.</li>
+          <li><strong>The same page lived in several places.</strong> Copies drifted, so two pages that should have said the same thing said different things, and the reader could not tell which was right.</li>
+        </ul>
+
+        <h4>The options I weighed</h4>
+        <div class="cs-table-wrap">
+          <table class="cs-table">
+            <colgroup>
+              <col style="width: 40px;">
+              <col style="width: 210px;">
+              <col>
+            </colgroup>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Group by</th>
+                <th>Why not / why</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="cs-table-num">A</td>
+                <td class="cs-table-target">The product's internal modules</td>
+                <td>This is the structure we already had. It is the org chart, not the user's head. Rejected.</td>
+              </tr>
+              <tr>
+                <td class="cs-table-num">B</td>
+                <td class="cs-table-target">The codebase layout on disk</td>
+                <td>Convenient for us, meaningless to a reader. It optimizes for the writer, not the user. Rejected.</td>
+              </tr>
+              <tr>
+                <td class="cs-table-num">C</td>
+                <td class="cs-table-target">The user's job, in adoption order</td>
+                <td>Matches how a team actually moves through the platform: learn it, set it up, bring an app, ship, operate, govern. Chosen.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4>The evidence that pointed at structure, not content</h4>
+        <ul class="reflect-list">
+          <li><strong>The page-by-page audit</strong> showed good content was unfindable because it was filed under a product noun a reader would never think to click.</li>
+          <li><strong>The onboarding calls</strong> were a live card sort: the recurring "is a project the same as an environment" is a findability failure, not a content one.</li>
+          <li><strong>Support and Slack threads</strong> showed people asking for answers that already existed on a page they never found.</li>
+        </ul>
+
+        <h4>Three sentences that framed every decision</h4>
+        <ul class="reflect-list">
+          <li>Users struggled to <strong>figure out where to start and what to do next</strong>.</li>
+          <li>The old structure made that harder because it was <strong>a flat list named after the product's internal parts, with no order and duplicated pages</strong>.</li>
+          <li>The new IA fixed it by <strong>grouping every page under the job a user is doing, in the sequence they do it, and speaking the user's language in the labels</strong>.</li>
+        </ul>
+
+        <h4>Every section answers a real question</h4>
+        <p>The six journey sections are not alphabetical, and they are not our internal module list. Each one is named for a question a user walks in with, so the sidebar reads like their own to-do list, not our glossary.</p>
+        <div class="csd">
+          <pre class="mermaid">graph LR
+    Q1["I'm new,&lt;br/&gt;what is this and&lt;br/&gt;how do I begin?"] --&gt; S1["Get started"]
+    Q2["How do I set up&lt;br/&gt;my platform and&lt;br/&gt;its building blocks?"] --&gt; S2["Setup Platform"]
+    Q3["How do I bring&lt;br/&gt;my own app&lt;br/&gt;into Facets?"] --&gt; S3["Onboard Apps"]
+    Q4["How do I ship a&lt;br/&gt;release without&lt;br/&gt;breaking prod?"] --&gt; S4["Manage Releases"]
+    Q5["How do I run and&lt;br/&gt;debug what's&lt;br/&gt;already live?"] --&gt; S5["Operate Environments"]
+    Q6["How do I control&lt;br/&gt;who can do&lt;br/&gt;what?"] --&gt; S6["Govern Access"]</pre>
+          <p class="csd-cap"><strong>Labels in the user's words.</strong> The sidebar reads like the reader's own to-do list, not our internal glossary.</p>
+        </div>
+
+        <h4>Why Praxis and Reference are split out</h4>
+        <ul class="reflect-list">
+          <li><strong>Praxis (Agents)</strong> is the growth bet and the fastest-moving product. It needed its own home so it stops competing with the everyday guides for attention, and has room to grow without pushing the journey down the page.</li>
+          <li><strong>Reference (CLI, API, Web Components, Integrations, Support, Changelog)</strong> is a different intent entirely. You do not read reference, you look something up. Separating lookup from learning keeps the daily journey clean and short.</li>
+        </ul>
+
+        <h4>One content store, many sections</h4>
+        <p>The sidebar sections are thin wrappers. Each points at shared <code>.mdx</code> files by relative path, so a page like Environment can appear under both Setup Platform and Operate Environments with no second copy to keep in sync. Where a page lives on disk is a separate layer from where it shows in the sidebar. This is what stops 200+ pages from turning back into duplicates.</p>
+        <div class="csd">
+          <pre class="mermaid">graph TD
+    subgraph NAV["Sidebar sections · what users see · meta.json"]
+        direction LR
+        N1["Setup Platform"]
+        N2["Operate Environments"]
+        N3["Govern Access"]
+    end
+
+    subgraph STORE["One content warehouse · features-and-guides/ · where files live"]
+        direction LR
+        C1["environment.mdx"]
+        C2["resource-center.mdx"]
+        C3["rbac/"]
+        C4["secrets/"]
+    end
+
+    N1 --&gt; C4
+    N1 --&gt; C1
+    N2 --&gt; C1
+    N2 --&gt; C2
+    N3 --&gt; C3</pre>
+          <p class="csd-cap"><strong>Two layers.</strong> Where a page lives on disk is separate from where it shows in the sidebar, so one file serves many sections and nothing gets copied.</p>
+        </div>
+
+        <h4>How the navigation is actually built</h4>
+        <ul class="reflect-list">
+          <li><strong>Two-layer model.</strong> Sidebar order lives in small <code>meta.json</code> files; the pages live in a content warehouse. Change the order without touching content, reuse a page without copying it.</li>
+          <li><strong>Verb labels over stable slugs.</strong> The reader sees "Setup Platform" while the page still lives at <code>/docs/configuration</code>, so I could reframe every label without breaking a single link.</li>
+          <li><strong>Separators and icons.</strong> Grouping headers (PRAXIS, REFERENCE) and a per-section icon make a long sidebar scannable at a glance.</li>
+          <li><strong>The silent nav trap.</strong> A section can list its pages one by one, or point at a nested folder as a single entry. Get it wrong and the page still builds but never shows in the sidebar. This exact bug bit real content during the restructure, so the rule is now written down and checked on every change, which is also why the docs agent handles it safely.</li>
+          <li><strong>Isolated from marketing.</strong> Docs run their own layout, sidebar, search, and theme, so a docs change can never break the marketing site, and the other way around.</li>
+          <li><strong>Nothing broke on the move.</strong> 178 old readme.com URLs redirect to their new homes, so inbound links from Google and bookmarks still land.</li>
+        </ul>
+
+        <h4>What the restructure changed for the reader</h4>
+        <p>The point of all of it was one number: can a reader find their answer. Task success finding an answer went from <strong>64% to 90%</strong>, and the new structure is what made the automated writer possible, because there is now exactly one place each fact lives.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cs-modal" id="modal-doxy" aria-hidden="true">
+    <div class="cs-modal-panel modal-xl" role="dialog" aria-modal="true" aria-labelledby="modal-doxy-title">
+      <div class="cs-modal-head">
+        <div>
+          <span class="cs-modal-eyebrow">How the agent works</span>
+          <h3 class="cs-modal-title" id="modal-doxy-title">Doxy, in depth</h3>
+        </div>
+        <button class="cs-modal-close" type="button" data-modal-close aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="cs-modal-body">
+        <h4>Why seven subagents instead of one prompt</h4>
+        <p>One orchestrator handles intent, cloning, the plan gate, and the preview gate. The code-reading layer stays split by product on purpose: Facets and Praxis live in different repos, in different languages, with different security rules. A single mega-prompt would either bloat every run with irrelevant branches or blur the real distinctions.</p>
+        <div class="csd">
+          <pre class="mermaid">graph TD
+    E["/doxy"] --&gt; U["Orchestrator&lt;br/&gt;intent → clone → plan gate → preview gate"]
+    U --&gt; R0{"Which product?"}
+    R0 --&gt;|Facets| FR["facets-reader"]
+    R0 --&gt;|Praxis| PR["praxis-reader"]
+    R0 --&gt;|Both| FR
+    R0 --&gt;|Both| PR
+
+    FR --&gt; FP["facets-planner"] --&gt; FW["facets-writer"]
+    PR --&gt; PP["praxis-planner"] --&gt; PW["praxis-writer"]
+
+    FW --&gt; CW["changelog-writer&lt;br/&gt;(shared, optional)"]
+    PW --&gt; CW
+
+    FR -. clones .-&gt; SRCF[("control-plane,&lt;br/&gt;control-plane-ui-react,&lt;br/&gt;iac / modules / raptor")]
+    PR -. clones .-&gt; SRCP[("agent-factory")]
+    FW --&gt; DOCS[("facets-website-monorepo&lt;br/&gt;disposable clone")]
+    PW --&gt; DOCS
+    CW --&gt; DOCS
+    DOCS --&gt; PREVIEW{"local preview vs. live"} --&gt;|raise pr| GH(("GitHub PR"))</pre>
+          <p class="csd-cap"><strong>One orchestrator, product-specific readers.</strong> Seven subagents in total, plus a shared changelog writer.</p>
+        </div>
+
+        <h4>The design decisions behind it</h4>
+        <ul class="reflect-list">
+          <li><strong>Generate from code,</strong> not from PRs or a human template. The code is the only source that cannot lie about what shipped. This is what kills drift, and it is how the agent caught a documented step that no longer existed.</li>
+          <li><strong>Plan, then write, with a human gate.</strong> Nothing is written until the per-page plan is shown and approved.</li>
+          <li><strong>Preview versus live, then PR.</strong> Nothing is pushed until the local preview is compared against the live page and I say "raise pr."</li>
+          <li><strong>Disposable clones only.</strong> Every run clones fresh into a temp folder and is discarded. Nothing touches a real working tree until an explicit PR.</li>
+          <li><strong>Always ask, never infer.</strong> The product (Facets, Praxis, or Both) is always confirmed, never guessed from a keyword.</li>
+          <li><strong>Security filter before any write.</strong> Readers redact credentials, internal URLs, internal DB and collection names, and internal identifiers. The rule is "describe the capability without the sensitive detail," not omit the capability.</li>
+        </ul>
+
+        <h4>How it got here</h4>
+        <ul class="reflect-list">
+          <li>Started as two skills, one per product. The orchestration was duplicated almost byte for byte, so I merged it into one <code>/doxy</code> and kept only the code-reading layer split.</li>
+          <li>Added the grounded-in-code rule and the security filter after the writer could over-claim or risk leaking internals.</li>
+          <li>Added the local-preview-versus-live gate, because direct publish was too risky.</li>
+          <li>Encoded the silent-nav-trap detection after it bit real content during the restructure.</li>
+          <li>Shipped as a team plugin, with two live features written end to end and merged.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/js/main.js"></script>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+    const isLight = () => document.documentElement.getAttribute('data-theme') === 'light';
+
+    // Cache each diagram's original source so we can re-render on theme change.
+    const sources = new Map();
+    document.querySelectorAll('pre.mermaid').forEach((el, i) => {
+      el.dataset.mmid = 'mm' + i;
+      sources.set(el.dataset.mmid, el.textContent);
+    });
+
+    const darkVars = {
+      primaryColor: '#1b2130', primaryBorderColor: '#7ee0c3', primaryTextColor: '#e8ecf1',
+      lineColor: '#7ee0c3', textColor: '#c9d2dd', clusterBkg: '#12161f', clusterBorder: '#2b3342',
+      edgeLabelBackground: '#12161f'
+    };
+    const lightVars = {
+      primaryColor: '#ffffff', primaryBorderColor: '#0f8f6c', primaryTextColor: '#14151a',
+      lineColor: '#0f8f6c', textColor: '#2a2d33', clusterBkg: '#eef2ee', clusterBorder: '#cfd8cf',
+      edgeLabelBackground: '#eef2ee'
+    };
+
+    const initMermaid = () => mermaid.initialize({
+      startOnLoad: false,
+      theme: 'base',
+      themeVariables: { fontSize: '12px', ...(isLight() ? lightVars : darkVars) },
+      securityLevel: 'loose',
+      fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
+      flowchart: { htmlLabels: true, curve: 'basis', useMaxWidth: true, nodeSpacing: 30, rankSpacing: 36, padding: 6 }
+    });
+
+    // --- Click-to-zoom: open any diagram full screen with pan + zoom ---
+    let zoomOverlay = null;
+    let zoomState = null;
+
+    const ensureOverlay = () => {
+      if (zoomOverlay) return zoomOverlay;
+      zoomOverlay = document.createElement('div');
+      zoomOverlay.className = 'dgm-zoom';
+      zoomOverlay.innerHTML =
+        '<div class="dgm-zoom-hint">Scroll or use \u00b1 to zoom \u00b7 drag to move \u00b7 click to zoom in</div>' +
+        '<button class="dgm-zoom-close" type="button" aria-label="Close enlarged diagram">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>' +
+        '</button>' +
+        '<div class="dgm-zoom-tools">' +
+        '<button type="button" data-z="out" aria-label="Zoom out">\u2212</button>' +
+        '<button type="button" data-z="reset" aria-label="Reset zoom">Reset</button>' +
+        '<button type="button" data-z="in" aria-label="Zoom in">+</button>' +
+        '</div>' +
+        '<div class="dgm-zoom-viewport"><div class="dgm-zoom-stage"></div></div>';
+      document.body.appendChild(zoomOverlay);
+
+      const viewport = zoomOverlay.querySelector('.dgm-zoom-viewport');
+      const stage = zoomOverlay.querySelector('.dgm-zoom-stage');
+      zoomState = { scale: 1, tx: 0, ty: 0, dragging: false, moved: false, sx: 0, sy: 0 };
+
+      const apply = () => {
+        stage.style.transform =
+          'translate(-50%, -50%) translate(' + zoomState.tx + 'px,' + zoomState.ty + 'px) scale(' + zoomState.scale + ')';
+      };
+      const clamp = (s) => Math.min(7, Math.max(0.4, s));
+      const resetView = () => { zoomState.scale = 1; zoomState.tx = 0; zoomState.ty = 0; apply(); };
+
+      const zoomAt = (factor, cx, cy) => {
+        const rect = viewport.getBoundingClientRect();
+        const ox = cx - rect.left - rect.width / 2 - zoomState.tx;
+        const oy = cy - rect.top - rect.height / 2 - zoomState.ty;
+        const next = clamp(zoomState.scale * factor);
+        const ratio = next / zoomState.scale;
+        zoomState.tx -= ox * (ratio - 1);
+        zoomState.ty -= oy * (ratio - 1);
+        zoomState.scale = next;
+        apply();
+      };
+
+      viewport.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        zoomAt(e.deltaY < 0 ? 1.12 : 0.89, e.clientX, e.clientY);
+      }, { passive: false });
+
+      viewport.addEventListener('pointerdown', (e) => {
+        zoomState.dragging = true;
+        zoomState.moved = false;
+        zoomState.sx = e.clientX - zoomState.tx;
+        zoomState.sy = e.clientY - zoomState.ty;
+        viewport.setPointerCapture(e.pointerId);
+        viewport.classList.add('is-grabbing');
+      });
+      viewport.addEventListener('pointermove', (e) => {
+        if (!zoomState.dragging) return;
+        const nx = e.clientX - zoomState.sx;
+        const ny = e.clientY - zoomState.sy;
+        if (Math.abs(nx - zoomState.tx) > 2 || Math.abs(ny - zoomState.ty) > 2) zoomState.moved = true;
+        zoomState.tx = nx;
+        zoomState.ty = ny;
+        apply();
+      });
+      const endDrag = () => {
+        zoomState.dragging = false;
+        viewport.classList.remove('is-grabbing');
+      };
+      viewport.addEventListener('pointerup', endDrag);
+      viewport.addEventListener('pointercancel', endDrag);
+
+      viewport.addEventListener('click', (e) => {
+        if (zoomState.moved) return;
+        if (zoomState.scale > 1.05) resetView();
+        else zoomAt(2, e.clientX, e.clientY);
+      });
+
+      const centerZoom = (factor) => {
+        const r = viewport.getBoundingClientRect();
+        zoomAt(factor, r.left + r.width / 2, r.top + r.height / 2);
+      };
+      zoomOverlay.querySelector('[data-z="in"]').addEventListener('click', (e) => { e.stopPropagation(); centerZoom(1.3); });
+      zoomOverlay.querySelector('[data-z="out"]').addEventListener('click', (e) => { e.stopPropagation(); centerZoom(0.77); });
+      zoomOverlay.querySelector('[data-z="reset"]').addEventListener('click', (e) => { e.stopPropagation(); resetView(); });
+
+      const close = () => {
+        zoomOverlay.classList.remove('is-open');
+        stage.innerHTML = '';
+        if (!document.querySelector('.cs-modal.is-open')) document.body.classList.remove('modal-open');
+      };
+      zoomOverlay.querySelector('.dgm-zoom-close').addEventListener('click', (e) => { e.stopPropagation(); close(); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && zoomOverlay.classList.contains('is-open')) {
+          e.stopPropagation();
+          close();
+        }
+      }, true);
+
+      zoomOverlay._reset = resetView;
+      return zoomOverlay;
+    };
+
+    const openZoom = (svg) => {
+      const overlay = ensureOverlay();
+      const stage = overlay.querySelector('.dgm-zoom-stage');
+      stage.innerHTML = '';
+      const clone = svg.cloneNode(true);
+      clone.removeAttribute('style');
+      stage.appendChild(clone);
+      overlay._reset();
+      overlay.classList.add('is-open');
+      document.body.classList.add('modal-open');
+    };
+
+    const attachZoom = () => {
+      document.querySelectorAll('.csd pre.mermaid[data-processed="true"], .ba-frame-diagram pre.mermaid[data-processed="true"]').forEach((pre) => {
+        if (pre.dataset.zoomReady || !pre.querySelector('svg')) return;
+        pre.dataset.zoomReady = '1';
+        pre.classList.add('is-zoomable');
+        pre.addEventListener('click', () => {
+          const live = pre.querySelector('svg');
+          if (live) openZoom(live);
+        });
+      });
+    };
+
+    // Render the diagrams that are currently visible (skip those inside a closed modal).
+    const renderVisible = () => {
+      const nodes = Array.from(document.querySelectorAll('pre.mermaid')).filter((n) => {
+        const modal = n.closest('.cs-modal');
+        return (!modal || modal.classList.contains('is-open')) && !n.getAttribute('data-processed');
+      });
+      if (nodes.length) mermaid.run({ nodes }).then(attachZoom);
+      else attachZoom();
+    };
+
+    initMermaid();
+    renderVisible();
+
+    // Modal diagrams need a visible container to size correctly, so render on first open.
+    document.querySelectorAll('[data-modal-open]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const modal = document.getElementById(btn.getAttribute('data-modal-open'));
+        if (modal) requestAnimationFrame(renderVisible);
+      });
+    });
+
+    // On theme toggle: restore each diagram's source, re-init with the new palette, re-render.
+    new MutationObserver(() => {
+      document.querySelectorAll('pre.mermaid').forEach((el) => {
+        el.removeAttribute('data-processed');
+        el.textContent = sources.get(el.dataset.mmid);
+      });
+      initMermaid();
+      renderVisible();
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  </script>
+</body>
+</html>

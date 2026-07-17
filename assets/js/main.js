@@ -264,6 +264,60 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ---------------------------------------------
+  // Detail modals ("Go in depth")
+  // ---------------------------------------------
+  const modalTriggers = document.querySelectorAll('[data-modal]');
+
+  if (modalTriggers.length) {
+    let lastFocused = null;
+
+    const openModal = (modal, trigger) => {
+      lastFocused = trigger || null;
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+      const closer = modal.querySelector('.cs-modal-close');
+      if (closer) closer.focus();
+      // Render any Mermaid diagrams now that the modal is on screen. Rendering
+      // while the modal is display:none breaks text measurement.
+      if (typeof window.renderCaseDiagrams === 'function') window.renderCaseDiagrams();
+    };
+
+    const closeModal = (modal) => {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      if (!document.querySelector('.cs-modal.is-open')) {
+        document.body.classList.remove('modal-open');
+      }
+      if (lastFocused) {
+        lastFocused.focus();
+        lastFocused = null;
+      }
+    };
+
+    modalTriggers.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const modal = document.getElementById('modal-' + trigger.dataset.modal);
+        if (modal) openModal(modal, trigger);
+      });
+    });
+
+    document.querySelectorAll('[data-modal-close]').forEach((el) => {
+      el.addEventListener('click', () => {
+        const modal = el.closest('.cs-modal');
+        if (modal) closeModal(modal);
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const open = document.querySelector('.cs-modal.is-open');
+        if (open) closeModal(open);
+      }
+    });
+  }
+
+  // ---------------------------------------------
   // Scroll reveal
   // ---------------------------------------------
   const revealEls = document.querySelectorAll('.reveal');
@@ -282,6 +336,50 @@ document.addEventListener('DOMContentLoaded', () => {
     revealEls.forEach((el) => observer.observe(el));
   } else {
     revealEls.forEach((el) => el.classList.add('is-visible'));
+  }
+
+  // ---------------------------------------------
+  // "Go in depth" modals: skimmable page, detail on demand
+  // ---------------------------------------------
+  const modalOpeners = document.querySelectorAll('[data-modal-open]');
+  if (modalOpeners.length) {
+    let lastFocused = null;
+
+    const closeModal = (modal) => {
+      if (!modal) return;
+      modal.classList.remove('is-open');
+      document.body.classList.remove('modal-open');
+      if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+      lastFocused = null;
+    };
+
+    const openModal = (modal, trigger) => {
+      if (!modal) return;
+      lastFocused = trigger || null;
+      modal.classList.add('is-open');
+      document.body.classList.add('modal-open');
+      modal.scrollTop = 0;
+      const closeBtn = modal.querySelector('[data-modal-close]');
+      if (closeBtn) closeBtn.focus();
+    };
+
+    modalOpeners.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        openModal(document.getElementById(btn.getAttribute('data-modal-open')), btn);
+      });
+    });
+
+    document.querySelectorAll('.cs-modal').forEach((modal) => {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal || e.target.closest('[data-modal-close]')) closeModal(modal);
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      const open = document.querySelector('.cs-modal.is-open');
+      if (open) closeModal(open);
+    });
   }
 
   // ---------------------------------------------
