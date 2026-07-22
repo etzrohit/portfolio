@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Facets Control-Plane Revamp · Rohit Kumar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Manrope:wght@500;600;700;800&family=Lora:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#0b0c0e; --bg-elev:#141518; --bg-card:#17181c;
+  --border:rgba(255,255,255,.09); --border-strong:rgba(255,255,255,.18);
+  --text:#f3f4f2; --text-2:rgba(243,244,242,.68); --text-3:rgba(243,244,242,.42);
+  --accent:#7b83ff; --accent-2:#a2a8ff;
+  --good:#5fe0b0; --warn:#f0b962; --bad:#f08a7e;
+  --font-display:'Manrope','Inter',sans-serif; --font-body:'Inter',sans-serif; --font-serif:'Lora',Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);overflow:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+
+.deck{position:fixed;inset:0}
+.slide{position:absolute;inset:0;display:none;padding:5vh 5.5vw 8vh;flex-direction:column;justify-content:center;animation:fade .35s ease}
+.slide.active{display:flex}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.slide-inner{width:100%;max-width:1200px;margin:0 auto;position:relative;z-index:1}
+.slide::before{content:"";position:absolute;top:-20%;right:-10%;width:60vw;height:60vw;background:radial-gradient(circle,rgba(123,131,255,.13),transparent 62%);pointer-events:none;z-index:0}
+
+.eyebrow{font-family:var(--font-display);font-weight:700;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-2);margin-bottom:1rem;display:inline-flex;gap:.6rem;align-items:center}
+.eyebrow .num{color:var(--text-3);font-variant-numeric:tabular-nums}
+h1{font-family:var(--font-display);font-weight:800;letter-spacing:-.02em;line-height:1.06;font-size:clamp(2.1rem,4.8vw,4rem)}
+h2{font-family:var(--font-display);font-weight:800;letter-spacing:-.015em;line-height:1.12;font-size:clamp(1.6rem,3.2vw,2.6rem)}
+.sub{font-size:clamp(1rem,1.5vw,1.25rem);color:var(--text-2);margin-top:.7rem}
+.hl{color:var(--accent-2)}
+
+.title-meta{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2.2rem}
+.chip{font-size:.85rem;font-weight:600;color:var(--text-2);border:1px solid var(--border-strong);border-radius:999px;padding:.42rem .95rem;background:rgba(255,255,255,.02)}
+.byline{margin-top:2.4rem;display:flex;align-items:center;gap:.9rem;color:var(--text-2);font-size:1rem}
+.byline b{color:var(--text);font-weight:700}
+.byline .dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
+
+ul.clean{list-style:none;display:flex;flex-direction:column;gap:.85rem;margin-top:1.4rem}
+ul.clean li{position:relative;padding-left:1.7rem;color:var(--text-2);font-size:clamp(1rem,1.35vw,1.18rem);line-height:1.45}
+ul.clean li::before{content:"";position:absolute;left:0;top:.5em;width:.62rem;height:.62rem;border-radius:3px;background:var(--accent);transform:rotate(45deg)}
+ul.clean li b{color:var(--text);font-weight:700}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;align-items:center}
+.two.wide-left{grid-template-columns:1.05fr .95fr}
+.two.wide-right{grid-template-columns:1fr 1fr}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.8rem}
+.stat{border:1px solid var(--border);background:var(--bg-card);border-radius:16px;padding:1.35rem}
+.stat .big{font-family:var(--font-display);font-weight:800;font-size:clamp(1.7rem,3vw,2.5rem);letter-spacing:-.02em;line-height:1}
+.stat .big .unit{font-size:.5em;color:var(--text-2);font-weight:700}
+.stat .lbl{margin-top:.55rem;color:var(--text-2);font-size:.9rem;line-height:1.4}
+.stat.accent .big{color:var(--accent-2)}
+
+.frame{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#101114;box-shadow:0 22px 55px rgba(0,0,0,.4);aspect-ratio:16/9}
+.frame img{width:100%;height:100%;object-fit:contain;background:#101114}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.2rem}
+.ba figure{margin:0}
+.ba figcaption{margin-top:.55rem;display:flex;align-items:center;gap:.55rem;font-size:.82rem;color:var(--text-2)}
+.tag{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.2rem .55rem;border-radius:6px}
+.tag.before{background:rgba(240,138,126,.14);color:var(--bad);border:1px solid rgba(240,138,126,.3)}
+.tag.after{background:rgba(95,224,176,.14);color:var(--good);border:1px solid rgba(95,224,176,.3)}
+
+/* problem root-cause shots */
+.two.prob{grid-template-columns:1.4fr .6fr}
+.probshots{display:flex;flex-direction:column;gap:.8rem}
+.probshots .frame{aspect-ratio:4/3}
+.probshots .frame img{object-fit:cover;object-position:left center}
+.shotcap{font-size:.82rem;color:var(--text-2);text-align:center;margin-top:.05rem}
+.shotcap b{color:var(--text)}
+
+/* evidence groups */
+.evg{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:1.5rem}
+.evcard{border:1px solid var(--border);background:var(--bg-card);border-radius:16px;padding:1.3rem 1.4rem}
+.evcard h4{font-family:var(--font-display);font-size:1.02rem;color:var(--accent-2);margin-bottom:.9rem}
+.evcard ul{list-style:none;display:flex;flex-direction:column;gap:.7rem}
+.evcard li{position:relative;padding-left:1.4rem;color:var(--text-2);font-size:clamp(.95rem,1.2vw,1.08rem);line-height:1.4}
+.evcard li::before{content:"";position:absolute;left:0;top:.5em;width:.52rem;height:.52rem;border-radius:2px;background:var(--accent);transform:rotate(45deg)}
+.evcard li b{color:var(--text);font-weight:600}
+
+/* decisions */
+.decisions{display:flex;flex-direction:column;gap:1.1rem;margin-top:1.5rem}
+.dec{display:flex;gap:1rem;align-items:flex-start;border:1px solid var(--border);background:var(--bg-card);border-radius:14px;padding:1.2rem 1.35rem}
+.dec .dn{font-family:var(--font-display);font-weight:800;color:var(--accent-2);font-size:1.1rem;min-width:1.6rem}
+.dec .dt{color:var(--text-2);font-size:clamp(1rem,1.35vw,1.16rem);line-height:1.5}
+.dec .dt b{color:var(--text);font-weight:700}
+.dec .dt .chosen{color:var(--good);font-weight:700}
+.dec .dt .rej{color:var(--bad);font-weight:600}
+
+/* solution did/goals/impact */
+.sgi{display:flex;flex-direction:column;gap:.9rem;margin-top:1.2rem}
+.sgi .row{display:flex;gap:.9rem;align-items:flex-start}
+.sgi .k{font-family:var(--font-display);font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);width:122px;flex-shrink:0;padding-top:.2rem}
+.sgi .row p{color:var(--text-2);font-size:clamp(.95rem,1.2vw,1.08rem);line-height:1.45}
+.sgi .row p b{color:var(--text);font-weight:700}
+.sgi ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+.sgi li{position:relative;padding-left:1.5rem;color:var(--text-2);font-size:clamp(.92rem,1.15vw,1.04rem);line-height:1.4}
+.sgi li::before{content:"";position:absolute;left:.18rem;top:.5em;width:.46rem;height:.46rem;border-radius:2px;background:var(--accent);transform:translateY(-50%) rotate(45deg)}
+.sgi li b{color:var(--text);font-weight:700}
+.sgi .row.goals li{color:var(--accent-2);font-weight:600}
+.sgi .row.goals li::before{content:"\2713";left:.14rem;top:.72em;width:auto;height:auto;background:none;border-radius:0;transform:translateY(-50%);color:var(--accent-2);font-weight:800;font-size:.92em;line-height:1}
+.sgi .row.impact li{color:var(--good);font-weight:600}
+.sgi .row.impact li::before{background:var(--good)}
+.sgi.tight{gap:.7rem;margin-top:1rem}
+.sgi.tight li{font-size:clamp(.88rem,1.1vw,1rem);line-height:1.35}
+
+.chrome{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.4rem;pointer-events:none}
+.chrome .sec{font-size:.76rem;color:var(--text-3);font-weight:600;letter-spacing:.04em;text-transform:uppercase;font-family:var(--font-display)}
+.nav-ctrls{display:flex;align-items:center;gap:.5rem;pointer-events:auto}
+.nav-ctrls button{width:34px;height:34px;border-radius:9px;border:1px solid var(--border-strong);background:rgba(20,21,24,.7);color:var(--text-2);cursor:pointer;display:grid;place-items:center;transition:.15s;backdrop-filter:blur(8px);font-size:1.1rem}
+.nav-ctrls button:hover{color:var(--text);border-color:var(--accent);background:rgba(123,131,255,.12)}
+.nav-ctrls .count{font-size:.82rem;color:var(--text-3);min-width:52px;text-align:center;font-variant-numeric:tabular-nums;font-weight:600}
+.progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-2));z-index:30;transition:width .35s ease;box-shadow:0 0 12px rgba(123,131,255,.5)}
+.brand{position:fixed;top:1.1rem;right:1.4rem;z-index:20;font-family:var(--font-display);font-weight:800;font-size:.9rem;color:var(--text-3)}
+.brand .dot{color:var(--accent)}
+.hint{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);z-index:20;font-size:.74rem;color:var(--text-3);opacity:.7;transition:opacity .4s}
+.hint.hide{opacity:0}
+
+@media (max-width:820px){ .two,.ba,.stats,.evg{grid-template-columns:1fr} .slide{padding:8vh 7vw 10vh} }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="brand">Rohit<span class="dot">.</span></div>
+
+<div class="deck" id="deck">
+
+  <!-- 1 · TITLE -->
+  <section class="slide active">
+    <div class="slide-inner">
+      <div class="eyebrow">Product design case study</div>
+      <h1><span class="hl">57% fewer clicks</span> running<br>production infrastructure</h1>
+      <p class="sub">The app 30+ companies use every day to run their software in the cloud. I owned it from research to shipped code.</p>
+      <div class="title-meta">
+        <span class="chip">Sole product designer</span>
+        <span class="chip">Research to shipped code</span>
+        <span class="chip">Figma · Claude Code · Mixpanel</span>
+      </div>
+      <div class="byline"><b>Rohit Kumar</b><span class="dot"></span> Product Designer, Facets</div>
+    </div>
+  </section>
+
+  <!-- 2 · WHAT IS FACETS -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow"><span class="num">01</span></div>
+      <div class="two wide-left">
+        <div>
+          <h2>What Facets is</h2>
+          <ul class="clean">
+            <li>Running a company's software on the cloud (AWS, Google, Azure) normally needs a <b>DevOps specialist</b> and a lot of manual setup.</li>
+            <li>Facets lets a <b>regular developer</b> set it up themselves, safely and the same way every time.</li>
+            <li><b>30+ companies</b> run their live products on it, all through one web app. That app is what I redesigned.</li>
+          </ul>
+        </div>
+        <div class="frame"><img src="../assets/img/outcome-project-overview.png" alt="The Facets web app developers work in every day"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · PROBLEM -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow"><span class="num">02</span></div>
+      <div class="two prob">
+        <div>
+          <h2>The problem</h2>
+          <ul class="clean">
+            <li>The <b>same menu showed on every screen</b>, whether you were at the org level, inside a project, deep in an environment, or below. Nothing told you where you were. <b>The root cause was structural, not visual.</b></li>
+            <li>Two separate interfaces had been running <b>in parallel for about a year</b>.</li>
+            <li>Everyday tasks took <b>too many clicks</b> and a lot of hunting across screens.</li>
+            <li>The app <b>didn't show what was happening</b>. A release ended on a blind confirm, with no preview of what would change.</li>
+            <li>The product had <b>too many levels</b> to move through, so it was easy to lose track of where you were.</li>
+            <li>Inconsistent patterns and no dark mode made the product feel unfinished.</li>
+          </ul>
+        </div>
+        <div class="probshots">
+          <div class="frame"><img src="../assets/img/compare/projects-before.png" alt="Old UI at the org level, the projects list, with the left menu"></div>
+          <div class="frame"><img src="../assets/img/compare/cicd-before.png" alt="Old UI deep inside a project, the same left menu"></div>
+          <p class="shotcap"><b>Same left menu, every level</b>, from the projects list to deep inside a project.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · EVIDENCE -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow"><span class="num">03</span></div>
+      <h2>The evidence</h2>
+      <div class="evg">
+        <div class="evcard">
+          <h4>Customer interviews</h4>
+          <ul>
+            <li>Small, frequent tasks took too many clicks. Advanced users wanted <b>one place to do their daily work</b>.</li>
+            <li>Developers were <b>stuck with DevOps settings in the nav</b> they don't use and can't access.</li>
+            <li>They couldn't find what they needed on a screen, so they <b>dropped off mid-flow</b> to go cross-check elsewhere.</li>
+          </ul>
+        </div>
+        <div class="evcard">
+          <h4>Usage data (Mixpanel)</h4>
+          <ul>
+            <li><b>Most tasks needed jumping across several screens</b> to finish, like the release flow and resource config overrides.</li>
+            <li>The <b>main overview pages</b> (environment, resource) had <b>low traffic</b>, even though they should be where people start.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · WHY NOW -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow"><span class="num">04</span></div>
+      <h2>Why now</h2>
+      <ul class="clean">
+        <li>The app was already being rebuilt on new technology, for reasons that had nothing to do with design.</li>
+        <li>Every screen was going to be touched anyway.</li>
+        <li>Fixing the experience now cost very little extra. Fixing it later meant a second full pass.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 6 · BUSINESS GOALS -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow"><span class="num">05</span></div>
+      <h2>Business goals</h2>
+      <ul class="clean">
+        <li>Reduce <b>confusion throughout the product</b>.</li>
+        <li>Fix the <b>navigation</b>, so people always know which level they're on and how to move between org, project, and environment.</li>
+        <li>Bring <b>transparency to key flows</b>, so people can see what's happening and trust it.</li>
+        <li>Reduce the number of clicks to complete everyday tasks.</li>
+        <li>Reduce support tickets (how-to and enhancement requests).</li>
+        <li>Retire both legacy interfaces and move every customer onto one.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7 · DECISIONS -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow"><span class="num">06</span></div>
+      <h2>The decisions</h2>
+      <div class="decisions">
+        <div class="dec"><div class="dn">1</div><div class="dt"><b>Navigation model.</b> We compared <span class="rej">Environment-first</span> (a top switcher rewrites the side nav beneath it) with <span class="chosen">Context-switch</span> (each level keeps its own steady nav). We chose Context-switch, because it matches how engineers already picture the hierarchy: project, then environment, then resource.</div></div>
+        <div class="dec"><div class="dn">2</div><div class="dt"><b>Design system.</b> We decided <b>not to build our own</b>. We adopted Ant Design and built on design tokens, customizing only where it fell short, so our time went to the hard flows instead of a button library.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · SOLUTION 1 · NAVIGATION -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow"><span class="num">07</span> Solution · 1 of 5</div>
+      <div class="two wide-right">
+        <div>
+          <h2>Separate navigation for each level</h2>
+          <div class="sgi tight">
+            <div class="row"><span class="k">What we did</span><ul>
+              <li>Built the <b>Context-switch</b> model in code: the sidebar shows org-level work outside a project, and switches entirely to <b>project-level navigation</b> once you step inside.</li>
+              <li>Drill from project to environment to resource on <b>one steady path</b>, so the nav never reshuffles.</li>
+            </ul></div>
+            <div class="row goals"><span class="k">Goals checked</span><ul>
+              <li>Fix the navigation</li>
+              <li>Reduce confusion</li>
+              <li>Reduce clicks (bad nav was driving the click count up)</li>
+            </ul></div>
+            <div class="row impact"><span class="k">Impact</span><ul>
+              <li>People always know which level they're on</li>
+              <li>The foundation every other screen was built on</li>
+            </ul></div>
+          </div>
+        </div>
+        <div class="frame"><img src="../assets/img/nav-exploration-v2-poster.jpg" alt="Shipped navigation switching between org-level and project-level context"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · SOLUTION 2 · OVERVIEW PAGES -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow"><span class="num">08</span> Solution · 2 of 5</div>
+      <h2>Rebuilt the low-traffic overview pages</h2>
+      <div class="sgi tight">
+        <div class="row"><span class="k">What we did</span><ul>
+          <li>Rebuilt several overview pages (environment, resource) to surface the details people actually need.</li>
+          <li>Example below: the environment overview now shows <b>health, alerts, activity, and release status</b> in one place.</li>
+        </ul></div>
+        <div class="row goals"><span class="k">Goals checked</span><ul>
+          <li>Reduce confusion</li>
+          <li>Reduce clicks to complete everyday tasks</li>
+        </ul></div>
+        <div class="row impact"><span class="k">Impact</span><ul>
+          <li>Screen jumps to reach a task dropped from ~3–4 to ~1</li>
+          <li>These became the primary pages people land on</li>
+        </ul></div>
+      </div>
+      <div class="ba">
+        <figure><div class="frame"><img src="../assets/img/compare/env-overview-before.png" alt="Old environment view across tabs"></div><figcaption><span class="tag before">Before</span></figcaption></figure>
+        <figure><div class="frame"><img src="../assets/img/compare/env-overview-after.png" alt="Redesigned environment overview on one page"></div><figcaption><span class="tag after">After</span></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · SOLUTION 2 · PROJECT HOME -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow"><span class="num">09</span> Solution · 3 of 5</div>
+      <div class="two wide-right">
+        <div>
+          <h2>Project overview page, to finish daily tasks fast</h2>
+          <div class="sgi tight">
+            <div class="row"><span class="k">What we did</span><ul>
+              <li>Built an overview that puts the <b>most frequent actions where people land</b>.</li>
+              <li>The single place to do daily work that advanced users asked for.</li>
+            </ul></div>
+            <div class="row goals"><span class="k">Goals checked</span><ul>
+              <li>Reduce clicks to complete everyday tasks</li>
+              <li>Fix the navigation (people start work here, not from the nav)</li>
+            </ul></div>
+            <div class="row impact"><span class="k">Impact</span><ul>
+              <li>Flagship daily task went from <b>14 clicks to 6</b></li>
+            </ul></div>
+          </div>
+        </div>
+        <div class="frame"><img src="../assets/img/outcome-project-overview.png" alt="The redesigned project home page"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · SOLUTION 3 · RELEASE -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow"><span class="num">10</span> Solution · 4 of 5</div>
+      <h2>Releasing with a preview of changes</h2>
+      <div class="sgi tight">
+        <div class="row"><span class="k">What we did</span><ul>
+          <li>Rebuilt the release flow so you <b>see exactly what will change before you commit</b>, instead of a blind confirm.</li>
+        </ul></div>
+        <div class="row goals"><span class="k">Goals checked</span><ul>
+          <li>Bring transparency to key flows</li>
+          <li>Reduce confusion</li>
+        </ul></div>
+        <div class="row impact"><span class="k">Impact</span><ul>
+          <li>53% faster to submit a release</li>
+          <li>UI-caused failures fell from 34% to 12%</li>
+        </ul></div>
+      </div>
+      <div class="ba">
+        <figure><div class="frame"><img src="../assets/img/compare/release-before.png" alt="Old release flow ending in a blind confirm"></div><figcaption><span class="tag before">Before</span></figcaption></figure>
+        <figure><div class="frame"><img src="../assets/img/compare/release-after.png" alt="Redesigned release flow with a review step"></div><figcaption><span class="tag after">After</span></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 · SOLUTION 5 · THE REST -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow"><span class="num">11</span> Solution · 5 of 5</div>
+      <div class="two wide-right">
+        <div>
+          <h2>The rest of the redesign</h2>
+          <div class="sgi tight">
+            <div class="row"><span class="k">What we did</span><ul>
+              <li>Kept the <b>flows similar and simple</b>.</li>
+              <li>Created <b>consistent patterns</b> across flows: release, CI/CD, images.</li>
+              <li>Built on <b>design tokens</b>, powering full dark mode.</li>
+              <li>Handled <b>accessibility</b> throughout: contrast, keyboard, and focus states.</li>
+              <li>Enhancements that help daily work: <b>compare secret and variable values across environments</b>, easy rollback, one-click release debugging, and a better blueprint.</li>
+            </ul></div>
+            <div class="row goals"><span class="k">Goals checked</span><ul>
+              <li>Reduce confusion</li>
+              <li>Retire both legacy interfaces</li>
+            </ul></div>
+            <div class="row impact"><span class="k">Impact</span><ul>
+              <li>One consistent, accessible product across every flow</li>
+              <li>70% moved to dark mode in 30 days</li>
+            </ul></div>
+          </div>
+        </div>
+        <div class="frame"><img src="../assets/img/dark-mode-poster.jpg" alt="Dark mode across the redesigned app"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 · IMPACT -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow"><span class="num">12</span></div>
+      <h2>Impact</h2>
+      <div class="stats">
+        <div class="stat accent"><div class="big">57%</div><div class="lbl">fewer clicks on the flagship daily task, 14 to 6</div></div>
+        <div class="stat accent"><div class="big">100%</div><div class="lbl">of customers moved onto the new app in 4 weeks; both old ones retired</div></div>
+        <div class="stat accent"><div class="big">5.8→8.4</div><div class="lbl">satisfaction, same 14-person cohort, before and after</div></div>
+      </div>
+      <div class="stats" style="margin-top:1rem">
+        <div class="stat"><div class="big">−63%</div><div class="lbl">support tickets about where things live, ~19 to 7 a month</div></div>
+        <div class="stat"><div class="big">53%</div><div class="lbl">faster to submit a release; UI-caused failures cut from 34% to 12%</div></div>
+        <div class="stat"><div class="big">~150<span class="unit"> hrs/mo</span></div><div class="lbl">engineer time saved from the click cut alone, across ~40 daily operators</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 · CLOSE -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow">In closing</div>
+      <h2>What I learned</h2>
+      <ul class="clean">
+        <li>The real fix was the <b>structure underneath</b>, not the screens. Getting the navigation model right was the whole project.</li>
+        <li><b>Shipping the code myself</b>, as PRs the engineers reviewed, kept the design intent intact from Figma all the way to production.</li>
+        <li>Measure the right thing: for flows people <b>can't avoid</b>, measure friction; for optional pages, measure whether they come back.</li>
+      </ul>
+      <p class="sub" style="margin-top:1.4rem">And a big part of the impact came from being in the codebase, not just the design file:</p>
+      <div class="stats" style="margin-top:1rem">
+        <div class="stat accent"><div class="big">33<span class="unit"> PRs</span></div><div class="lbl">raised in the live React codebase</div></div>
+        <div class="stat accent"><div class="big">176</div><div class="lbl">commits · ~16 screens designed and shipped</div></div>
+        <div class="stat accent"><div class="big">13,246</div><div class="lbl">lines added, ~9,000 removed, a careful refactor</div></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="chrome">
+  <div class="sec" id="secLabel"></div>
+  <div class="nav-ctrls">
+    <button id="prevBtn" aria-label="Previous slide">‹</button>
+    <span class="count"><span id="cur">1</span> / <span id="total">14</span></span>
+    <button id="nextBtn" aria-label="Next slide">›</button>
+  </div>
+</div>
+<div class="hint" id="hint">← → or space to navigate · F for fullscreen</div>
+
+<script>
+(function(){
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  const sections = ["Title","What Facets is","The problem","The evidence","Why now","Business goals","The decisions","Solution · navigation","Solution · overview pages","Solution · project overview","Solution · releases","Solution · the rest","Impact","What I learned"];
+  let i = 0;
+  const progress = document.getElementById('progress');
+  const cur = document.getElementById('cur');
+  const secLabel = document.getElementById('secLabel');
+  const hint = document.getElementById('hint');
+  document.getElementById('total').textContent = total;
+  function show(n){
+    i = Math.max(0, Math.min(total-1, n));
+    slides.forEach((s,idx)=>s.classList.toggle('active', idx===i));
+    progress.style.width = ((i+1)/total*100) + '%';
+    cur.textContent = i+1;
+    secLabel.textContent = sections[i] || '';
+    window.location.hash = i+1;
+  }
+  const next=()=>show(i+1), prev=()=>show(i-1);
+  document.getElementById('nextBtn').addEventListener('click', next);
+  document.getElementById('prevBtn').addEventListener('click', prev);
+  document.addEventListener('keydown', e=>{
+    if(['ArrowRight','PageDown',' '].includes(e.key)){ e.preventDefault(); next(); }
+    else if(['ArrowLeft','PageUp'].includes(e.key)){ e.preventDefault(); prev(); }
+    else if(e.key==='Home'){ show(0); } else if(e.key==='End'){ show(total-1); }
+    else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
+    if(e.key!=='f'&&e.key!=='F') hint.classList.add('hide');
+  });
+  document.getElementById('deck').addEventListener('click', e=>{
+    if(e.target.closest('button, a')) return;
+    if(e.clientX > window.innerWidth*0.5) next(); else prev();
+  });
+  const start = parseInt(window.location.hash.replace('#',''),10);
+  show(isNaN(start)?0:start-1);
+  setTimeout(()=>hint.classList.add('hide'), 5000);
+})();
+</script>
+</body>
+</html>
