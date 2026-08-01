@@ -1,0 +1,1165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Release Flow PPT · Facets · Rohit Kumar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#0E0F14; --surface:rgba(255,255,255,.045);
+  --ink:#F4F5F7; --ink2:#A6A9B3; --ink3:#7E828D;
+  --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.18);
+  --ac:#8687F5; --ac-s:rgba(134,135,245,.14);
+  --bad:#E5695A; --bad-s:rgba(229,105,90,.12);
+  --good:#4ED0A0; --good-s:rgba(62,207,151,.12);
+  --warn:#E0B25C; --warn-s:rgba(224,178,92,.12);
+  --fd:'Manrope',system-ui,sans-serif;
+  --fb:'Inter',system-ui,sans-serif;
+  --fm:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;
+  --sh:0 2px 6px rgba(0,0,0,.35), 0 18px 44px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--fb);overflow:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{max-width:100%;display:block}
+
+.deck{position:fixed;inset:0}
+.deck::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1.2px),radial-gradient(44% 38% at 50% 40%,rgba(91,91,214,.13),transparent 64%),radial-gradient(36% 30% at 88% -6%,rgba(91,91,214,.09),transparent 60%),radial-gradient(32% 26% at 4% 110%,rgba(31,143,102,.08),transparent 62%);background-size:22px 22px,auto,auto,auto}
+.slide{position:absolute;inset:0;display:none;padding:6vh 5.2vw 8vh;flex-direction:column;justify-content:center;animation:fade .3s ease;overflow:hidden;z-index:1}
+.slide.active{display:flex}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.in{width:100%;max-width:1240px;margin:0 auto}
+.in.wide{max-width:1400px}
+
+.eb{font-family:var(--fd);font-weight:700;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ac);margin-bottom:.9rem;display:flex;gap:.6rem;align-items:center}
+.eb .n{color:var(--ink3);font-variant-numeric:tabular-nums;font-weight:700}
+.eb .ap{color:var(--warn);border:1px solid rgba(138,93,0,.3);background:var(--warn-s);border-radius:4px;padding:.1rem .4rem;letter-spacing:.09em}
+h1{font-family:var(--fd);font-weight:800;letter-spacing:-.035em;line-height:1;font-size:clamp(2.6rem,6vw,4.6rem)}
+h2{font-family:var(--fd);font-weight:800;letter-spacing:-.026em;line-height:1.1;font-size:clamp(1.55rem,3.1vw,2.5rem);max-width:26ch}
+.lede{font-size:clamp(1.02rem,1.4vw,1.18rem);color:var(--ink2);margin-top:.8rem;line-height:1.5;max-width:60ch}
+.lede b{color:var(--ink);font-weight:600}
+
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2.2rem}
+.chip{font-size:.82rem;font-weight:500;color:var(--ink2);border:1px solid var(--line2);border-radius:999px;padding:.42rem .95rem;background:var(--surface)}
+.by{margin-top:2.4rem;color:var(--ink2);font-size:.95rem}
+.by b{color:var(--ink);font-weight:700}
+
+.g{display:grid;gap:1rem;margin-top:1.5rem}
+.g2{grid-template-columns:1fr 1fr}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:2.4rem;align-items:start}
+
+.c{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.2rem}
+.c .lb{font-family:var(--fd);font-weight:800;font-size:.63rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3)}
+.c h4{font-family:var(--fd);font-weight:700;font-size:1rem;margin-top:.4rem;line-height:1.28;letter-spacing:-.01em}
+.c p{font-size:.91rem;color:var(--ink2);line-height:1.5;margin-top:.45rem}
+.c p b{color:var(--ink);font-weight:600}
+.c.bad{border-color:rgba(185,58,44,.24);background:var(--bad-s)}
+.c.good{border-color:rgba(20,107,80,.24);background:var(--good-s)}
+.c.warn{border-color:rgba(138,93,0,.24);background:var(--warn-s)}
+
+.jobs{display:grid;grid-template-columns:repeat(4,1fr);gap:.85rem;margin-top:1.3rem}
+.j{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1rem 1.05rem;display:flex;flex-direction:column;gap:.5rem}
+.j .num{font-family:var(--fd);font-weight:800;font-size:.66rem;letter-spacing:.12em;color:var(--ink3)}
+.j .nm{font-family:var(--fd);font-weight:800;font-size:1.02rem;letter-spacing:-.014em;line-height:1.22}
+.j .q{font-size:.86rem;color:var(--ink2);line-height:1.44;flex:1}
+.j .q b{color:var(--ink);font-weight:600}
+.j .v{font-family:var(--fd);font-weight:800;font-size:.64rem;letter-spacing:.09em;text-transform:uppercase;padding:.32rem .58rem;border-radius:6px;align-self:flex-start}
+.v.no{background:var(--bad-s);color:var(--bad)}
+.v.poor{background:var(--warn-s);color:var(--warn)}
+.v.ok{background:var(--good-s);color:var(--good)}
+.v.neu{background:#EDEEF0;color:var(--ink2)}
+.j.dim{opacity:.6}
+
+figure{margin:0;min-width:0}
+.art{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--sh);display:flex;width:fit-content;max-width:100%;margin-inline:auto}
+.art img{width:auto;height:auto;max-width:100%;max-height:var(--ah,42vh)}
+.art.pad{padding:.9rem}
+.cap{margin-top:.65rem;font-size:.83rem;color:var(--ink2);line-height:1.45;display:flex;gap:.55rem;align-items:baseline}
+.cap b{color:var(--ink);font-weight:600}
+.pill{font-family:var(--fd);font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.24rem .52rem;border-radius:5px;flex-shrink:0;white-space:nowrap}
+.pill.was{background:var(--bad-s);color:var(--bad)}
+.pill.now{background:var(--good-s);color:var(--good)}
+.pill.n{background:var(--ac-s);color:var(--ac)}
+.pill.w{background:var(--warn-s);color:var(--warn)}
+.detail{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--sh);display:flex;padding:1rem;width:fit-content;max-width:100%}
+.detail img{width:auto;height:auto;max-width:100%;max-height:var(--dh,26vh)}
+.dlab{font-family:var(--fd);font-weight:800;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:.45rem}
+
+/* ---------- definition + 5-step flow ---------- */
+.def{font-family:var(--fd);font-weight:700;font-size:clamp(1.12rem,1.75vw,1.48rem);line-height:1.36;letter-spacing:-.018em;color:var(--ink);margin-top:.75rem;max-width:72ch}
+.fl5{display:flex;align-items:stretch;gap:.42rem;margin-top:1.6rem}
+.fs{flex:1;min-width:0;border:1px solid var(--line);background:var(--surface);border-radius:13px;padding:.9rem .95rem;display:flex;flex-direction:column;gap:.32rem}
+.fs .t{font-family:var(--fd);font-weight:800;font-size:.97rem;line-height:1.26;letter-spacing:-.015em}
+.fs .d{font-size:.82rem;line-height:1.44;color:var(--ink2)}
+.fs.down{background:var(--bad-s);border-color:rgba(185,58,44,.26)}
+.fs.down .t{color:var(--bad)}
+.fs.up{background:var(--good-s);border-color:rgba(20,107,80,.26)}
+.fs.up .t{color:var(--good)}
+.fs.rel{background:var(--ac);border-color:var(--ac);box-shadow:var(--sh);flex:1.18}
+.fs.rel .t{color:#fff;font-size:1.14rem}
+.fs.rel .d{color:rgba(255,255,255,.9)}
+.fa{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:16px;color:var(--ink3);font-size:1.05rem;line-height:1}
+.wm{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6rem;margin-top:1.7rem;padding-top:1.3rem;border-top:1px solid var(--line2)}
+.wmi .l{font-family:var(--fd);font-weight:800;font-size:.88rem;letter-spacing:-.012em;line-height:1.3;margin-bottom:.38rem;color:var(--ink)}
+.wmi p{font-size:.87rem;color:var(--ink2);line-height:1.46}
+
+/* ---------- flowchart ---------- */
+.fchart{width:100%;height:auto;max-height:70vh}
+.fchart .ft2{font-family:'Manrope',sans-serif;font-weight:800;font-size:17px;fill:#131419}
+.fchart .ft3{font-family:'Manrope',sans-serif;font-weight:800;font-size:14px;fill:#131419}
+.fchart .fs2{font-family:'Inter',sans-serif;font-size:12.5px;fill:#8C9099}
+.fchart .fs3{font-family:'Inter',sans-serif;font-size:13.5px;fill:#55585F}
+.fchart .fs3.key{fill:#131419;font-weight:700}
+.fchart .fl{font-family:'Inter',sans-serif;font-size:12px;fill:#8C9099;font-weight:600}
+.fchart .ac{fill:#5B5BD6}
+.fchart .bad{fill:#B93A2C}
+.fchart .wht{fill:#fff}
+.fchart .svgpin circle{fill:#B93A2C;stroke:#fff;stroke-width:2}
+.fchart .svgpin text{font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;fill:#fff}
+
+.pli .n.ok{background:var(--good)}
+.svgpin.ok circle{fill:#146B50}
+.fchart .gd{fill:#146B50}
+.sm{display:grid;grid-template-columns:repeat(5,1fr);gap:1.2rem;margin-top:1.6rem;padding-top:1.2rem;border-top:1px solid var(--line)}
+.smi .q{font-family:var(--fd);font-weight:800;font-size:.83rem;line-height:1.3;color:var(--ink);margin-bottom:.3rem}
+.smi .a{font-size:.83rem;color:var(--ink2);line-height:1.42}
+
+/* ---------- version blocks ---------- */
+.vb{display:flex;flex-direction:column;gap:1.15rem}
+.vbi .k{font-family:var(--fd);font-weight:800;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.38rem}
+.vbi p{font-size:1.01rem;color:var(--ink2);line-height:1.52}
+.tri{display:flex;flex-direction:column;gap:.85rem}
+.tstep .art{margin-inline:0}
+.tlab{margin-top:.4rem;font-size:.82rem;color:var(--ink2);display:flex;gap:.5rem;align-items:baseline}
+.hsub{font-family:var(--fb);font-weight:500;font-size:.42em;color:var(--ink3);letter-spacing:0;margin-left:.7rem;vertical-align:middle}
+.vbi p b{color:var(--ink);font-weight:700}
+.vbi.acc{border-left:3px solid var(--ac);padding-left:1rem}
+.vbi.bad{border-left:3px solid var(--bad);padding-left:1rem}
+.vbi ul{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-top:.15rem}
+.vbi li{position:relative;padding-left:1.05rem;font-size:.91rem;color:var(--ink2);line-height:1.47}
+.vbi li::before{content:"";position:absolute;left:0;top:.6em;width:.35rem;height:.35rem;border-radius:1px;background:var(--ac);transform:rotate(45deg)}
+.vbi li b{color:var(--ink);font-weight:700}
+
+/* ---------- goals table ---------- */
+.gt{display:grid;grid-template-columns:1fr 1.18fr .72fr;gap:0 2.4rem;margin-top:2rem}
+.gt > div{padding:1.15rem 0;border-bottom:1px solid var(--line)}
+.gt .h{font-family:var(--fd);font-weight:800;font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3);padding:0 0 .75rem;border-bottom:1px solid var(--line2)}
+.gt .found{font-size:.93rem;color:var(--ink3);line-height:1.5}
+.gt .goal{font-size:1.04rem;color:var(--ink);line-height:1.45;font-weight:600;letter-spacing:-.008em}
+.gt .know{font-size:.88rem;color:var(--ink2);line-height:1.5}
+.gt > div:nth-last-child(-n+3){border-bottom:none}
+
+/* ---------- evidence cards ---------- */
+.c.ev{padding:1.35rem 1.5rem}
+.evh{font-family:var(--fd);font-weight:800;font-size:1.05rem;letter-spacing:-.014em;color:var(--ac);margin-bottom:.9rem}
+.evh span{font-family:var(--fb);font-weight:500;font-size:.8rem;color:var(--ink3);letter-spacing:0;margin-left:.55rem}
+.evl{list-style:none;display:flex;flex-direction:column;gap:.85rem}
+.evl li{position:relative;padding-left:1.15rem;font-size:.94rem;line-height:1.52;color:var(--ink2)}
+.evl li::before{content:"";position:absolute;left:0;top:.62em;width:.4rem;height:.4rem;border-radius:1px;background:var(--ac);transform:rotate(45deg)}
+.evl li b{color:var(--ink);font-weight:700}
+
+/* ---------- old flow spine ---------- */
+.oflow{display:flex;flex-direction:column;margin-top:1.1rem}
+.ofr{display:grid;grid-template-columns:300px 1fr;gap:1.5rem;align-items:center}
+.ofn{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:.7rem .95rem}
+.ofn .t{font-family:var(--fd);font-weight:800;font-size:.98rem;letter-spacing:-.014em;line-height:1.25}
+.ofn .s{font-size:.79rem;color:var(--ink3);margin-top:.2rem}
+.ofn ul{list-style:none;margin-top:.45rem;display:flex;flex-direction:column;gap:.22rem}
+.ofn li{font-size:.83rem;color:var(--ink2);padding-left:.8rem;position:relative;line-height:1.35}
+.ofn li::before{content:"·";position:absolute;left:.1rem;color:var(--ink3)}
+.ofn li.key{color:var(--ink);font-weight:700}
+.ofn.gap{background:transparent;border:1px dashed var(--line2);text-align:center;color:var(--ink3);font-family:var(--fd);font-weight:700;font-size:.88rem;padding:.55rem .95rem}
+.ofn.go{background:var(--ac);border-color:var(--ac)}
+.ofn.go .t{color:#fff}
+.ofc{width:300px;height:15px;display:flex;justify-content:center}
+.ofc i{width:2px;background:var(--line2);height:100%}
+.ofms{display:flex;flex-direction:column;gap:.5rem}
+.ofm{display:flex;gap:.6rem;align-items:flex-start}
+.ofm .num{flex-shrink:0;width:21px;height:21px;border-radius:50%;background:var(--bad);color:#fff;display:grid;place-items:center;font-family:var(--fd);font-weight:800;font-size:.7rem;margin-top:.05rem}
+.ofm .tx{font-size:.93rem;color:var(--ink);line-height:1.38;font-weight:600}
+.qz{display:grid;gap:.42rem;margin-top:1.5rem;padding-top:1.15rem;border-top:1px solid var(--line)}
+.qz div{font-size:.86rem;color:var(--ink3);line-height:1.45;padding-left:1.05rem;position:relative}
+.qz div::before{content:"?";position:absolute;left:0;color:var(--ac);font-weight:700}
+.qzl{font-family:var(--fd);font-weight:800;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-top:1.5rem;padding-top:1.15rem;border-top:1px solid var(--line);margin-bottom:.6rem}
+.qzl + .qz{margin-top:0;padding-top:0;border-top:none}
+
+/* ---------- pinned screenshot ---------- */
+.pinwrap{position:relative;display:inline-block;max-width:100%}
+.pin{position:absolute;width:26px;height:26px;border-radius:50%;background:var(--bad);color:#fff;display:grid;place-items:center;font-family:var(--fd);font-weight:800;font-size:.8rem;transform:translate(-50%,-50%);box-shadow:0 2px 8px rgba(19,20,25,.3);border:2px solid #fff}
+.plist{display:flex;flex-direction:column;gap:1.05rem}
+.pli{display:flex;gap:.8rem;align-items:flex-start}
+.pli .n{flex-shrink:0;width:24px;height:24px;border-radius:50%;background:var(--bad);color:#fff;display:grid;place-items:center;font-family:var(--fd);font-weight:800;font-size:.75rem;margin-top:.1rem}
+.pli .n.off{background:#DCDDE0;color:var(--ink2)}
+.pli .x{font-size:.93rem;color:var(--ink2);line-height:1.5;font-weight:400}
+.pli .x b{color:var(--ink);font-weight:700}
+
+.rail{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin-top:1.5rem}
+.rv{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.15rem;display:flex;flex-direction:column;gap:.5rem}
+.rv .v{font-family:var(--fd);font-weight:800;font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3)}
+.rv h4{font-family:var(--fd);font-weight:800;font-size:1.1rem;letter-spacing:-.016em;line-height:1.22}
+.rv p{font-size:.87rem;color:var(--ink2);line-height:1.45;flex:1}
+.rv .tagl{font-family:var(--fd);font-weight:800;font-size:.62rem;letter-spacing:.09em;text-transform:uppercase;padding:.3rem .55rem;border-radius:5px;align-self:flex-start}
+.rv .tagl.dead{background:var(--bad-s);color:var(--bad)}
+.rv .tagl.live{background:var(--good-s);color:var(--good)}
+.rv.live{border-color:rgba(20,107,80,.3)}
+
+ul.l{list-style:none;display:flex;flex-direction:column;gap:.65rem}
+ul.l li{position:relative;padding-left:1.3rem;color:var(--ink2);font-size:.99rem;line-height:1.5}
+ul.l li::before{content:"";position:absolute;left:0;top:.62em;width:.38rem;height:.38rem;border-radius:50%;background:var(--ac)}
+ul.l li b{color:var(--ink);font-weight:600}
+ul.l.s li{font-size:.9rem;line-height:1.46;padding-left:1.15rem}
+ul.l.s{gap:.5rem}
+
+.rows{display:flex;flex-direction:column;gap:.6rem;margin-top:.2rem}
+.r{background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:.78rem .95rem;border-left:3px solid var(--line2)}
+.r .k{font-family:var(--fd);font-weight:800;font-size:.6rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink3)}
+.r p{margin-top:.28rem;font-size:.89rem;color:var(--ink2);line-height:1.47}
+.r p b{color:var(--ink);font-weight:600}
+.r.opt{border-left-color:var(--ink3)}
+.r.chose{border-left-color:var(--good);background:var(--good-s);border-color:rgba(20,107,80,.22)}
+.r.no{border-left-color:var(--bad)}
+.r.why{border-left-color:var(--ac)}
+
+.mt{display:grid;grid-template-columns:1.25fr .72fr 1.3rem .72fr;gap:.15rem 1.1rem;margin-top:1.2rem;align-items:center}
+.mt > div{font-size:.94rem;color:var(--ink2);padding:.58rem 0;border-bottom:1px solid var(--line)}
+.mt .h{font-family:var(--fd);font-size:.61rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);padding-bottom:.35rem}
+.mt .was{color:var(--bad);font-weight:600;font-variant-numeric:tabular-nums}
+.mt .ar{color:var(--ink3);text-align:center}
+.mt .now{color:var(--good);font-weight:700;font-variant-numeric:tabular-nums}
+.mt > div:nth-last-child(-n+4){border-bottom:none}
+
+.co{margin-top:1.2rem;border-left:3px solid var(--ac);padding:.15rem 0 .15rem 1.05rem;font-size:clamp(.97rem,1.25vw,1.1rem);line-height:1.5;color:var(--ink2);max-width:70ch}
+.co b{color:var(--ink);font-weight:600}
+.co .k{display:block;font-family:var(--fd);font-size:.61rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ac);margin-bottom:.35rem}
+.co.warn{border-left-color:var(--warn)}
+.co.warn .k{color:var(--warn)}
+.co.good{border-left-color:var(--good)}
+.co.good .k{color:var(--good)}
+
+.eg{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-top:1.1rem}
+.e{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:.7rem .85rem}
+.e .q{font-family:var(--fd);font-weight:700;font-size:.85rem;line-height:1.3}
+.e .a{margin-top:.24rem;font-size:.81rem;color:var(--ink2);line-height:1.42}
+
+.pn{display:none;margin-top:1.1rem;border:1px dashed rgba(138,93,0,.45);background:#FDF8EC;border-radius:10px;padding:.78rem 1rem;font-size:.83rem;line-height:1.5;color:#6B4A00;max-width:98ch}
+body.notes .pn{display:block}
+.pn b{color:#3F2C00;font-weight:700}
+.pn code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em;background:rgba(138,93,0,.12);border-radius:3px;padding:.06em .34em}
+.pn .k{display:block;font-family:var(--fd);font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.32rem;opacity:.8}
+
+.chrome{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.5rem;pointer-events:none}
+.chrome .sec{font-size:.7rem;color:var(--ink3);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-family:var(--fd)}
+.nv{display:flex;align-items:center;gap:.4rem;pointer-events:auto}
+.nv button{width:30px;height:30px;border-radius:7px;border:1px solid var(--line2);background:var(--surface);color:var(--ink2);cursor:pointer;display:grid;place-items:center;font-size:1rem;line-height:1}
+.nv button:hover{color:var(--ink);border-color:var(--ac)}
+.nv .ct{font-size:.76rem;color:var(--ink3);min-width:54px;text-align:center;font-variant-numeric:tabular-nums;font-weight:600}
+.pr{position:fixed;top:0;left:0;height:2px;background:var(--ac);z-index:30;transition:width .3s ease}
+.brand{position:fixed;top:1.2rem;right:1.5rem;z-index:20;font-family:var(--fd);font-weight:800;font-size:.84rem;color:var(--ink3)}
+.brand .d{color:var(--ac)}
+.hint{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);z-index:20;font-size:.7rem;color:var(--ink3);opacity:.7;transition:opacity .4s}
+.hint.hide{opacity:0}
+.nb{position:fixed;top:1.2rem;left:1.5rem;z-index:21;font-family:var(--fd);font-size:.6rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--warn);border:1px solid rgba(138,93,0,.35);background:var(--warn-s);border-radius:4px;padding:.2rem .5rem;display:none}
+body.notes .nb{display:block}
+
+/* ---------- dark system overrides ---------- */
+.eb{color:#9C9DF9}
+.eb .n{color:rgba(244,245,247,.35)}
+.eb .ap{border-color:rgba(224,178,92,.4)}
+h2{font-size:clamp(1.65rem,3.2vw,2.6rem)}
+.c{box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.c.bad{border-color:rgba(229,105,90,.32)}
+.c.good{border-color:rgba(62,207,151,.32)}
+.c.warn{border-color:rgba(224,178,92,.32)}
+.v.neu{background:rgba(255,255,255,.09);color:var(--ink2)}
+.art,.detail{background:#fff;border-color:rgba(255,255,255,.16)}
+.c .lb,.vbi .k,.gt .h,.qzl,.dlab,.r .k,.co .k,.rv .v,.j .num,.pn .k{font-family:var(--fm);font-weight:600;letter-spacing:.14em}
+.fs{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.028));box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.fs.down{border-color:rgba(229,105,90,.4)}
+.fs.down .t{color:#F08A7C}
+.fs.up{border-color:rgba(62,207,151,.42)}
+.fs.up .t{color:#5BD6A8}
+.fs.rel{background:linear-gradient(180deg,#7877F2,#5857D4);border-color:transparent;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 0 40px rgba(108,107,232,.42),0 14px 34px rgba(0,0,0,.45)}
+.fa{color:rgba(255,255,255,.35)}
+.fchart .ft2,.fchart .ft3{fill:#F4F5F7}
+.fchart .fs2{fill:#868B96}
+.fchart .fs3{fill:#A6A9B3}
+.fchart .fs3.key{fill:#F4F5F7}
+.fchart .fl{fill:#9BA0AC}
+.fchart .ac{fill:#A0A1F8}
+.fchart .bad{fill:#F08A7C}
+.fchart .gd{fill:#5BD6A8}
+.fchart .svgpin circle{fill:#E5695A;stroke:#0E0F14}
+.pli .n.off{background:rgba(255,255,255,.14);color:var(--ink2)}
+.pin{border-color:#0E0F14;box-shadow:0 0 16px rgba(229,105,90,.45)}
+.r.chose{border-color:rgba(62,207,151,.3)}
+.rv.live{border-color:rgba(62,207,151,.4)}
+.pn{border-color:rgba(224,178,92,.4);background:rgba(224,178,92,.07);color:#D9BE8C}
+.pn b{color:#F0DCB4}
+.pn code{background:rgba(224,178,92,.16)}
+.nb{border-color:rgba(224,178,92,.45)}
+
+/* ---------- system v2: layout, type, artifact frames, tags ---------- */
+.slide{justify-content:flex-start;padding:8vh 5vw 6vh}
+.slide.mid{justify-content:center}
+.eb{font-family:var(--fm);font-weight:600;font-size:.66rem;letter-spacing:.18em;gap:.7rem;margin-bottom:1rem}
+h2{font-size:clamp(2.1rem,3.6vw,2.9rem)}
+.cols{display:grid;gap:clamp(2.4rem,4vw,4rem);align-items:start}
+.cols.c57{grid-template-columns:5fr 7fr}
+.cols.c75{grid-template-columns:7fr 5fr}
+.cols.c66{grid-template-columns:1fr 1fr}
+.win{background:#fff;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.15);box-shadow:0 2px 8px rgba(0,0,0,.4),0 28px 70px rgba(0,0,0,.55)}
+.win img{display:block;width:100%;height:auto}
+.caprow{display:flex;align-items:baseline;gap:.75rem;margin-top:1rem}
+.caprow p{font-size:.89rem;color:var(--ink2);line-height:1.45}
+.caprow p b{color:var(--ink);font-weight:600}
+.tag{font-family:var(--fm);font-weight:600;font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;padding:.32rem .62rem;border-radius:6px;white-space:nowrap;flex-shrink:0}
+.tag.red{background:var(--bad-s);color:#F08A7C;border:1px solid rgba(229,105,90,.32)}
+.tag.green{background:var(--good-s);color:#5BD6A8;border:1px solid rgba(62,207,151,.34)}
+.tag.indigo{background:var(--ac-s);color:#A0A1F8;border:1px solid rgba(134,135,245,.34)}
+.tag.amber{background:var(--warn-s);color:#E8C27A;border:1px solid rgba(224,178,92,.35)}
+.tag.grey{background:rgba(255,255,255,.07);color:var(--ink2);border:1px solid rgba(255,255,255,.14)}
+.mk{width:24px;height:24px;border-radius:50%;background:linear-gradient(180deg,#EA7A6C,#D2503F);color:#fff;display:grid;place-items:center;font-family:var(--fd);font-weight:800;font-size:.7rem;box-shadow:0 0 14px rgba(229,105,90,.35),inset 0 1px 0 rgba(255,255,255,.3);flex-shrink:0}
+.mk.g{background:linear-gradient(180deg,#37C795,#1E9A6F);color:#06281C;box-shadow:0 0 14px rgba(47,191,143,.35),inset 0 1px 0 rgba(255,255,255,.4)}
+.mk.mut{background:rgba(255,255,255,.12);color:var(--ink2);box-shadow:none}
+.mlab{font-family:var(--fm);font-weight:600;font-size:.62rem;letter-spacing:.17em;text-transform:uppercase;color:#7E828D}
+.mlab.rule{display:flex;align-items:center;gap:.85rem;white-space:nowrap}
+.mlab.rule::after{content:"";height:1px;flex:1;background:rgba(255,255,255,.09)}
+
+/* ---------- slide 1 · title (s1-) ---------- */
+.s1 .eb{margin-bottom:1.35rem}
+.s1 h1{font-size:clamp(3.2rem,6.4vw,4.8rem);letter-spacing:-.042em;line-height:.98}
+.s1-lede{margin-top:1.7rem;color:var(--ink2);max-width:54rem}
+.s1-lede span{display:block;font-size:clamp(1rem,1.28vw,1.12rem);line-height:1.55}
+.s1-role{margin-top:2.2rem;padding-left:1.2rem;border-left:2px solid var(--ac);max-width:54rem}
+.s1-role .mlab{margin-bottom:.5rem}
+.s1-role p{font-size:1rem;line-height:1.6;color:var(--ink2)}
+.s1-role p b{color:var(--ink);font-weight:700}
+.s1-by{margin-top:2.8rem;padding-top:1.35rem;border-top:1px solid var(--line);font-size:.93rem;color:var(--ink3);max-width:54rem}
+.s1-by b{color:var(--ink);font-weight:700}
+
+/* ---------- slide 2 · what a release is (s2-) ---------- */
+.s2-def{margin-top:1.15rem;font-size:clamp(1.12rem,1.4vw,1.3rem);line-height:1.55;color:var(--ink2);max-width:72ch;text-wrap:balance}
+.s2-def b{color:var(--ink);font-weight:600}
+.s2-flow{display:flex;align-items:stretch;gap:.55rem;margin-top:3rem}
+.s2-card{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:.36rem;padding:1.15rem 1.25rem;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.026));border:1px solid rgba(255,255,255,.11);box-shadow:0 24px 56px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.07)}
+.s2-card .t{font-family:var(--fd);font-weight:800;font-size:.99rem;line-height:1.24;letter-spacing:-.015em;color:var(--ink)}
+.s2-card .d{font-size:.81rem;line-height:1.42;color:var(--ink2)}
+.s2-card.down{background:linear-gradient(180deg,rgba(229,105,90,.13),rgba(229,105,90,.045));border-color:rgba(229,105,90,.38)}
+.s2-card.down .t{color:#F08A7C}
+.s2-card.up{background:linear-gradient(180deg,rgba(62,207,151,.12),rgba(62,207,151,.04));border-color:rgba(62,207,151,.4)}
+.s2-card.up .t{color:#5BD6A8}
+.s2-card.rel{flex:1.16;background:linear-gradient(180deg,#7877F2,#5857D4);border-color:transparent;box-shadow:inset 0 1px 0 rgba(255,255,255,.32),0 0 44px rgba(108,107,232,.5),0 14px 34px rgba(0,0,0,.45)}
+.s2-card.rel .t{color:#fff;font-size:1.12rem}
+.s2-card.rel .d{color:rgba(255,255,255,.88)}
+.s2-ln{width:44px;height:12px;flex-shrink:0;align-self:center}
+.s2-ln .d{stroke:rgba(255,255,255,.3);stroke-width:1.5;stroke-dasharray:5 5;animation:s2dash 1.5s linear infinite}
+.s2-ln .c{fill:none;stroke:rgba(255,255,255,.42);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+@keyframes s2dash{to{stroke-dashoffset:-10}}
+@media (prefers-reduced-motion:reduce){.s2-ln .d{animation:none}}
+.s2-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:2.2rem;margin-top:2.8rem;padding-top:1.8rem;border-top:1px solid var(--line2)}
+.s2-fact .l{font-family:var(--fd);font-weight:800;font-size:.92rem;letter-spacing:-.012em;line-height:1.3;color:var(--ink);margin-bottom:.42rem}
+.s2-fact p{font-size:.87rem;color:var(--ink2);line-height:1.48}
+
+/* ---------- slide 7 · user stories (s7-) ---------- */
+
+/* ---------- slide 3 · the old flow (s3-) ---------- */
+.s3-body{margin-top:1.7rem;align-items:center}
+.s3-probs{display:flex;flex-direction:column}
+.s3-p{display:grid;grid-template-columns:24px 1fr;gap:1rem;align-items:start;padding:.78rem 0;border-top:1px solid rgba(255,255,255,.07)}
+.s3-p:first-child{border-top:0;padding-top:.1rem}
+.s3-p .mk{margin-top:.1rem}
+.s3-p p{font-size:.95rem;line-height:1.5;color:var(--ink2);max-width:48ch}
+.s3-p p b{color:var(--ink);font-weight:700}
+.s3-qlab{margin-top:1.7rem}
+.s3-qs{display:flex;flex-direction:column;gap:.6rem;margin-top:1rem}
+.s3-qs div{position:relative;padding-left:1.1rem;font-size:.86rem;line-height:1.45;color:var(--ink3)}
+.s3-qs div::before{content:"";position:absolute;left:0;top:.48em;width:.36rem;height:.36rem;border-radius:1px;background:rgba(134,135,245,.65);transform:rotate(45deg)}
+.s3-fig{display:flex;width:100%;max-width:640px;justify-self:center}
+
+/* ---------- slide 5 · evidence (s5-) ---------- */
+.s5-grid{display:grid;grid-template-columns:1.16fr 1fr;gap:1.6rem;margin-top:2.6rem;align-items:stretch}
+.s5-box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.7rem 1.8rem 1.9rem}
+.s5-h{display:flex;align-items:baseline;gap:.7rem;font-family:var(--fd);font-weight:800;font-size:1.06rem;letter-spacing:-.014em;color:var(--ink);padding-bottom:1rem;border-bottom:1px solid var(--line)}
+.s5-h span{font-family:var(--fm);font-weight:600;font-size:.66rem;letter-spacing:.06em;color:var(--ink3);white-space:nowrap}
+.s5-l{list-style:none;display:flex;flex-direction:column;gap:1.05rem;margin-top:1.25rem}
+.s5-l li{position:relative;padding-left:1.1rem;font-size:1rem;line-height:1.6;color:var(--ink2)}
+.s5-l li::before{content:"";position:absolute;left:0;top:.62em;width:.36rem;height:.36rem;border-radius:1px;background:var(--ac);transform:rotate(45deg)}
+.s5-l li b{color:var(--ink);font-weight:700}
+.s5-wide{grid-column:1/-1;display:grid;grid-template-columns:auto 1fr;align-items:center;gap:1.8rem;padding:1.35rem 1.8rem}
+.s5-wide .s5-h{padding-bottom:0;border-bottom:0}
+.s5-wide p{font-size:1rem;line-height:1.6;color:var(--ink2)}
+.s5-wide p b{color:var(--ink);font-weight:700}
+
+/* ---------- slide 6 · goals (s6-) ---------- */
+.s6-lead{margin-top:.85rem;font-size:1.02rem;line-height:1.55;color:var(--ink3)}
+.s6-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-top:2.3rem}
+.s6-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.9rem 2rem 2rem;display:flex;flex-direction:column}
+.s6-k{display:flex;align-items:center;gap:.65rem;font-family:var(--fm);font-weight:600;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.s6-k i{font-style:normal;font-weight:700;color:var(--ac)}
+.s6-g{font-family:var(--fd);font-weight:800;font-size:1.42rem;line-height:1.3;letter-spacing:-.02em;color:var(--ink);margin-top:.8rem;text-wrap:balance}
+.s6-p{font-size:.97rem;line-height:1.55;color:var(--ink3);margin-top:.8rem}
+
+/* ---------- slide 4 · the screen (s4-) ---------- */
+.s4-stage{position:relative;width:100%;aspect-ratio:1400/495;margin:1.6rem auto 0}
+.s4-img{position:absolute;left:21%;top:5.66%;width:58%;display:block;border-radius:10px;border:1px solid rgba(255,255,255,.14);box-shadow:0 22px 58px rgba(0,0,0,.55)}
+.s4-lines{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:2}
+.s4-lines line{stroke:rgba(229,105,90,.62);stroke-width:1}
+.s4-lines circle{fill:var(--bad);stroke:rgba(14,15,20,.9);stroke-width:1.8}
+.s4-note{position:absolute;width:19%;display:grid;gap:.8rem;align-items:center;transform:translateY(-50%);z-index:3}
+.s4-note p{font-size:.87rem;line-height:1.5;color:var(--ink2)}
+.s4-note p b{color:var(--ink);font-weight:700}
+.s4-nl{left:0;grid-template-columns:1fr 24px;text-align:right}
+.s4-nr{right:0;grid-template-columns:24px 1fr}
+.s4-cap{display:flex;align-items:baseline;justify-content:center;gap:.75rem;margin-top:1.3rem}
+.s4-cap p{font-size:.89rem;color:var(--ink2);line-height:1.45}
+
+/* ---------- version slides · V1 / V2 / V3 (vs-) ---------- */
+.vs-chips{display:flex;gap:.45rem;margin-top:1.15rem}
+.vs-chip{font-family:var(--fm);font-weight:700;font-size:.67rem;letter-spacing:.09em;padding:.34rem .62rem;border-radius:7px;border:1px solid var(--line2);color:var(--ink3);background:rgba(255,255,255,.03)}
+.vs-chip.met{color:#7FE3BC;border-color:rgba(62,207,151,.42);background:rgba(62,207,151,.1)}
+.vs-chip.part{color:#E8C27A;border-color:rgba(224,178,92,.42);background:rgba(224,178,92,.1)}
+.vs-chip.no{opacity:.38}
+.vs-cols{display:grid;grid-template-columns:minmax(0,34%) 1fr;gap:clamp(2rem,3.2vw,3.4rem);margin-top:2.1rem;align-items:center}
+.vs-blocks{display:flex;flex-direction:column;gap:1.8rem}
+.vs-b .mlab{margin-bottom:.5rem}
+.vs-b p{font-size:.97rem;line-height:1.56;color:var(--ink2)}
+.vs-b p b{color:var(--ink);font-weight:700}
+.vs-art{min-width:0;width:fit-content;max-width:100%;justify-self:center}
+.vs-art .win{width:fit-content;max-width:100%}
+.vs-art .win img{width:auto;max-width:100%;max-height:min(48vh,448px)}
+.vs-art .caprow{margin-top:.9rem}
+.vs-art .caprow p{font-size:.88rem;line-height:1.45}
+
+/* ---------- slide 12 · solution (s12-) ---------- */
+.s12 .eb{margin-bottom:.7rem}
+.s12-shots{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-top:1.6rem}
+.s12-shot{min-width:0}
+.s12-shot .caprow{margin-top:.65rem;gap:.65rem}
+.s12-shot .caprow p{font-size:.86rem;line-height:1.4}
+.s12-map{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:1.1rem;padding-top:1rem;border-top:1px solid var(--line)}
+.s12-qa .q{font-family:var(--fd);font-weight:700;font-size:.9rem;letter-spacing:-.012em;line-height:1.3;color:var(--ink);margin-bottom:.34rem}
+.s12-qa .q i{font-family:var(--fm);font-style:normal;font-weight:700;font-size:.72rem;letter-spacing:.06em;color:var(--ac);margin-right:.45rem}
+.s12-qa .a{font-size:.85rem;color:var(--ink2);line-height:1.42}
+
+/* ---------- slide 13 · edge cases (s13-) ---------- */
+.s13 .eb{margin-bottom:.7rem}
+.s13-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;gap:1.4rem;margin-top:1.6rem}
+.s13-c{background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.026));border:1px solid rgba(255,255,255,.11);border-radius:16px;box-shadow:0 24px 56px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.07);padding:1.35rem 1.4rem}
+.s13-c .q{font-family:var(--fd);font-weight:700;font-size:.99rem;letter-spacing:-.012em;line-height:1.32;color:var(--ink)}
+.s13-c .a{margin-top:.45rem;font-size:.88rem;color:var(--ink2);line-height:1.48}
+
+/* ---------- slide 14 · impact (s14-) ---------- */
+.s14-grid{margin-top:2.3rem}
+.s14-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.9rem 2.1rem 2rem;display:flex;flex-direction:column}
+.s14-k{font-family:var(--fm);font-weight:600;font-size:.63rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink3)}
+.s14-hero{display:grid;grid-template-columns:1fr auto;gap:2.5rem;align-items:center;margin-top:1.4rem;padding-bottom:1.7rem}
+.s14-ht .lb{font-family:var(--fd);font-weight:800;font-size:1.72rem;letter-spacing:-.024em;line-height:1.24;color:var(--ink)}
+.s14-ht p{font-size:.97rem;line-height:1.55;color:var(--ink3);margin-top:.6rem;max-width:62ch}
+.s14-hn{display:flex;align-items:baseline;gap:1.1rem;white-space:nowrap}
+.s14-hn .bf{font-family:var(--fm);font-size:1.5rem;color:var(--ink3);text-decoration:line-through;text-decoration-color:rgba(255,255,255,.3)}
+.s14-hn .ar{color:var(--ink3);font-size:1.2rem}
+.s14-hn .af{font-family:var(--fd);font-weight:800;font-size:4.2rem;letter-spacing:-.035em;color:#9C9DF9;line-height:.9}
+.s14-m{display:flex;flex-direction:column;border-top:1px solid var(--line2)}
+.s14-r{display:grid;grid-template-columns:1fr auto auto auto auto;align-items:baseline;gap:1.2rem;padding:1.15rem 0;border-top:1px solid var(--line)}
+.s14-r:first-child{border-top:0}
+.s14-r:last-child{padding-bottom:.2rem}
+.s14-r .lb{font-size:1.05rem;line-height:1.4;color:var(--ink2)}
+.s14-r .bf{font-family:var(--fm);font-size:.95rem;color:var(--ink3);text-decoration:line-through;text-decoration-color:rgba(255,255,255,.3)}
+.s14-r .ar{color:var(--ink3);font-size:.92rem}
+.s14-r .af{font-family:var(--fd);font-weight:800;font-size:1.6rem;letter-spacing:-.024em;color:var(--ink);line-height:1}
+.s14-r .dl{font-family:var(--fm);font-size:.76rem;letter-spacing:.03em;color:var(--ink3);white-space:nowrap;min-width:7rem}
+
+@media (max-width:960px){
+  .s3-body,.cols.c57,.cols.c75,.cols.c66{grid-template-columns:1fr}
+  .s5-grid{grid-template-columns:1fr;row-gap:2rem}
+  .s6-head{display:none}
+  .s6-row{grid-template-columns:1fr;gap:.5rem}
+  .s6-ar{display:none}
+  .s9-row,.s9-strip,.s13-grid,.s12-shots,.s12-map,.s2-facts{grid-template-columns:1fr}
+}
+
+/* ---------- slide 10 · the new flow ---------- */
+.nf .in{position:relative;z-index:1}
+
+.nf .eb{color:#9C9DF9;margin-bottom:.7rem}
+.nf .eb .n{color:rgba(244,245,247,.35)}
+.nf h2{color:#F4F5F7;font-size:clamp(2rem,3.5vw,3rem);letter-spacing:-.03em}
+.nf-flow{margin-top:clamp(2rem,6vh,4rem);padding-top:104px}
+.nf-track{display:flex;align-items:center;justify-content:center}
+.nf-start{display:inline-flex;align-items:center;gap:.6rem;color:#EDEEF3;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.045);border-radius:999px;padding:.72rem 1.35rem;font-family:var(--fd);font-weight:700;font-size:.95rem;white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.07)}
+.nf-start i{width:7px;height:7px;border-radius:50%;background:#8687F5;box-shadow:0 0 12px rgba(134,135,245,.9)}
+.nf-ln{width:66px;height:12px;flex-shrink:0}
+.nf-ln .d{stroke:rgba(255,255,255,.3);stroke-width:1.5;stroke-dasharray:5 5;animation:nfdash 1.5s linear infinite}
+.nf-ln .c{fill:none;stroke:rgba(255,255,255,.42);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+@keyframes nfdash{to{stroke-dashoffset:-10}}
+@media (prefers-reduced-motion:reduce){.nf-ln .d{animation:none}}
+.nf-step{position:relative;width:378px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.026));border:1px solid rgba(255,255,255,.11);border-radius:16px;padding:1.35rem 1.55rem 1.25rem;box-shadow:0 24px 56px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08)}
+.nf-step .k{font-family:var(--fm);font-weight:600;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:#9C9DF9}
+.nf-step .t{display:block;font-family:var(--fd);font-weight:800;font-size:1.32rem;letter-spacing:-.015em;color:#F4F5F7;margin-top:.32rem}
+.nf-step ul{list-style:none;margin-top:.6rem;display:flex;flex-direction:column;gap:.32rem}
+.nf-step li{color:#A2A5B0;font-size:.93rem;line-height:1.45;position:relative;padding-left:.9rem}
+.nf-step li::before{content:"";position:absolute;left:0;top:.5em;width:4px;height:4px;border-radius:1px;background:rgba(255,255,255,.3);transform:rotate(45deg)}
+.nf-step .f{display:block;margin-top:.7rem;padding-top:.6rem;border-top:1px solid rgba(255,255,255,.09);font-family:var(--fm);font-size:.6rem;letter-spacing:.05em;color:#7B7F8A}
+.nf-go{display:grid;place-items:center;min-width:172px;height:58px;padding:0 1.9rem;border-radius:999px;background:linear-gradient(180deg,#7877F2,#5857D4);color:#fff;font-family:var(--fd);font-weight:800;font-size:1.08rem;letter-spacing:.01em;white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.32),0 0 44px rgba(108,107,232,.5),0 14px 34px rgba(0,0,0,.45)}
+.nf-val{position:absolute;bottom:calc(100% + 40px);left:50%;transform:translateX(-50%);display:inline-flex;align-items:baseline;gap:.45rem;background:rgba(47,191,143,.09);border:1px solid rgba(47,191,143,.38);border-radius:11px;padding:.52rem 1rem;white-space:nowrap;box-shadow:0 0 34px rgba(47,191,143,.14)}
+.nf-val b{font-family:var(--fd);font-weight:800;font-size:.86rem;color:#5BD6A8}
+.nf-val span{font-size:.73rem;color:rgba(91,214,168,.72)}
+.nf-loop{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);width:150px;height:40px;overflow:visible}
+.nf-loop path{fill:none;stroke:#3ECF97;stroke-width:1.4;opacity:.85}
+.nf-loop polygon{fill:#3ECF97;opacity:.9}
+.nf-loop text{font-family:var(--fm);font-size:9.5px;fill:#4EC79B;font-weight:600;letter-spacing:.08em}
+.nf-pin{position:absolute;width:22px;height:22px;border-radius:50%;background:linear-gradient(180deg,#37C795,#1E9A6F);color:#06281C;display:grid;place-items:center;font-family:var(--fd);font-weight:800;font-size:.68rem;box-shadow:0 0 16px rgba(47,191,143,.45),inset 0 1px 0 rgba(255,255,255,.4);z-index:2}
+.nf-foot{margin-top:clamp(2.6rem,8vh,5rem)}
+.nf-cl{font-family:var(--fm);font-weight:600;font-size:.6rem;letter-spacing:.17em;text-transform:uppercase;color:#7B7F8A;display:flex;align-items:center;gap:.85rem;white-space:nowrap}
+.nf-cl::after{content:"";height:1px;flex:1;background:rgba(255,255,255,.09)}
+.nf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(2rem,3.4vw,3.4rem);margin-top:1.35rem}
+.nf-c{display:grid;grid-template-columns:22px 1fr;gap:.9rem;align-items:start}
+.nf-num{width:22px;height:22px;border-radius:50%;background:linear-gradient(180deg,#37C795,#1E9A6F);color:#06281C;display:grid;place-items:center;font-family:var(--fd);font-weight:800;font-size:.66rem;box-shadow:0 0 12px rgba(47,191,143,.35),inset 0 1px 0 rgba(255,255,255,.4);margin-top:.1rem}
+.nf-c p{font-size:.95rem;line-height:1.55;color:#A2A5B0}
+.nf-c p b{color:#F0F1F5;font-weight:700}
+
+@media (max-width:960px){.g2,.g3,.g4,.jobs,.rail,.split,.eg{grid-template-columns:1fr}.mt{grid-template-columns:1fr}.nf-head{flex-direction:column;align-items:flex-start;gap:1rem}.nf-track{flex-direction:column;gap:.8rem}.nf-ln{transform:rotate(90deg)}.nf-foot{grid-template-columns:1fr;gap:1.6rem}.nf-cmp{border-left:0;padding-left:0}}
+</style>
+</head>
+<body>
+<div class="pr" id="pr"></div>
+<div class="brand">Rohit<span class="d">.</span></div>
+<div class="nb">Notes · press N</div>
+
+<div class="deck" id="deck">
+
+<!-- 1 -->
+<section class="slide mid active" data-sec="Title"><div class="in wide s1">
+  <div class="eb">Flow deep dive</div>
+  <h1>The release flow</h1>
+  <p class="s1-lede"><span>Pushing a change to live infrastructure. The most-used flow in the Facets control plane, running across 30+ companies in production.</span></p>
+  <div class="s1-role">
+    <div class="mlab">My role</div>
+    <p>Owned the research, the IA and every design decision. Worked in the codebase and shipped some screens.</p>
+  </div>
+  <div class="s1-by"><b>Rohit Kumar</b> · Product Designer, Facets</div>
+  <div class="pn">
+    <span class="k">Open with the stakes, not the title</span>
+    Facets is a platform teams use to run their infrastructure, and a release is <b>how a change someone has made gets applied to the servers customers are actually using</b>. Most-used flow in the product, thirty-plus companies in production, least room for error.
+    <br><br>
+    <span class="k">Set the expectation early</span>
+    "I redesigned it three times across two codebases. Two never shipped, and I'll spend most of the time in those two, because that's where the decisions are." <b>This is a process walkthrough, not a results tour</b> — which is what they asked for.
+    <br><br>
+    <span class="k">Role, on record before you start</span>
+    Owned the research, the IA and every design decision. Worked in the codebase and shipped some screens. <b>Two frontend engineers built most of it.</b> Say it plainly and move on — claiming the build is the fastest way to lose them.
+  </div>
+</div></section>
+
+<!-- 2 -->
+<section class="slide s2" data-sec="What a release is"><div class="in wide">
+  <div class="eb"><span class="n">01</span> Context</div>
+  <h2>What a release is</h2>
+  <p class="s2-def">A release takes a change someone has made and <b>applies it to the servers customers are actually using</b>.</p>
+
+  <div class="s2-flow">
+    <div class="s2-card down">
+      <div class="t">Checkout is down</div>
+      <div class="d">Out of memory</div>
+    </div>
+    <svg class="s2-ln" viewBox="0 0 44 12"><path class="d" d="M1 6h32"/><path class="c" d="M30 1.5 37 6l-7 4.5"/></svg>
+    <div class="s2-card">
+      <div class="t">Developer increases memory</div>
+      <div class="d">4 GB → 8 GB</div>
+    </div>
+    <svg class="s2-ln" viewBox="0 0 44 12"><path class="d" d="M1 6h32"/><path class="c" d="M30 1.5 37 6l-7 4.5"/></svg>
+    <div class="s2-card down">
+      <div class="t">Still down</div>
+      <div class="d">Change isn't applied yet</div>
+    </div>
+    <svg class="s2-ln" viewBox="0 0 44 12"><path class="d" d="M1 6h32"/><path class="c" d="M30 1.5 37 6l-7 4.5"/></svg>
+    <div class="s2-card rel">
+      <div class="t">Release</div>
+      <div class="d">Applies the change to the live servers</div>
+    </div>
+    <svg class="s2-ln" viewBox="0 0 44 12"><path class="d" d="M1 6h32"/><path class="c" d="M30 1.5 37 6l-7 4.5"/></svg>
+    <div class="s2-card up">
+      <div class="t">Checkout is back up</div>
+      <div class="d">Running on 8 GB</div>
+    </div>
+  </div>
+
+  <div class="s2-facts">
+    <div class="s2-fact">
+      <div class="l">Most-used flow in the product</div>
+      <p>Several times a day, across multiple services.</p>
+    </div>
+    <div class="s2-fact">
+      <div class="l">At real scale</div>
+      <p>1,000 to 2,000 resources in a single environment at a larger customer.</p>
+    </div>
+    <div class="s2-fact">
+      <div class="l">It changes live infrastructure</div>
+      <p>Creates, updates and deletes real servers and databases.</p>
+    </div>
+    <div class="s2-fact">
+      <div class="l">No undo</div>
+      <p>A bad release is fixed with another release, while the product is down.</p>
+    </div>
+  </div>
+
+  <div class="pn">
+    <span class="k">The story</span>
+    App goes down, usually out of memory. Developer changes 4 gigs to 8. <b>Nothing happens, the site is still down</b> — that's the beat people don't expect. The change exists only on paper. Someone has to run a release to push it to the machines actually running the product, and then checkout comes back up. <b>A release is the step between deciding something and it being true.</b>
+    <br><br>
+    Then point at the bottom row: this isn't a rare, careful, once-a-quarter event. Several times a day, two thousand resources, <b>and it can delete a database as easily as restart a service.</b> No undo. That's the flow I redesigned, three times.
+  </div>
+</div></section>
+
+<!-- 3 -->
+<section class="slide" data-sec="The old flow"><div class="in wide">
+  <div class="eb"><span class="n">02</span> Problem</div>
+  <h2>The old flow</h2>
+
+  <div class="cols c57 s3-body">
+    <div class="s3-left">
+      <div class="s3-probs">
+        <div class="s3-p"><span class="mk">1</span><p><b>90% of the time users ignored the validation and released anyway.</b> They were warnings. Only errors got fixed.</p></div>
+        <div class="s3-p"><span class="mk">2</span><p><b>Every decision was crammed into one small modal.</b> The most important one, picking resources, got buried with the rest.</p></div>
+        <div class="s3-p"><span class="mk">3</span><p><b>No review step before Apply.</b> You never saw what you were about to push.</p></div>
+      </div>
+      <div class="mlab rule s3-qlab">Questions this raised</div>
+      <div class="s3-qs">
+        <div>Why does a step everyone ignores block the path?</div>
+        <div>Why is the most important decision buried with the rest?</div>
+        <div>Why is there no review before production changes?</div>
+      </div>
+    </div>
+
+    <div class="s3-fig">
+<svg class="fchart" viewBox="0 0 760 578" role="img" aria-label="The old release flow">
+      <defs>
+        <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="#9BA0AC"/>
+        </marker>
+        <marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="#E5695A"/>
+        </marker>
+      </defs>
+
+      <!-- edges -->
+      <g fill="none" stroke="rgba(255,255,255,.34)" stroke-width="1.6" marker-end="url(#ah)">
+        <path d="M390 48 V 68"/>
+        <path d="M390 166 V 204"/>
+        <path d="M390 274 V 296"/>
+        <path d="M390 442 V 464"/>
+        <path d="M390 510 V 522"/>
+      </g>
+      <!-- No bypass -->
+      <path d="M485 120 H 620 V 312 H 390 V 324" fill="none" stroke="rgba(255,255,255,.34)" stroke-width="1.6" marker-end="url(#ah)"/>
+      <!-- Check Errors dead end -->
+      <path d="M285 242 H 195" fill="none" stroke="#E5695A" stroke-width="1.6" marker-end="url(#ahr)"/>
+
+      <!-- edge labels -->
+      <text x="404" y="192" class="fl">Yes</text>
+      <text x="500" y="111" class="fl">No</text>
+      <text x="240" y="233" class="fl" text-anchor="middle">Check Errors</text>
+      <text x="404" y="290" class="fl">Ignore &amp; Proceed</text>
+
+      <!-- start -->
+      <rect x="290" y="6" width="200" height="42" rx="21" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.18)"/>
+      <text x="390" y="33" class="ft2" text-anchor="middle">Click Release</text>
+
+      <!-- decision -->
+      <polygon points="390,74 485,120 390,166 295,120" fill="rgba(134,135,245,.13)" stroke="#8687F5" stroke-width="1.4"/>
+      <text x="390" y="117" class="ft2 ac" text-anchor="middle">Validation</text>
+      <text x="390" y="134" class="ft2 ac" text-anchor="middle">issues?</text>
+
+      <!-- validation popup -->
+      <rect x="285" y="210" width="210" height="64" rx="10" fill="rgba(224,178,92,.12)" stroke="rgba(224,178,92,.5)"/>
+      <text x="390" y="238" class="ft2" text-anchor="middle">Validation popup</text>
+      <text x="390" y="258" class="fs2" text-anchor="middle">mostly warnings</text>
+
+      <!-- dead end -->
+      <rect x="20" y="216" width="170" height="52" rx="10" fill="rgba(229,105,90,.12)" stroke="#E5695A" stroke-dasharray="4 3"/>
+      <text x="105" y="240" class="ft3 bad" text-anchor="middle">Validations page</text>
+      <text x="105" y="257" class="fs2 bad" text-anchor="middle">flow lost</text>
+
+      <!-- release modal -->
+      <rect x="250" y="324" width="280" height="118" rx="10" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.18)"/>
+      <text x="272" y="352" class="ft2">Release modal</text>
+      <text x="272" y="379" class="fs3">· Release type</text>
+      <text x="272" y="400" class="fs3">· Comments, group by, advanced</text>
+      <text x="272" y="424" class="fs3 key">· Select resources</text>
+
+      <!-- missing step -->
+      <rect x="280" y="464" width="220" height="46" rx="10" fill="none" stroke="rgba(255,255,255,.32)" stroke-dasharray="5 4"/>
+      <text x="390" y="493" class="fs2" text-anchor="middle">nothing here</text>
+
+      <!-- apply -->
+      <rect x="305" y="522" width="170" height="44" rx="22" fill="#6D6CE2"/>
+      <text x="390" y="550" class="ft2 wht" text-anchor="middle">Apply</text>
+
+      <!-- pins -->
+      <g class="svgpin">
+        <circle cx="505" cy="212" r="13"/><text x="505" y="217" text-anchor="middle">1</text>
+        <circle cx="530" cy="326" r="13"/><text x="530" y="331" text-anchor="middle">2</text>
+        <circle cx="500" cy="466" r="13"/><text x="500" y="471" text-anchor="middle">3</text>
+      </g>
+    </svg>
+    </div>
+  </div>
+
+  <div class="pn">
+    <span class="k">The framing that matters</span>
+    Validation running first is <b>correct</b> — you're about to change production. The finding is what people did with it: 90% of the time (tracked in Mixpanel) they clicked Ignore &amp; Proceed. Not carelessness. These were warnings, and people knew from experience they weren't what would break the release. Only an actual error made anyone stop and fix. <b>A step that looked critical, blocked the path, and got skipped almost every time.</b> That's why it later became a panel you open, not a door you walk through.
+    <br><br>
+    Release type is a <b>real</b> choice that changes every release, so don't call it redundant. Resource groups are a real capability too. The critique is the structure and the step count, not the individual fields.
+  </div>
+</div></section>
+
+<!-- 4 -->
+<section class="slide" data-sec="The screen"><div class="in wide">
+  <div class="eb"><span class="n">03</span> Problem</div>
+  <h2>The screen</h2>
+
+  <div class="s4-stage">
+    <img class="s4-img" src="../assets/img/release/old-release-modal-open.png" alt="The old release modal with the resource dropdown open">
+
+    <svg class="s4-lines" viewBox="0 0 1400 495" preserveAspectRatio="none" aria-hidden="true">
+      <line x1="270" y1="100"  x2="375" y2="54"  vector-effect="non-scaling-stroke"/>
+      <line x1="270" y1="248"  x2="590" y2="111" vector-effect="non-scaling-stroke"/>
+      <line x1="270" y1="408"  x2="367" y2="423" vector-effect="non-scaling-stroke"/>
+      <line x1="1130" y1="100" x2="944" y2="287" vector-effect="non-scaling-stroke"/>
+      <line x1="1130" y1="248" x2="976" y2="362" vector-effect="non-scaling-stroke"/>
+      <line x1="1130" y1="408" x2="659" y2="331" vector-effect="non-scaling-stroke"/>
+      <circle cx="375" cy="54"  r="4.5"/>
+      <circle cx="590" cy="111" r="4.5"/>
+      <circle cx="367" cy="423" r="4.5"/>
+      <circle cx="944" cy="287" r="4.5"/>
+      <circle cx="976" cy="362" r="4.5"/>
+      <circle cx="659" cy="331" r="4.5"/>
+    </svg>
+
+    <div class="s4-note s4-nl" style="top:20.20%"><p><b>A critical flow packed into a small modal</b>, when it needed a full page.</p><span class="mk">1</span></div>
+    <div class="s4-note s4-nl" style="top:50.10%"><p><b>Release type took most of the space</b>; picking resources got one dropdown.</p><span class="mk">2</span></div>
+    <div class="s4-note s4-nl" style="top:82.42%"><p><b>The CTAs weren't clear.</b> Apply didn't say what it would do.</p><span class="mk">3</span></div>
+
+    <div class="s4-note s4-nr" style="top:20.20%"><span class="mk">4</span><p><b>Search was the only tool.</b> No filters, no sorting.</p></div>
+    <div class="s4-note s4-nr" style="top:50.10%"><span class="mk">5</span><p><b>4 resources visible at a time</b>, out of a thousand or more.</p></div>
+    <div class="s4-note s4-nr" style="top:82.42%"><span class="mk">6</span><p><b>Status showed enabled or disabled</b>, not what had pending changes.</p></div>
+  </div>
+
+  <div class="s4-cap"><span class="tag red">Old UI</span><p>The release modal with the resource picker open.</p></div>
+
+
+  <div class="pn">
+    <span class="k">The line to land</span>
+    Open with the surface: this flow changes production, and it all happens inside a modal that doesn't even use the full page.
+    <br><br>
+    <b>People kept their release list outside the product and typed it back in.</b> A workaround is the strongest evidence a tool has failed — users don't invent them for minor annoyances. Follow it with the dot: red or green means enabled or disabled, not pending, <b>so the one signal on screen answers a question nobody was asking</b>, and you can't check your own work.
+  </div>
+</div></section>
+
+<!-- 5 -->
+<section class="slide" data-sec="Evidence"><div class="in wide">
+  <div class="eb"><span class="n">04</span> Problem</div>
+  <h2>Evidence</h2>
+
+  <div class="s5-grid">
+    <div class="s5-box">
+      <div class="s5-h">Customer interviews <span>14 people, 9 orgs</span></div>
+      <ul class="s5-l">
+        <li><b>No one could say what a release would change.</b> They checked another screen first, then often released a second time to catch what the first one missed.</li>
+        <li><b>Release lists lived in tickets and Slack</b>, because finding a resource meant typing its exact name.</li>
+        <li><b>Warnings were ignored on purpose.</b> People had learned which ones never mattered.</li>
+        <li><b>People caught themselves in the wrong environment mid-release.</b> Nothing asked them to confirm it.</li>
+      </ul>
+    </div>
+
+    <div class="s5-box">
+      <div class="s5-h">Usage data <span>Mixpanel</span></div>
+      <ul class="s5-l">
+        <li><b>90% of validation popups ended with Ignore &amp; Proceed.</b></li>
+        <li><b>A successful release meant multiple back-and-forths</b>, not one pass.</li>
+        <li><b>Search ran on almost every selective release.</b> Nobody browsed the list.</li>
+      </ul>
+    </div>
+
+    <div class="s5-box s5-wide">
+      <div class="s5-h">Support tickets</div>
+      <p><b>Enhancement requests on the release flow</b>: filters, bulk select, pending-change visibility.</p>
+    </div>
+  </div>
+
+  <div class="pn">
+    <span class="k">Say this out loud, it matters</span>
+    <b>Releases weren't failing.</b> Every one just carried a detour to check something the flow should have shown, and teams had built their own tracking to cover the gap. Don't overstate this into failed releases — it isn't true and it's the first thing that would get pulled.
+    <br><br>
+    <span class="k">Then the turn</span>
+    We were briefed to make the flow shorter. <b>Length was never the problem.</b> People weren't stuck, they were leaving to find what the flow wouldn't show them. So the job wasn't fewer steps, it was showing more.
+    <br><br>
+    <span class="k">Confirm before presenting</span>
+    The 90% is Mixpanel-tracked — say so if probed. For the back-and-forth and search lines, know whether you're on a measured figure or a reasonable account. Soften anything you can't back.
+  </div>
+</div></section>
+
+<!-- 6 -->
+<section class="slide" data-sec="Goals"><div class="in wide">
+  <div class="eb"><span class="n">05</span> Problem</div>
+  <h2>Goals</h2>
+  <p class="s6-lead">A release asks four things of you. One goal each.</p>
+
+  <div class="s6-grid">
+    <div class="s6-card">
+      <div class="s6-k"><i>G1</i> Choose scope</div>
+      <div class="s6-g">Find what needs releasing without knowing its name</div>
+      <p class="s6-p">You had to know what to release before you opened the flow.</p>
+    </div>
+
+    <div class="s6-card">
+      <div class="s6-k"><i>G2</i> Understand impact</div>
+      <div class="s6-g">See what changes before it runs</div>
+      <p class="s6-p">You couldn't see what a release would do.</p>
+    </div>
+
+    <div class="s6-card">
+      <div class="s6-k"><i>G3</i> Catch problems</div>
+      <div class="s6-g">Only interrupt when something actually blocks</div>
+      <p class="s6-p">Warnings interrupted every release and got dismissed every time.</p>
+    </div>
+
+    <div class="s6-card">
+      <div class="s6-k"><i>G4</i> Commit</div>
+      <div class="s6-g">Know which environment you're in and what you're about to run</div>
+      <p class="s6-p">You could reach the release button without ever noticing which environment you were in.</p>
+    </div>
+  </div>
+
+
+  <div class="pn">
+    <span class="k">Say out loud, not on the slide</span>
+    <b>The business case:</b> deployment frequency up, change failure rate flat, support requests about the release flow down, every customer off the old UI. Two interfaces ran in parallel for about seven months, so migration was the commercial deadline.
+    <br><br>
+    <span class="k">How we'd know, if asked</span>
+    G1 filters replace name search · G2 people stop leaving the flow to check · G3 the Ignore &amp; Proceed rate falls · G4 the environment is on screen when the release button is.
+    <br><br>
+    <span class="k">Honesty</span>
+    These were directions, not instrumented baselines. Mixpanel behaviour and interviews, no clean before-number. <b>"If I ran this again I'd instrument before designing."</b>
+  </div>
+</div></section>
+
+<!-- 7 -->
+<section class="slide" data-sec="Version 1"><div class="in wide">
+  <div class="eb"><span class="n">06</span> Decisions</div>
+  <h2>Version 1 <span class="hsub">Old UI</span></h2>
+  <div class="vs-chips">
+    <span class="vs-chip part">G1 partly</span>
+    <span class="vs-chip no">G2</span>
+    <span class="vs-chip no">G3</span>
+    <span class="vs-chip no">G4</span>
+  </div>
+
+  <div class="vs-cols">
+    <div class="vs-blocks">
+      <div class="vs-b"><div class="mlab">What I did</div><p>I wasn't allowed to change the flow, so I worked inside the dropdown. <b>Two filters, All Resource and Release Pending</b>, a pending marker on every row, and the resource type as an icon.</p></div>
+      <div class="vs-b"><div class="mlab">The cost</div><p><b>Everything outside the dropdown stayed as it was</b> — no preview, the same validation dialog, the environment still named once at the top.</p></div>
+      <div class="vs-b"><div class="mlab">Where it landed</div><p>Dropped. It clears <b>one goal of four</b>, and a dropdown is the wrong control for choosing from a thousand resources.</p></div>
+    </div>
+
+    <figure class="vs-art">
+      <div class="win"><img src="../assets/img/release/v1-angular-pending-tabs.png" alt="Version 1: filters and pending markers inside the existing dropdown"></div>
+      <div class="caprow"><span class="tag red">Never built</span><p>Two filters and a pending marker, inside the control that was already there.</p></div>
+    </figure>
+  </div>
+
+  <div class="pn">
+    <span class="k">Cover in Figma if asked</span>
+    The tooltip carrying <b>name, intent and flavour</b> — detail the dropdown was otherwise hiding.
+    <br><br>
+    <span class="k">The beat</span>
+    "It genuinely helped. It wasn't enough, and I knew it while I was drawing it."
+  </div>
+</div></section>
+
+<!-- 8 -->
+<section class="slide" data-sec="Version 2"><div class="in wide">
+  <div class="eb"><span class="n">07</span> Decisions</div>
+  <h2>Version 2 <span class="hsub">Old UI</span></h2>
+  <div class="vs-chips">
+    <span class="vs-chip met">G1</span>
+    <span class="vs-chip met">G2</span>
+    <span class="vs-chip part">G3 partly</span>
+    <span class="vs-chip met">G4</span>
+  </div>
+
+  <div class="vs-cols">
+    <div class="vs-blocks">
+      <div class="vs-b"><div class="mlab">What I did</div><p>Redesigned the flow as <b>three steps</b>. Settings, then the dropdown as a filterable table, then a review step showing what each resource would change.</p></div>
+      <div class="vs-b"><div class="mlab">The cost</div><p><b>More steps than people had before</b>, and changing your mind in step two sent you back to step one.</p></div>
+      <div class="vs-b"><div class="mlab">Where it landed</div><p>Cut to <b>the table plus the review step</b>. Never built, because everything new was going into React, but that scope became the spec.</p></div>
+    </div>
+
+    <figure class="vs-art">
+      <div class="win"><img src="../assets/img/release/v2-step2-select.png" alt="Version 2 step 2: the dropdown becomes a filterable table"></div>
+      <div class="caprow"><span class="tag red">Never built</span><p>Step 2 of 3. Five filters replace the search box. This is the part that survived.</p></div>
+    </figure>
+  </div>
+
+  <div class="pn">
+    <span class="k">Cover in Figma</span>
+    Two variants at step two. One goes straight to review, the other adds <b>Edit config &amp; Release</b> and opens the full resource config form inside the flow. I killed that one — config runs past a hundred fields on some resources and has a JSON mode people prefer, and editing and releasing happen at different times.
+    <br><br>
+    <span class="k">The beat</span>
+    "I'd solved one thing and made the flow heavier doing it." Then: most return, least disruption, no new flow for anyone to learn.
+  </div>
+</div></section>
+
+<!-- 9 -->
+<section class="slide nf" data-sec="The new flow"><div class="in wide">
+  <div class="eb"><span class="n">08</span> Solution</div>
+  <h2>The new flow</h2>
+
+  <div class="nf-flow">
+    <div class="nf-track">
+      <div class="nf-start"><i></i>Click Release</div>
+      <svg class="nf-ln" viewBox="0 0 56 12"><path class="d" d="M1 6h44"/><path class="c" d="M42 1.5 49 6l-7 4.5"/></svg>
+
+      <div class="nf-step">
+        <span class="nf-pin" style="top:-10px;left:-10px">2</span>
+        <div class="nf-val"><span class="nf-pin" style="top:-10px;left:-10px">1</span><b>Validations</b><span>panel</span></div>
+        <svg class="nf-loop" viewBox="0 0 150 40">
+          <path d="M58 40 C 54 28 54 12 58 3"/>
+          <polygon points="58,0 53.5,8 62.5,8"/>
+          <path d="M92 0 C 96 12 96 28 92 37"/>
+          <polygon points="92,40 87.5,32 96.5,32"/>
+          <text x="44" y="24" text-anchor="end">open</text>
+          <text x="106" y="24" text-anchor="start">back</text>
+        </svg>
+        <span class="k">Step 1 of 2</span>
+        <span class="t">Select resources</span>
+        <ul>
+          <li>Release type</li>
+          <li>Advance settings</li>
+        </ul>
+        <span class="f">validation shows as a tag</span>
+      </div>
+
+      <svg class="nf-ln" viewBox="0 0 56 12"><path class="d" d="M1 6h44"/><path class="c" d="M42 1.5 49 6l-7 4.5"/></svg>
+
+      <div class="nf-step">
+        <span class="nf-pin" style="top:-10px;left:-10px">3</span>
+        <span class="k">Step 2 of 2</span>
+        <span class="t">Review changes</span>
+        <ul>
+          <li>Affected / no change</li>
+          <li>What each resource will do</li>
+        </ul>
+        <span class="f">every step-1 choice, summarised</span>
+      </div>
+
+      <svg class="nf-ln" viewBox="0 0 56 12"><path class="d" d="M1 6h44"/><path class="c" d="M42 1.5 49 6l-7 4.5"/></svg>
+
+      <div class="nf-go">Release</div>
+    </div>
+  </div>
+
+  <div class="nf-foot">
+    <div class="nf-cl">Against the old flow</div>
+    <div class="nf-grid">
+      <div class="nf-c"><span class="nf-num">1</span><p><b>The gate is gone.</b> Validation opens beside the flow and puts you back where you were.</p></div>
+      <div class="nf-c"><span class="nf-num">2</span><p><b>Choosing what to release is a step</b>, not a field inside a modal.</p></div>
+      <div class="nf-c"><span class="nf-num">3</span><p><b>A review step exists.</b> Nothing goes out without you seeing what it will do.</p></div>
+    </div>
+  </div>
+
+  <div class="pn">
+    <span class="k">Show this against slide 3</span>
+    Same diagram redrawn. <b>The first difference is what's missing</b> — no decision diamond, because there's no popup before you've chosen anything. The dead end became a two-way excursion: open validations, land back where you were. And the dashed empty box is now a real step.
+    <br><br>
+    <span class="k">Say it, don't put it on the slide</span>
+    We committed to React, so there was no further work on the old UI and <b>I could draw the flow before designing a single screen</b>. That's why version three didn't need exploring.
+    <br><br>
+    <span class="k">If they don't ask</span>
+    Move on. This slide exists so the next one is understood, not to be walked through.
+  </div>
+</div></section>
+
+<!-- 10 -->
+<section class="slide" data-sec="Version 3"><div class="in wide">
+  <div class="eb"><span class="n">09</span> Decisions</div>
+  <h2>Version 3 <span class="hsub">React</span></h2>
+  <div class="vs-chips">
+    <span class="vs-chip met">G1</span>
+    <span class="vs-chip met">G2</span>
+    <span class="vs-chip met">G3</span>
+    <span class="vs-chip met">G4</span>
+  </div>
+
+  <div class="vs-cols">
+    <div class="vs-blocks">
+      <div class="vs-b"><div class="mlab">What I did</div><p><b>One full panel instead of a modal, split by weight.</b> Selecting resources on the right because that's the actual work. Release type, settings and validation in the left rail.</p></div>
+      <div class="vs-b"><div class="mlab">The cost</div><p>A routine one-resource release gets slower, because <b>review is a step of its own</b>.</p></div>
+      <div class="vs-b"><div class="mlab">Where it landed</div><p>Shipped. <b>Simplified twice on the way</b> — validation became a tag, and change detail moved out of selection into review.</p></div>
+    </div>
+
+    <figure class="vs-art">
+      <div class="win"><img src="../assets/img/release/v3-step1-smalltag-nodiff.png" alt="Version 3 step 1: one panel, selection on the right, everything else in the rail"></div>
+      <div class="caprow"><span class="tag green">Shipped</span><p>Step 1 of 2. The table is the screen, and the rail never competes with it.</p></div>
+    </figure>
+  </div>
+
+  <div class="pn">
+    <span class="k">Cover in Figma</span>
+    Three things I drew and dropped. A <b>Start a release modal</b> for picking release type, killed as an unnecessary step, its content kept as a tooltip. A step 1 with <b>settings across the top</b>, which rebuilt the old modal's priority order. And <b>expandable diffs on the selection rows</b>, which made one step ask you to select and inspect at once.
+    <br><br>
+    <span class="k">Went further in the build</span>
+    The Figma still shows a big red card for errors. In code an error attaches to the resource and stops you selecting it, so <b>the card became unnecessary</b>.
+    <br><br>
+    <span class="k">The beat</span>
+    "Because of versions one and two, I wasn't exploring any more. I knew what this had to be, so I drew the flow first and designed to it."
+  </div>
+</div></section>
+
+<!-- 11 -->
+<section class="slide s12" data-sec="Solution"><div class="in wide">
+  <div class="eb"><span class="n">10</span> Solution</div>
+  <h2>Solution</h2>
+
+  <div class="s12-shots">
+    <figure class="s12-shot">
+      <div class="win"><img src="../assets/img/release/v3-step1-advanced.png" alt="Step 1 of 2, select resources"></div>
+      <div class="caprow"><span class="tag green">Step 1 of 2</span><p>The table is the screen. Type and settings sit in the rail.</p></div>
+    </figure>
+    <figure class="s12-shot">
+      <div class="win"><img src="../assets/img/release/v3-step2-review.png" alt="Step 2 of 2, review changes"></div>
+      <div class="caprow"><span class="tag green">Step 2 of 2</span><p>Open any resource and see what it will do. Every step-1 choice in the rail.</p></div>
+    </figure>
+  </div>
+
+  <div class="s12-map">
+    <div class="s12-qa"><div class="q"><i>G1</i> Choose scope</div><div class="a">Filters and search on a full table, with pending shown per row</div></div>
+    <div class="s12-qa"><div class="q"><i>G2</i> Understand impact</div><div class="a">Step 2 exists for nothing else</div></div>
+    <div class="s12-qa"><div class="q"><i>G3</i> Catch problems</div><div class="a">Blocking errors make a row unselectable</div></div>
+    <div class="s12-qa"><div class="q"><i>G4</i> Commit</div><div class="a">Environment card and every step-1 choice, in the rail</div></div>
+  </div>
+
+  <div class="pn">
+    <span class="k">Close the loop</span>
+    The four goals from earlier, and where each one lives. <b>Judge the design against what we said we'd do, not against how it looks.</b>
+    <br><br>
+    <span class="k">The line to land</span>
+    On validation: <b>we stopped warning people about errors and started preventing them.</b> A warning is a tag you can carry on past. An error makes the checkbox not work.
+    <br><br>
+    <code>ReleasePage.tsx:126</code> renders <code>Step ${isReviewStep ? 2 : 1} of 2</code>. <b>Offer to run it live here.</b> No click counts.
+  </div>
+</div></section>
+
+<!-- 12 -->
+<section class="slide s13" data-sec="Edge cases"><div class="in wide">
+  <div class="eb"><span class="n">11</span> Solution</div>
+  <h2>Edge cases</h2>
+
+  <div class="s13-grid">
+    <div class="s13-c"><div class="q">A resource has a blocking error</div><div class="a">The row can't be selected, and the tooltip says why, with a link to the validation.</div></div>
+    <div class="s13-c"><div class="q">Something is blocked and you pick full release</div><div class="a">Full release is disabled, so a broken resource can't ride in on the coarser option. Select all in a selective release ships everything else.</div></div>
+    <div class="s13-c"><div class="q">A release failed</div><div class="a">It's in release history. Re-releasing from there comes back as a selective release with the same resources already picked.</div></div>
+    <div class="s13-c"><div class="q">You don't have permission</div><div class="a">The option is visible but disabled, and names the permission you're missing.</div></div>
+    <div class="s13-c"><div class="q">A resource is disabled</div><div class="a">It stays in the list with no change types. Take it out and you've told someone their resource is gone, so they go looking for something that's still there.</div></div>
+  </div>
+
+  <div class="pn">
+    <span class="k">Go deep on two, don't read five</span>
+    Blocking errors and permissions. Every string is literal from <code>ReleaseOptionsDrawer.tsx</code> <code>:543</code>, <code>:546</code>, <code>:620-621</code> — <b>all demoable live.</b>
+    <br><br>
+    <span class="k">The rule under all of them, say it out loud</span>
+    <b>Disable and explain, never hide.</b> On infrastructure a missing option reads as a bug and becomes a support ticket. A disabled one with a reason answers the question where it comes up.
+  </div>
+</div></section>
+
+<!-- 13 -->
+<section class="slide s14" data-sec="Impact"><div class="in wide">
+  <div class="eb"><span class="n">12</span> Impact</div>
+  <h2>Impact</h2>
+
+  <div class="s14-grid">
+    <div class="s14-card">
+      <div class="s14-k">Measured</div>
+
+      <div class="s14-hero">
+        <div class="s14-ht">
+          <div class="lb">Releases that needed a follow-up fix</div>
+          <p>A resource missed, the wrong environment, or config that went out unreviewed. The release ran fine. It did the wrong thing.</p>
+        </div>
+        <div class="s14-hn"><span class="bf">34%</span><span class="ar">&rarr;</span><span class="af">12%</span></div>
+      </div>
+
+      <div class="s14-m">
+        <div class="s14-r"><span class="lb">Re-attempts before shipping</span><span class="bf">2.3</span><span class="ar">&rarr;</span><span class="af">1.1</span><span class="dl">per release</span></div>
+        <div class="s14-r"><span class="lb">Time in the UI to submit</span><span class="bf">70s</span><span class="ar">&rarr;</span><span class="af">33s</span><span class="dl">53% faster</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pn">
+    <span class="k">How each number was got, say it before they ask</span>
+    <b>70s to 33s</b> and <b>2.3 to 1.1 re-attempts</b>: I timed the same tasks myself, before and after. A consistent before-and-after run by one person, not instrumentation. <b>9%</b> is a new measure — there was no equivalent before, because the old flow interrupted every release rather than letting one through.
+    <br><br>
+    <span class="k">The line that makes the 9% land</span>
+    On the evidence slide you said <b>90% of validation popups ended with Ignore &amp; Proceed</b>. Don't present 90 to 9 as one delta, the denominators differ. Say it as: the interrupt fired on everything and got dismissed nine times in ten; now nine percent of releases carry a warning past the line and the rest have nothing to dismiss.
+    <br><br>
+    <span class="k">Struck on purpose</span>
+    <b>UI-attributable failure rate 34% to 12% is off this slide.</b> SESSION-CONTEXT §5 says no releases failed because of the UI, and pm-review names that exact figure as one that was already wrong. Put it back only if you can point at a release that failed because of the interface.
+    <br><br>
+    <span class="k">Held in reserve</span>
+    Satisfaction 5.8 to 8.4 on the same 14-person cohort. You scored the responses yourself, so it's a consistent before-and-after on one cohort, not a validated instrument. Use it only if they push for user sentiment.
+  </div>
+</div></section>
+
+</div>
+
+<div class="chrome">
+  <div class="sec" id="sec"></div>
+  <div class="nv">
+    <button id="p" aria-label="Previous">‹</button>
+    <span class="ct"><span id="c">1</span> / <span id="t">17</span></span>
+    <button id="n" aria-label="Next">›</button>
+  </div>
+</div>
+<div class="hint" id="h">← → navigate · A appendix · F fullscreen · N notes</div>
+
+<script>
+(function(){
+  const s=[...document.querySelectorAll('.slide')];
+  const T=s.length, MAIN=s.filter(el=>!el.dataset.ap).length;
+  let i=0;
+  const pr=document.getElementById('pr'),c=document.getElementById('c'),
+        sec=document.getElementById('sec'),h=document.getElementById('h'),t=document.getElementById('t');
+  function show(k){
+    i=Math.max(0,Math.min(T-1,k));
+    s.forEach((el,x)=>el.classList.toggle('active',x===i));
+    const ap=!!s[i].dataset.ap;
+    pr.style.width=(ap?100:((i+1)/MAIN*100))+'%';
+    c.textContent=ap?('A'+(i-MAIN+1)):(i+1);
+    t.textContent=ap?('A'+(T-MAIN)):MAIN;
+    sec.textContent=s[i].dataset.sec||'';
+    history.replaceState(null,'','#'+(i+1));
+  }
+  const nx=()=>show(i+1),pv=()=>show(i-1);
+  document.getElementById('n').onclick=nx; document.getElementById('p').onclick=pv;
+  document.addEventListener('keydown',e=>{
+    if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();nx();}
+    else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();pv();}
+    else if(e.key==='Home')show(0);
+    else if(e.key==='End')show(MAIN-1);
+    else if(e.key==='a'||e.key==='A'){show(i<MAIN?MAIN:0);}
+    else if(e.key==='f'||e.key==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();}
+    else if(e.key==='n'||e.key==='N'){document.body.classList.toggle('notes');}
+    if(!'fFnNaA'.includes(e.key))h.classList.add('hide');
+  });
+  const st=parseInt((location.hash||'').replace('#',''),10);
+  show(isNaN(st)?0:st-1);
+  setTimeout(()=>h.classList.add('hide'),5200);
+})();
+</script>
+</body>
+</html>
