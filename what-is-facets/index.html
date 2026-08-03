@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>What Facets is · Rohit Kumar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#0E0F14; --surface:rgba(255,255,255,.045);
+  --ink:#F4F5F7; --ink2:#A6A9B3; --ink3:#7E828D;
+  --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.18);
+  --ac:#8687F5; --bad:#E5695A; --good:#4ED0A0; --warn:#E0B25C;
+  --fd:'Manrope',system-ui,sans-serif;
+  --fb:'Inter',system-ui,sans-serif;
+  --fm:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--fb);overflow:hidden;-webkit-font-smoothing:antialiased}
+
+.deck{position:fixed;inset:0}
+.deck::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1.2px),radial-gradient(44% 38% at 50% 40%,rgba(91,91,214,.13),transparent 64%),radial-gradient(36% 30% at 88% -6%,rgba(91,91,214,.09),transparent 60%),radial-gradient(32% 26% at 4% 110%,rgba(31,143,102,.08),transparent 62%);background-size:22px 22px,auto,auto,auto}
+.slide{position:absolute;inset:0;display:flex;padding:6vh 5.2vw 8vh;flex-direction:column;justify-content:center;overflow:hidden;z-index:1}
+.in{width:100%;max-width:1400px;margin:0 auto}
+
+.eb{font-family:var(--fd);font-weight:700;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ac);margin-bottom:.9rem}
+h2{font-family:var(--fd);font-weight:800;letter-spacing:-.026em;line-height:1.1;font-size:clamp(1.55rem,3.1vw,2.5rem)}
+.def{margin-top:1rem;font-size:clamp(1.08rem,1.35vw,1.28rem);line-height:1.5;color:var(--ink2)}
+.def b{color:var(--ink);font-weight:600}
+
+.dia{width:100%;height:auto;max-height:52vh;margin-top:2.6rem;display:block}
+.foot{margin-top:2.2rem;padding-top:1.3rem;border-top:1px solid var(--line2);font-size:.87rem;color:var(--ink3)}
+.foot b{color:var(--ink);font-weight:600}
+
+.dia .pill{fill:rgba(255,255,255,.05);stroke:rgba(255,255,255,.15)}
+.dia .gate{fill:rgba(224,178,92,.13);stroke:rgba(224,178,92,.5)}
+.dia .band{fill:rgba(134,135,245,.11);stroke:rgba(134,135,245,.5);stroke-dasharray:7 5}
+.dia .cloud{fill:rgba(255,255,255,.028);stroke:rgba(255,255,255,.14)}
+.dia .chip{fill:rgba(134,135,245,.13);stroke:rgba(134,135,245,.34)}
+.dia .ln{fill:none;stroke-width:1.7;stroke-linecap:round}
+.dia .ln.w{stroke:rgba(224,178,92,.62)}
+.dia .ln.a{stroke:rgba(134,135,245,.68)}
+.dia .glyph{fill:#9498A2}
+.dia .div{stroke:rgba(255,255,255,.14);stroke-width:1}
+.dia .t{font-family:'Manrope',sans-serif;font-weight:800;font-size:14.5px;fill:#F4F5F7}
+.dia .t2{font-family:'Manrope',sans-serif;font-weight:800;font-size:13.5px;fill:#F4F5F7}
+.dia .s{font-family:'Inter',sans-serif;font-size:12.5px;fill:#A6A9B3}
+.dia .m{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:10.5px;letter-spacing:.14em;fill:#7E828D}
+.dia .m.w{fill:#E0B25C}
+.dia .m.a{fill:#8687F5}
+.dia .note{font-family:'Manrope',sans-serif;font-weight:800;font-size:14px}
+.dia .note.bad{fill:#E5695A}
+.dia .note.ac{fill:#8687F5}
+
+@media (max-width:900px){ .dia{max-height:none} }
+</style>
+</head>
+<body>
+
+<div class="deck">
+<section class="slide"><div class="in">
+
+  <div class="eb">Context</div>
+  <h2>What Facets is</h2>
+  <p class="def">One team sets the rules. <b>Everyone else serves themselves.</b></p>
+
+  <svg class="dia" viewBox="0 0 1400 344" role="img" aria-label="An app is a group of pieces - a service, a database, a Redis cache - running on rented cloud. Without Facets every developer funnels through one platform team. With Facets each one goes straight through rules the team set once.">
+    <defs>
+      <marker id="aw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M0 1 L9 5 L0 9" fill="none" stroke="rgba(224,178,92,.8)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+      <marker id="aa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M0 1 L9 5 L0 9" fill="none" stroke="rgba(134,135,245,.85)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+
+    <line class="div" x1="700" y1="4" x2="700" y2="340"/>
+
+    <!-- ============ WITHOUT FACETS ============ -->
+    <text class="m w" x="0" y="16">WITHOUT FACETS</text>
+    <text class="m" x="0" y="48">DEVELOPERS</text>
+
+    <g class="pill-set">
+      <rect class="pill" x="0" y="60"  width="64" height="42" rx="12"/>
+      <rect class="pill" x="0" y="116" width="64" height="42" rx="12"/>
+      <rect class="pill" x="0" y="172" width="64" height="42" rx="12"/>
+      <rect class="pill" x="0" y="228" width="64" height="42" rx="12"/>
+      <g class="glyph">
+        <circle cx="32" cy="75"  r="5.5"/><path d="M22 93a10 10 0 0 1 20 0z"/>
+        <circle cx="32" cy="131" r="5.5"/><path d="M22 149a10 10 0 0 1 20 0z"/>
+        <circle cx="32" cy="187" r="5.5"/><path d="M22 205a10 10 0 0 1 20 0z"/>
+        <circle cx="32" cy="243" r="5.5"/><path d="M22 261a10 10 0 0 1 20 0z"/>
+      </g>
+    </g>
+
+    <path class="ln w" d="M64 81 C160 81 180 165 244 165"  marker-end="url(#aw)"/>
+    <path class="ln w" d="M64 137 C160 137 180 165 244 165" marker-end="url(#aw)"/>
+    <path class="ln w" d="M64 193 C160 193 180 165 244 165" marker-end="url(#aw)"/>
+    <path class="ln w" d="M64 249 C160 249 180 165 244 165" marker-end="url(#aw)"/>
+
+    <rect class="gate" x="250" y="137" width="130" height="56" rx="14"/>
+    <text class="t2" x="315" y="162" text-anchor="middle">Platform team</text>
+    <text class="s"  x="315" y="180" text-anchor="middle">one small team</text>
+
+    <path class="ln w" d="M380 165 H432" marker-end="url(#aw)"/>
+    <text class="note bad" x="315" y="312" text-anchor="middle">Everyone queues</text>
+
+    <rect class="cloud" x="440" y="53" width="210" height="225" rx="16"/>
+    <text class="t" x="545" y="83" text-anchor="middle">The Revolut app</text>
+    <rect class="chip" x="456" y="97"  width="178" height="34" rx="9"/>
+    <text class="s" x="545" y="119" text-anchor="middle">Service</text>
+    <rect class="chip" x="456" y="137" width="178" height="34" rx="9"/>
+    <text class="s" x="545" y="159" text-anchor="middle">Database</text>
+    <rect class="chip" x="456" y="177" width="178" height="34" rx="9"/>
+    <text class="s" x="545" y="199" text-anchor="middle">Redis</text>
+    <text class="m" x="545" y="249" text-anchor="middle">AWS · GOOGLE CLOUD</text>
+
+    <!-- ============ WITH FACETS ============ -->
+    <text class="m a" x="750" y="16">WITH FACETS</text>
+    <text class="m" x="750" y="48">DEVELOPERS</text>
+
+    <g>
+      <rect class="pill" x="750" y="60"  width="64" height="42" rx="12"/>
+      <rect class="pill" x="750" y="116" width="64" height="42" rx="12"/>
+      <rect class="pill" x="750" y="172" width="64" height="42" rx="12"/>
+      <rect class="pill" x="750" y="228" width="64" height="42" rx="12"/>
+      <g class="glyph">
+        <circle cx="782" cy="75"  r="5.5"/><path d="M772 93a10 10 0 0 1 20 0z"/>
+        <circle cx="782" cy="131" r="5.5"/><path d="M772 149a10 10 0 0 1 20 0z"/>
+        <circle cx="782" cy="187" r="5.5"/><path d="M772 205a10 10 0 0 1 20 0z"/>
+        <circle cx="782" cy="243" r="5.5"/><path d="M772 261a10 10 0 0 1 20 0z"/>
+      </g>
+    </g>
+
+    <path class="ln a" d="M814 81  H1182" marker-end="url(#aa)"/>
+    <path class="ln a" d="M814 137 H1182" marker-end="url(#aa)"/>
+    <path class="ln a" d="M814 193 H1182" marker-end="url(#aa)"/>
+    <path class="ln a" d="M814 249 H1182" marker-end="url(#aa)"/>
+
+    <rect class="band" x="1000" y="53" width="140" height="225" rx="14"/>
+    <text class="t2" x="1070" y="36" text-anchor="middle">Rules the platform team set once</text>
+
+    <text class="note ac" x="1070" y="312" text-anchor="middle">No queue</text>
+
+    <rect class="cloud" x="1190" y="53" width="210" height="225" rx="16"/>
+    <text class="t" x="1295" y="83" text-anchor="middle">The Revolut app</text>
+    <rect class="chip" x="1206" y="97"  width="178" height="34" rx="9"/>
+    <text class="s" x="1295" y="119" text-anchor="middle">Service</text>
+    <rect class="chip" x="1206" y="137" width="178" height="34" rx="9"/>
+    <text class="s" x="1295" y="159" text-anchor="middle">Database</text>
+    <rect class="chip" x="1206" y="177" width="178" height="34" rx="9"/>
+    <text class="s" x="1295" y="199" text-anchor="middle">Redis</text>
+    <text class="m" x="1295" y="249" text-anchor="middle">AWS · GOOGLE CLOUD</text>
+  </svg>
+
+  <p class="foot"><b>30+ companies</b> run their production systems on Facets.</p>
+
+</div></section>
+</div>
+
+</body>
+</html>
