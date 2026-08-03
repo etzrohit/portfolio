@@ -1,0 +1,1561 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The navigation model · Facets · Rohit Kumar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#0E0F14; --surface:rgba(255,255,255,.045);
+  --ink:#F4F5F7; --ink2:#A6A9B3; --ink3:#7E828D;
+  --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.18);
+  --ac:#8687F5; --ac-s:rgba(134,135,245,.14);
+  --bad:#E5695A; --bad-s:rgba(229,105,90,.12);
+  --good:#4ED0A0; --good-s:rgba(62,207,151,.12);
+  --warn:#E0B25C; --warn-s:rgba(224,178,92,.12);
+  --fd:'Manrope',system-ui,sans-serif;
+  --fb:'Inter',system-ui,sans-serif;
+  --fm:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;
+  --sh:0 2px 6px rgba(0,0,0,.35), 0 18px 44px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--fb);overflow:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{max-width:100%;display:block}
+
+.deck{position:fixed;inset:0}
+.deck::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1.2px),radial-gradient(44% 38% at 50% 40%,rgba(91,91,214,.13),transparent 64%),radial-gradient(36% 30% at 88% -6%,rgba(91,91,214,.09),transparent 60%),radial-gradient(32% 26% at 4% 110%,rgba(31,143,102,.08),transparent 62%);background-size:22px 22px,auto,auto,auto}
+.slide{position:absolute;inset:0;display:none;padding:6vh 5.2vw 8vh;flex-direction:column;justify-content:center;animation:fade .3s ease;overflow:hidden;z-index:1}
+.slide.active{display:flex}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.in{width:100%;max-width:1240px;margin:0 auto}
+.in.wide{max-width:1400px}
+
+.eb{font-family:var(--fd);font-weight:700;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ac);margin-bottom:.9rem;display:flex;gap:.6rem;align-items:center}
+.eb .n{color:var(--ink3);font-variant-numeric:tabular-nums;font-weight:700}
+.eb .ap{color:var(--warn);border:1px solid rgba(138,93,0,.3);background:var(--warn-s);border-radius:4px;padding:.1rem .4rem;letter-spacing:.09em}
+h1{font-family:var(--fd);font-weight:800;letter-spacing:-.035em;line-height:1;font-size:clamp(2.6rem,6vw,4.6rem)}
+h2{font-family:var(--fd);font-weight:800;letter-spacing:-.026em;line-height:1.1;font-size:clamp(1.55rem,3.1vw,2.5rem);max-width:26ch}
+.lede{font-size:clamp(1.02rem,1.4vw,1.18rem);color:var(--ink2);margin-top:.8rem;line-height:1.5;max-width:60ch}
+.lede b{color:var(--ink);font-weight:600}
+
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2.2rem}
+.chip{font-size:.82rem;font-weight:500;color:var(--ink2);border:1px solid var(--line2);border-radius:999px;padding:.42rem .95rem;background:var(--surface)}
+.by{margin-top:2.4rem;color:var(--ink2);font-size:.95rem}
+.by b{color:var(--ink);font-weight:700}
+
+.g{display:grid;gap:1rem;margin-top:1.5rem}
+.g2{grid-template-columns:1fr 1fr}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:2.4rem;align-items:start}
+
+.c{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.2rem}
+.c .lb{font-family:var(--fd);font-weight:800;font-size:.63rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3)}
+.c h4{font-family:var(--fd);font-weight:700;font-size:1rem;margin-top:.4rem;line-height:1.28;letter-spacing:-.01em}
+.c p{font-size:.91rem;color:var(--ink2);line-height:1.5;margin-top:.45rem}
+.c p b{color:var(--ink);font-weight:600}
+.c.bad{border-color:rgba(185,58,44,.24);background:var(--bad-s)}
+.c.good{border-color:rgba(20,107,80,.24);background:var(--good-s)}
+.c.warn{border-color:rgba(138,93,0,.24);background:var(--warn-s)}
+
+.jobs{display:grid;grid-template-columns:repeat(4,1fr);gap:.85rem;margin-top:1.3rem}
+.j{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1rem 1.05rem;display:flex;flex-direction:column;gap:.5rem}
+.j .num{font-family:var(--fd);font-weight:800;font-size:.66rem;letter-spacing:.12em;color:var(--ink3)}
+.j .nm{font-family:var(--fd);font-weight:800;font-size:1.02rem;letter-spacing:-.014em;line-height:1.22}
+.j .q{font-size:.86rem;color:var(--ink2);line-height:1.44;flex:1}
+.j .q b{color:var(--ink);font-weight:600}
+.j .v{font-family:var(--fd);font-weight:800;font-size:.64rem;letter-spacing:.09em;text-transform:uppercase;padding:.32rem .58rem;border-radius:6px;align-self:flex-start}
+.v.no{background:var(--bad-s);color:var(--bad)}
+.v.poor{background:var(--warn-s);color:var(--warn)}
+.v.ok{background:var(--good-s);color:var(--good)}
+.v.neu{background:#EDEEF0;color:var(--ink2)}
+.j.dim{opacity:.6}
+
+figure{margin:0;min-width:0}
+.art{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--sh);display:flex;width:fit-content;max-width:100%;margin-inline:auto}
+.art img{width:auto;height:auto;max-width:100%;max-height:var(--ah,42vh)}
+.art.pad{padding:.9rem}
+.cap{margin-top:.65rem;font-size:.83rem;color:var(--ink2);line-height:1.45;display:flex;gap:.55rem;align-items:baseline}
+.cap b{color:var(--ink);font-weight:600}
+.pill{font-family:var(--fd);font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.24rem .52rem;border-radius:5px;flex-shrink:0;white-space:nowrap}
+.pill.was{background:var(--bad-s);color:var(--bad)}
+.pill.now{background:var(--good-s);color:var(--good)}
+.pill.n{background:var(--ac-s);color:var(--ac)}
+.pill.w{background:var(--warn-s);color:var(--warn)}
+.detail{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--sh);display:flex;padding:1rem;width:fit-content;max-width:100%}
+.detail img{width:auto;height:auto;max-width:100%;max-height:var(--dh,26vh)}
+.dlab{font-family:var(--fd);font-weight:800;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:.45rem}
+
+/* ---------- definition + 5-step flow ---------- */
+.def{font-family:var(--fd);font-weight:700;font-size:clamp(1.12rem,1.75vw,1.48rem);line-height:1.36;letter-spacing:-.018em;color:var(--ink);margin-top:.75rem;max-width:72ch}
+.fl5{display:flex;align-items:stretch;gap:.42rem;margin-top:1.6rem}
+.fs{flex:1;min-width:0;border:1px solid var(--line);background:var(--surface);border-radius:13px;padding:.9rem .95rem;display:flex;flex-direction:column;gap:.32rem}
+.fs .t{font-family:var(--fd);font-weight:800;font-size:.97rem;line-height:1.26;letter-spacing:-.015em}
+.fs .d{font-size:.82rem;line-height:1.44;color:var(--ink2)}
+.fs.down{background:var(--bad-s);border-color:rgba(185,58,44,.26)}
+.fs.down .t{color:var(--bad)}
+.fs.up{background:var(--good-s);border-color:rgba(20,107,80,.26)}
+.fs.up .t{color:var(--good)}
+.fs.rel{background:var(--ac);border-color:var(--ac);box-shadow:var(--sh);flex:1.18}
+.fs.rel .t{color:#fff;font-size:1.14rem}
+.fs.rel .d{color:rgba(255,255,255,.9)}
+.fa{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:16px;color:var(--ink3);font-size:1.05rem;line-height:1}
+.wm{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6rem;margin-top:1.7rem;padding-top:1.3rem;border-top:1px solid var(--line2)}
+.wmi .l{font-family:var(--fd);font-weight:800;font-size:.88rem;letter-spacing:-.012em;line-height:1.3;margin-bottom:.38rem;color:var(--ink)}
+.wmi p{font-size:.87rem;color:var(--ink2);line-height:1.46}
+
+/* ---------- flowchart ---------- */
+.fchart{width:100%;height:auto;max-height:70vh}
+.fchart .ft2{font-family:'Manrope',sans-serif;font-weight:800;font-size:17px;fill:#131419}
+.fchart .ft3{font-family:'Manrope',sans-serif;font-weight:800;font-size:14px;fill:#131419}
+.fchart .fs2{font-family:'Inter',sans-serif;font-size:12.5px;fill:#8C9099}
+.fchart .fs3{font-family:'Inter',sans-serif;font-size:13.5px;fill:#55585F}
+.fchart .fs3.key{fill:#131419;font-weight:700}
+.fchart .fl{font-family:'Inter',sans-serif;font-size:12px;fill:#8C9099;font-weight:600}
+.fchart .ac{fill:#5B5BD6}
+.fchart .bad{fill:#B93A2C}
+.fchart .wht{fill:#fff}
+.fchart .svgpin circle{fill:#B93A2C;stroke:#fff;stroke-width:2}
+.fchart .svgpin text{font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;fill:#fff}
+
+.pli .n.ok{background:var(--good)}
+.svgpin.ok circle{fill:#146B50}
+.fchart .gd{fill:#146B50}
+.sm{display:grid;grid-template-columns:repeat(5,1fr);gap:1.2rem;margin-top:1.6rem;padding-top:1.2rem;border-top:1px solid var(--line)}
+.smi .q{font-family:var(--fd);font-weight:800;font-size:.83rem;line-height:1.3;color:var(--ink);margin-bottom:.3rem}
+.smi .a{font-size:.83rem;color:var(--ink2);line-height:1.42}
+
+/* ---------- version blocks ---------- */
+.vb{display:flex;flex-direction:column;gap:1.15rem}
+.vbi .k{font-family:var(--fd);font-weight:800;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.38rem}
+.vbi p{font-size:1.01rem;color:var(--ink2);line-height:1.52}
+.tri{display:flex;flex-direction:column;gap:.85rem}
+.tstep .art{margin-inline:0}
+.tlab{margin-top:.4rem;font-size:.82rem;color:var(--ink2);display:flex;gap:.5rem;align-items:baseline}
+.hsub{font-family:var(--fb);font-weight:500;font-size:.42em;color:var(--ink3);letter-spacing:0;margin-left:.7rem;vertical-align:middle}
+.vbi p b{color:var(--ink);font-weight:700}
+.vbi.acc{border-left:3px solid var(--ac);padding-left:1rem}
+.vbi.bad{border-left:3px solid var(--bad);padding-left:1rem}
+.vbi ul{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-top:.15rem}
+.vbi li{position:relative;padding-left:1.05rem;font-size:.91rem;color:var(--ink2);line-height:1.47}
+.vbi li::before{content:"";position:absolute;left:0;top:.6em;width:.35rem;height:.35rem;border-radius:1px;background:var(--ac);transform:rotate(45deg)}
+.vbi li b{color:var(--ink);font-weight:700}
+
+/* ---------- goals table ---------- */
+.gt{display:grid;grid-template-columns:1fr 1.18fr .72fr;gap:0 2.4rem;margin-top:2rem}
+.gt > div{padding:1.15rem 0;border-bottom:1px solid var(--line)}
+.gt .h{font-family:var(--fd);font-weight:800;font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3);padding:0 0 .75rem;border-bottom:1px solid var(--line2)}
+.gt .found{font-size:.93rem;color:var(--ink3);line-height:1.5}
+.gt .goal{font-size:1.04rem;color:var(--ink);line-height:1.45;font-weight:600;letter-spacing:-.008em}
+.gt .know{font-size:.88rem;color:var(--ink2);line-height:1.5}
+.gt > div:nth-last-child(-n+3){border-bottom:none}
+
+/* ---------- evidence cards ---------- */
+.c.ev{padding:1.35rem 1.5rem}
+.evh{font-family:var(--fd);font-weight:800;font-size:1.05rem;letter-spacing:-.014em;color:var(--ac);margin-bottom:.9rem}
+.evh span{font-family:var(--fb);font-weight:500;font-size:.8rem;color:var(--ink3);letter-spacing:0;margin-left:.55rem}
+.evl{list-style:none;display:flex;flex-direction:column;gap:.85rem}
+.evl li{position:relative;padding-left:1.15rem;font-size:.94rem;line-height:1.52;color:var(--ink2)}
+.evl li::before{content:"";position:absolute;left:0;top:.62em;width:.4rem;height:.4rem;border-radius:1px;background:var(--ac);transform:rotate(45deg)}
+.evl li b{color:var(--ink);font-weight:700}
+
+/* ---------- old flow spine ---------- */
+.oflow{display:flex;flex-direction:column;margin-top:1.1rem}
+.ofr{display:grid;grid-template-columns:300px 1fr;gap:1.5rem;align-items:center}
+.ofn{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:.7rem .95rem}
+.ofn .t{font-family:var(--fd);font-weight:800;font-size:.98rem;letter-spacing:-.014em;line-height:1.25}
+.ofn .s{font-size:.79rem;color:var(--ink3);margin-top:.2rem}
+.ofn ul{list-style:none;margin-top:.45rem;display:flex;flex-direction:column;gap:.22rem}
+.ofn li{font-size:.83rem;color:var(--ink2);padding-left:.8rem;position:relative;line-height:1.35}
+.ofn li::before{content:"·";position:absolute;left:.1rem;color:var(--ink3)}
+.ofn li.key{color:var(--ink);font-weight:700}
+.ofn.gap{background:transparent;border:1px dashed var(--line2);text-align:center;color:var(--ink3);font-family:var(--fd);font-weight:700;font-size:.88rem;padding:.55rem .95rem}
+.ofn.go{background:var(--ac);border-color:var(--ac)}
+.ofn.go .t{color:#fff}
+.ofc{width:300px;height:15px;display:flex;justify-content:center}
+.ofc i{width:2px;background:var(--line2);height:100%}
+.ofms{display:flex;flex-direction:column;gap:.5rem}
+.ofm{display:flex;gap:.6rem;align-items:flex-start}
+.ofm .num{flex-shrink:0;width:21px;height:21px;border-radius:50%;background:var(--bad);color:#fff;display:grid;place-items:center;font-family:var(--fd);font-weight:800;font-size:.7rem;margin-top:.05rem}
+.ofm .tx{font-size:.93rem;color:var(--ink);line-height:1.38;font-weight:600}
+.qz{display:grid;gap:.42rem;margin-top:1.5rem;padding-top:1.15rem;border-top:1px solid var(--line)}
+.qz div{font-size:.86rem;color:var(--ink3);line-height:1.45;padding-left:1.05rem;position:relative}
+.qz div::before{content:"?";position:absolute;left:0;color:var(--ac);font-weight:700}
+.qzl{font-family:var(--fd);font-weight:800;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-top:1.5rem;padding-top:1.15rem;border-top:1px solid var(--line);margin-bottom:.6rem}
+.qzl + .qz{margin-top:0;padding-top:0;border-top:none}
+
+/* ---------- pinned screenshot ---------- */
+.pinwrap{position:relative;display:inline-block;max-width:100%}
+.pin{position:absolute;width:26px;height:26px;border-radius:50%;background:var(--bad);color:#fff;display:grid;place-items:center;font-family:var(--fd);font-weight:800;font-size:.8rem;transform:translate(-50%,-50%);box-shadow:0 2px 8px rgba(19,20,25,.3);border:2px solid #fff}
+.plist{display:flex;flex-direction:column;gap:1.05rem}
+.pli{display:flex;gap:.8rem;align-items:flex-start}
+.pli .n{flex-shrink:0;width:24px;height:24px;border-radius:50%;background:var(--bad);color:#fff;display:grid;place-items:center;font-family:var(--fd);font-weight:800;font-size:.75rem;margin-top:.1rem}
+.pli .n.off{background:#DCDDE0;color:var(--ink2)}
+.pli .x{font-size:.93rem;color:var(--ink2);line-height:1.5;font-weight:400}
+.pli .x b{color:var(--ink);font-weight:700}
+
+.rail{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin-top:1.5rem}
+.rv{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.15rem;display:flex;flex-direction:column;gap:.5rem}
+.rv .v{font-family:var(--fd);font-weight:800;font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3)}
+.rv h4{font-family:var(--fd);font-weight:800;font-size:1.1rem;letter-spacing:-.016em;line-height:1.22}
+.rv p{font-size:.87rem;color:var(--ink2);line-height:1.45;flex:1}
+.rv .tagl{font-family:var(--fd);font-weight:800;font-size:.62rem;letter-spacing:.09em;text-transform:uppercase;padding:.3rem .55rem;border-radius:5px;align-self:flex-start}
+.rv .tagl.dead{background:var(--bad-s);color:var(--bad)}
+.rv .tagl.live{background:var(--good-s);color:var(--good)}
+.rv.live{border-color:rgba(20,107,80,.3)}
+
+ul.l{list-style:none;display:flex;flex-direction:column;gap:.65rem}
+ul.l li{position:relative;padding-left:1.3rem;color:var(--ink2);font-size:.99rem;line-height:1.5}
+ul.l li::before{content:"";position:absolute;left:0;top:.62em;width:.38rem;height:.38rem;border-radius:50%;background:var(--ac)}
+ul.l li b{color:var(--ink);font-weight:600}
+ul.l.s li{font-size:.9rem;line-height:1.46;padding-left:1.15rem}
+ul.l.s{gap:.5rem}
+
+.rows{display:flex;flex-direction:column;gap:.6rem;margin-top:.2rem}
+.r{background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:.78rem .95rem;border-left:3px solid var(--line2)}
+.r .k{font-family:var(--fd);font-weight:800;font-size:.6rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink3)}
+.r p{margin-top:.28rem;font-size:.89rem;color:var(--ink2);line-height:1.47}
+.r p b{color:var(--ink);font-weight:600}
+.r.opt{border-left-color:var(--ink3)}
+.r.chose{border-left-color:var(--good);background:var(--good-s);border-color:rgba(20,107,80,.22)}
+.r.no{border-left-color:var(--bad)}
+.r.why{border-left-color:var(--ac)}
+
+.mt{display:grid;grid-template-columns:1.25fr .72fr 1.3rem .72fr;gap:.15rem 1.1rem;margin-top:1.2rem;align-items:center}
+.mt > div{font-size:.94rem;color:var(--ink2);padding:.58rem 0;border-bottom:1px solid var(--line)}
+.mt .h{font-family:var(--fd);font-size:.61rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);padding-bottom:.35rem}
+.mt .was{color:var(--bad);font-weight:600;font-variant-numeric:tabular-nums}
+.mt .ar{color:var(--ink3);text-align:center}
+.mt .now{color:var(--good);font-weight:700;font-variant-numeric:tabular-nums}
+.mt > div:nth-last-child(-n+4){border-bottom:none}
+
+.co{margin-top:1.2rem;border-left:3px solid var(--ac);padding:.15rem 0 .15rem 1.05rem;font-size:clamp(.97rem,1.25vw,1.1rem);line-height:1.5;color:var(--ink2);max-width:70ch}
+.co b{color:var(--ink);font-weight:600}
+.co .k{display:block;font-family:var(--fd);font-size:.61rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ac);margin-bottom:.35rem}
+.co.warn{border-left-color:var(--warn)}
+.co.warn .k{color:var(--warn)}
+.co.good{border-left-color:var(--good)}
+.co.good .k{color:var(--good)}
+
+.eg{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-top:1.1rem}
+.e{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:.7rem .85rem}
+.e .q{font-family:var(--fd);font-weight:700;font-size:.85rem;line-height:1.3}
+.e .a{margin-top:.24rem;font-size:.81rem;color:var(--ink2);line-height:1.42}
+
+.pn{display:none;margin-top:1.1rem;border:1px dashed rgba(138,93,0,.45);background:#FDF8EC;border-radius:10px;padding:.78rem 1rem;font-size:.83rem;line-height:1.5;color:#6B4A00;max-width:98ch}
+body.notes .pn{display:block}
+.pn b{color:#3F2C00;font-weight:700}
+.pn code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em;background:rgba(138,93,0,.12);border-radius:3px;padding:.06em .34em}
+.pn .k{display:block;font-family:var(--fd);font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.32rem;opacity:.8}
+
+.chrome{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.5rem;pointer-events:none}
+.chrome .sec{font-size:.7rem;color:var(--ink3);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-family:var(--fd)}
+.nv{display:flex;align-items:center;gap:.4rem;pointer-events:auto}
+.nv button{width:30px;height:30px;border-radius:7px;border:1px solid var(--line2);background:var(--surface);color:var(--ink2);cursor:pointer;display:grid;place-items:center;font-size:1rem;line-height:1}
+.nv button:hover{color:var(--ink);border-color:var(--ac)}
+.nv .ct{font-size:.76rem;color:var(--ink3);min-width:54px;text-align:center;font-variant-numeric:tabular-nums;font-weight:600}
+.pr{position:fixed;top:0;left:0;height:2px;background:var(--ac);z-index:30;transition:width .3s ease}
+.brand{position:fixed;top:1.2rem;right:1.5rem;z-index:20;font-family:var(--fd);font-weight:800;font-size:.84rem;color:var(--ink3)}
+.brand .d{color:var(--ac)}
+.hint{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);z-index:20;font-size:.7rem;color:var(--ink3);opacity:.7;transition:opacity .4s}
+.hint.hide{opacity:0}
+.nb{position:fixed;top:1.2rem;left:1.5rem;z-index:21;font-family:var(--fd);font-size:.6rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--warn);border:1px solid rgba(138,93,0,.35);background:var(--warn-s);border-radius:4px;padding:.2rem .5rem;display:none}
+body.notes .nb{display:block}
+
+/* ---------- dark system overrides ---------- */
+.eb{color:#9C9DF9}
+.eb .n{color:rgba(244,245,247,.35)}
+.eb .ap{border-color:rgba(224,178,92,.4)}
+h2{font-size:clamp(1.65rem,3.2vw,2.6rem)}
+.c{box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.c.bad{border-color:rgba(229,105,90,.32)}
+.c.good{border-color:rgba(62,207,151,.32)}
+.c.warn{border-color:rgba(224,178,92,.32)}
+.v.neu{background:rgba(255,255,255,.09);color:var(--ink2)}
+.art,.detail{background:#fff;border-color:rgba(255,255,255,.16)}
+.c .lb,.vbi .k,.gt .h,.qzl,.dlab,.r .k,.co .k,.rv .v,.j .num,.pn .k{font-family:var(--fm);font-weight:600;letter-spacing:.14em}
+.fs{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.028));box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.fs.down{border-color:rgba(229,105,90,.4)}
+.fs.down .t{color:#F08A7C}
+.fs.up{border-color:rgba(62,207,151,.42)}
+.fs.up .t{color:#5BD6A8}
+.fs.rel{background:linear-gradient(180deg,#7877F2,#5857D4);border-color:transparent;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 0 40px rgba(108,107,232,.42),0 14px 34px rgba(0,0,0,.45)}
+.fa{color:rgba(255,255,255,.35)}
+.fchart .ft2,.fchart .ft3{fill:#F4F5F7}
+.fchart .fs2{fill:#868B96}
+.fchart .fs3{fill:#A6A9B3}
+.fchart .fs3.key{fill:#F4F5F7}
+.fchart .fl{fill:#9BA0AC}
+.fchart .ac{fill:#A0A1F8}
+.fchart .bad{fill:#F08A7C}
+.fchart .gd{fill:#5BD6A8}
+.fchart .svgpin circle{fill:#E5695A;stroke:#0E0F14}
+.pli .n.off{background:rgba(255,255,255,.14);color:var(--ink2)}
+.pin{border-color:#0E0F14;box-shadow:0 0 16px rgba(229,105,90,.45)}
+.r.chose{border-color:rgba(62,207,151,.3)}
+.rv.live{border-color:rgba(62,207,151,.4)}
+.pn{border-color:rgba(224,178,92,.4);background:rgba(224,178,92,.07);color:#D9BE8C}
+.pn b{color:#F0DCB4}
+.pn code{background:rgba(224,178,92,.16)}
+.nb{border-color:rgba(224,178,92,.45)}
+
+/* ---------- system v2: layout, type, artifact frames, tags ---------- */
+.slide{justify-content:flex-start;padding:8vh 5vw 6vh}
+.slide.mid{justify-content:center}
+.eb{font-family:var(--fm);font-weight:600;font-size:.66rem;letter-spacing:.18em;gap:.7rem;margin-bottom:1rem}
+h2{font-size:clamp(2.1rem,3.6vw,2.9rem)}
+.cols{display:grid;gap:clamp(2.4rem,4vw,4rem);align-items:start}
+.cols.c57{grid-template-columns:5fr 7fr}
+.cols.c75{grid-template-columns:7fr 5fr}
+.cols.c66{grid-template-columns:1fr 1fr}
+.win{background:#fff;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.15);box-shadow:0 2px 8px rgba(0,0,0,.4),0 28px 70px rgba(0,0,0,.55)}
+.win img{display:block;width:100%;height:auto}
+.caprow{display:flex;align-items:baseline;gap:.75rem;margin-top:1rem}
+.caprow p{font-size:.89rem;color:var(--ink2);line-height:1.45}
+.caprow p b{color:var(--ink);font-weight:600}
+.tag{font-family:var(--fm);font-weight:600;font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;padding:.32rem .62rem;border-radius:6px;white-space:nowrap;flex-shrink:0}
+.tag.red{background:var(--bad-s);color:#F08A7C;border:1px solid rgba(229,105,90,.32)}
+.tag.green{background:var(--good-s);color:#5BD6A8;border:1px solid rgba(62,207,151,.34)}
+.tag.indigo{background:var(--ac-s);color:#A0A1F8;border:1px solid rgba(134,135,245,.34)}
+.tag.amber{background:var(--warn-s);color:#E8C27A;border:1px solid rgba(224,178,92,.35)}
+.tag.grey{background:rgba(255,255,255,.07);color:var(--ink2);border:1px solid rgba(255,255,255,.14)}
+.mk{width:24px;height:24px;border-radius:50%;background:linear-gradient(180deg,#EA7A6C,#D2503F);color:#fff;display:grid;place-items:center;font-family:var(--fd);font-weight:800;font-size:.7rem;box-shadow:0 0 14px rgba(229,105,90,.35),inset 0 1px 0 rgba(255,255,255,.3);flex-shrink:0}
+.mk.g{background:linear-gradient(180deg,#37C795,#1E9A6F);color:#06281C;box-shadow:0 0 14px rgba(47,191,143,.35),inset 0 1px 0 rgba(255,255,255,.4)}
+.mk.mut{background:rgba(255,255,255,.12);color:var(--ink2);box-shadow:none}
+.mlab{font-family:var(--fm);font-weight:600;font-size:.62rem;letter-spacing:.17em;text-transform:uppercase;color:#7E828D}
+.mlab.rule{display:flex;align-items:center;gap:.85rem;white-space:nowrap}
+.mlab.rule::after{content:"";height:1px;flex:1;background:rgba(255,255,255,.09)}
+
+/* ---------- slide 1 · title (s1-) ---------- */
+.s1 .eb{margin-bottom:1.35rem}
+.s1 h1{font-size:clamp(3.2rem,6.4vw,4.8rem);letter-spacing:-.042em;line-height:.98}
+.s1-lede{margin-top:1.7rem;color:var(--ink2);max-width:54rem}
+.s1-lede span{display:block;font-size:clamp(1rem,1.28vw,1.12rem);line-height:1.55}
+.s1-role{margin-top:2.2rem;padding-left:1.2rem;border-left:2px solid var(--ac);max-width:54rem}
+.s1-role .mlab{margin-bottom:.5rem}
+.s1-role p{font-size:1rem;line-height:1.6;color:var(--ink2)}
+.s1-role p b{color:var(--ink);font-weight:700}
+.s1-by{margin-top:2.8rem;padding-top:1.35rem;border-top:1px solid var(--line);font-size:.93rem;color:var(--ink3);max-width:54rem}
+.s1-by b{color:var(--ink);font-weight:700}
+
+/* ---------- slide 2 · what a release is (s2-) ---------- */
+.s2-def{margin-top:1.15rem;font-size:clamp(1.12rem,1.4vw,1.3rem);line-height:1.55;color:var(--ink2);max-width:72ch;text-wrap:balance}
+.s2-def b{color:var(--ink);font-weight:600}
+.s2-flow{display:flex;align-items:stretch;gap:.55rem;margin-top:3rem}
+.s2-card{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:.36rem;padding:1.15rem 1.25rem;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.026));border:1px solid rgba(255,255,255,.11);box-shadow:0 24px 56px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.07)}
+.s2-card .t{font-family:var(--fd);font-weight:800;font-size:.99rem;line-height:1.24;letter-spacing:-.015em;color:var(--ink)}
+.s2-card .d{font-size:.81rem;line-height:1.42;color:var(--ink2)}
+.s2-card.down{background:linear-gradient(180deg,rgba(229,105,90,.13),rgba(229,105,90,.045));border-color:rgba(229,105,90,.38)}
+.s2-card.down .t{color:#F08A7C}
+.s2-card.up{background:linear-gradient(180deg,rgba(62,207,151,.12),rgba(62,207,151,.04));border-color:rgba(62,207,151,.4)}
+.s2-card.up .t{color:#5BD6A8}
+.s2-card.rel{flex:1.16;background:linear-gradient(180deg,#7877F2,#5857D4);border-color:transparent;box-shadow:inset 0 1px 0 rgba(255,255,255,.32),0 0 44px rgba(108,107,232,.5),0 14px 34px rgba(0,0,0,.45)}
+.s2-card.rel .t{color:#fff;font-size:1.12rem}
+.s2-card.rel .d{color:rgba(255,255,255,.88)}
+.s2-ln{width:44px;height:12px;flex-shrink:0;align-self:center}
+.s2-ln .d{stroke:rgba(255,255,255,.3);stroke-width:1.5;stroke-dasharray:5 5;animation:s2dash 1.5s linear infinite}
+.s2-ln .c{fill:none;stroke:rgba(255,255,255,.42);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+@keyframes s2dash{to{stroke-dashoffset:-10}}
+@media (prefers-reduced-motion:reduce){.s2-ln .d{animation:none}}
+.s2-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:2.2rem;margin-top:2.8rem;padding-top:1.8rem;border-top:1px solid var(--line2)}
+.s2-fact .l{font-family:var(--fd);font-weight:800;font-size:.92rem;letter-spacing:-.012em;line-height:1.3;color:var(--ink);margin-bottom:.42rem}
+.s2-fact p{font-size:.87rem;color:var(--ink2);line-height:1.48}
+
+/* ---------- slide 7 · user stories (s7-) ---------- */
+
+/* ---------- slide 3 · the old flow (s3-) ---------- */
+.s3-body{margin-top:1.7rem;align-items:center}
+.s3-probs{display:flex;flex-direction:column}
+.s3-p{display:grid;grid-template-columns:24px 1fr;gap:1rem;align-items:start;padding:.78rem 0;border-top:1px solid rgba(255,255,255,.07)}
+.s3-p:first-child{border-top:0;padding-top:.1rem}
+.s3-p .mk{margin-top:.1rem}
+.s3-p p{font-size:.95rem;line-height:1.5;color:var(--ink2);max-width:48ch}
+.s3-p p b{color:var(--ink);font-weight:700}
+.s3-qlab{margin-top:1.7rem}
+.s3-qs{display:flex;flex-direction:column;gap:.6rem;margin-top:1rem}
+.s3-qs div{position:relative;padding-left:1.1rem;font-size:.86rem;line-height:1.45;color:var(--ink3)}
+.s3-qs div::before{content:"";position:absolute;left:0;top:.48em;width:.36rem;height:.36rem;border-radius:1px;background:rgba(134,135,245,.65);transform:rotate(45deg)}
+.s3-fig{display:flex;width:100%;max-width:640px;justify-self:center}
+
+/* ---------- slide 5 · evidence (s5-) ---------- */
+.s5-grid{display:grid;grid-template-columns:1.16fr 1fr;gap:1.6rem;margin-top:2.6rem;align-items:stretch}
+.s5-box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.7rem 1.8rem 1.9rem}
+.s5-h{display:flex;align-items:baseline;gap:.7rem;font-family:var(--fd);font-weight:800;font-size:1.06rem;letter-spacing:-.014em;color:var(--ink);padding-bottom:1rem;border-bottom:1px solid var(--line)}
+.s5-h span{font-family:var(--fm);font-weight:600;font-size:.66rem;letter-spacing:.06em;color:var(--ink3);white-space:nowrap}
+.s5-l{list-style:none;display:flex;flex-direction:column;gap:1.05rem;margin-top:1.25rem}
+.s5-l li{position:relative;padding-left:1.1rem;font-size:1rem;line-height:1.6;color:var(--ink2)}
+.s5-l li::before{content:"";position:absolute;left:0;top:.62em;width:.36rem;height:.36rem;border-radius:1px;background:var(--ac);transform:rotate(45deg)}
+.s5-l li b{color:var(--ink);font-weight:700}
+.s5-wide{grid-column:1/-1;display:grid;grid-template-columns:auto 1fr;align-items:center;gap:1.8rem;padding:1.35rem 1.8rem}
+.s5-wide .s5-h{padding-bottom:0;border-bottom:0}
+.s5-wide p{font-size:1rem;line-height:1.6;color:var(--ink2)}
+.s5-wide p b{color:var(--ink);font-weight:700}
+
+/* ---------- slide 6 · goals (s6-) ---------- */
+.s6-lead{margin-top:.85rem;font-size:1.02rem;line-height:1.55;color:var(--ink3)}
+.s6-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-top:2.3rem}
+.s6-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.9rem 2rem 2rem;display:flex;flex-direction:column}
+.s6-k{display:flex;align-items:center;gap:.65rem;font-family:var(--fm);font-weight:600;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.s6-k i{font-style:normal;font-weight:700;color:var(--ac)}
+.s6-g{font-family:var(--fd);font-weight:800;font-size:1.42rem;line-height:1.3;letter-spacing:-.02em;color:var(--ink);margin-top:.8rem;text-wrap:balance}
+.s6-p{font-size:.97rem;line-height:1.55;color:var(--ink3);margin-top:.8rem}
+
+/* ---------- slide 4 · the screen (s4-) ---------- */
+.s4-stage{position:relative;width:100%;aspect-ratio:1400/495;margin:1.6rem auto 0}
+.s4-img{position:absolute;left:21%;top:5.66%;width:58%;display:block;border-radius:10px;border:1px solid rgba(255,255,255,.14);box-shadow:0 22px 58px rgba(0,0,0,.55)}
+.s4-lines{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:2}
+.s4-lines line{stroke:rgba(229,105,90,.62);stroke-width:1}
+.s4-lines circle{fill:var(--bad);stroke:rgba(14,15,20,.9);stroke-width:1.8}
+.s4-note{position:absolute;width:19%;display:grid;gap:.8rem;align-items:center;transform:translateY(-50%);z-index:3}
+.s4-note p{font-size:.87rem;line-height:1.5;color:var(--ink2)}
+.s4-note p b{color:var(--ink);font-weight:700}
+.s4-nl{left:0;grid-template-columns:1fr 24px;text-align:right}
+.s4-nr{right:0;grid-template-columns:24px 1fr}
+.s4-cap{display:flex;align-items:baseline;justify-content:center;gap:.75rem;margin-top:1.3rem}
+.s4-cap p{font-size:.89rem;color:var(--ink2);line-height:1.45}
+
+/* ---------- version slides · V1 / V2 / V3 (vs-) ---------- */
+.vs-chips{display:flex;gap:.45rem;margin-top:1.15rem}
+.vs-chip{font-family:var(--fm);font-weight:700;font-size:.67rem;letter-spacing:.09em;padding:.34rem .62rem;border-radius:7px;border:1px solid var(--line2);color:var(--ink3);background:rgba(255,255,255,.03)}
+.vs-chip.met{color:#7FE3BC;border-color:rgba(62,207,151,.42);background:rgba(62,207,151,.1)}
+.vs-chip.part{color:#E8C27A;border-color:rgba(224,178,92,.42);background:rgba(224,178,92,.1)}
+.vs-chip.no{opacity:.38}
+.vs-cols{display:grid;grid-template-columns:minmax(0,34%) 1fr;gap:clamp(2rem,3.2vw,3.4rem);margin-top:2.1rem;align-items:center}
+.vs-blocks{display:flex;flex-direction:column;gap:1.8rem}
+.vs-b .mlab{margin-bottom:.5rem}
+.vs-b p{font-size:.97rem;line-height:1.56;color:var(--ink2)}
+.vs-b p b{color:var(--ink);font-weight:700}
+.vs-art{min-width:0;width:fit-content;max-width:100%;justify-self:center}
+.vs-art .win{width:fit-content;max-width:100%}
+.vs-art .win img{width:auto;max-width:100%;max-height:min(48vh,448px)}
+.vs-art .caprow{margin-top:.9rem}
+.vs-art .caprow p{font-size:.88rem;line-height:1.45}
+
+/* ---------- slide 12 · solution (s12-) ---------- */
+.s12 .eb{margin-bottom:.7rem}
+.s12-shots{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-top:1.6rem}
+.s12-shot{min-width:0}
+.s12-shot .caprow{margin-top:.65rem;gap:.65rem}
+.s12-shot .caprow p{font-size:.86rem;line-height:1.4}
+.s12-map{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:1.1rem;padding-top:1rem;border-top:1px solid var(--line)}
+.s12-qa .q{font-family:var(--fd);font-weight:700;font-size:.9rem;letter-spacing:-.012em;line-height:1.3;color:var(--ink);margin-bottom:.34rem}
+.s12-qa .q i{font-family:var(--fm);font-style:normal;font-weight:700;font-size:.72rem;letter-spacing:.06em;color:var(--ac);margin-right:.45rem}
+.s12-qa .a{font-size:.85rem;color:var(--ink2);line-height:1.42}
+
+/* ---------- slide 13 · edge cases (s13-) ---------- */
+.s13 .eb{margin-bottom:.7rem}
+.s13-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;gap:1.4rem;margin-top:1.6rem}
+.s13-c{background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.026));border:1px solid rgba(255,255,255,.11);border-radius:16px;box-shadow:0 24px 56px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.07);padding:1.35rem 1.4rem}
+.s13-c .q{font-family:var(--fd);font-weight:700;font-size:.99rem;letter-spacing:-.012em;line-height:1.32;color:var(--ink)}
+.s13-c .a{margin-top:.45rem;font-size:.88rem;color:var(--ink2);line-height:1.48}
+
+/* ---------- slide 14 · impact (s14-) ---------- */
+.s14-grid{margin-top:2.3rem}
+.s14-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1.9rem 2.1rem 2rem;display:flex;flex-direction:column}
+.s14-k{font-family:var(--fm);font-weight:600;font-size:.63rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink3)}
+.s14-hero{display:grid;grid-template-columns:1fr auto;gap:2.5rem;align-items:center;margin-top:1.4rem;padding-bottom:1.7rem}
+.s14-ht .lb{font-family:var(--fd);font-weight:800;font-size:1.72rem;letter-spacing:-.024em;line-height:1.24;color:var(--ink)}
+.s14-ht p{font-size:.97rem;line-height:1.55;color:var(--ink3);margin-top:.6rem;max-width:62ch}
+.s14-hn{display:flex;align-items:baseline;gap:1.1rem;white-space:nowrap}
+.s14-hn .bf{font-family:var(--fm);font-size:1.5rem;color:var(--ink3);text-decoration:line-through;text-decoration-color:rgba(255,255,255,.3)}
+.s14-hn .ar{color:var(--ink3);font-size:1.2rem}
+.s14-hn .af{font-family:var(--fd);font-weight:800;font-size:4.2rem;letter-spacing:-.035em;color:#9C9DF9;line-height:.9}
+.s14-m{display:flex;flex-direction:column;border-top:1px solid var(--line2)}
+.s14-r{display:grid;grid-template-columns:1fr auto auto auto auto;align-items:baseline;gap:1.2rem;padding:1.15rem 0;border-top:1px solid var(--line)}
+.s14-r:first-child{border-top:0}
+.s14-r:last-child{padding-bottom:.2rem}
+.s14-r .lb{font-size:1.05rem;line-height:1.4;color:var(--ink2)}
+.s14-r .bf{font-family:var(--fm);font-size:.95rem;color:var(--ink3);text-decoration:line-through;text-decoration-color:rgba(255,255,255,.3)}
+.s14-r .ar{color:var(--ink3);font-size:.92rem}
+.s14-r .af{font-family:var(--fd);font-weight:800;font-size:1.6rem;letter-spacing:-.024em;color:var(--ink);line-height:1}
+.s14-r .dl{font-family:var(--fm);font-size:.76rem;letter-spacing:.03em;color:var(--ink3);white-space:nowrap;min-width:7rem}
+
+@media (max-width:960px){
+  .s3-body,.cols.c57,.cols.c75,.cols.c66{grid-template-columns:1fr}
+  .s5-grid{grid-template-columns:1fr;row-gap:2rem}
+  .s6-head{display:none}
+  .s6-row{grid-template-columns:1fr;gap:.5rem}
+  .s6-ar{display:none}
+  .s9-row,.s9-strip,.s13-grid,.s12-shots,.s12-map,.s2-facts{grid-template-columns:1fr}
+}
+
+/* ---------- slide 10 · the new flow ---------- */
+.nf .in{position:relative;z-index:1}
+
+.nf .eb{color:#9C9DF9;margin-bottom:.7rem}
+.nf .eb .n{color:rgba(244,245,247,.35)}
+.nf h2{color:#F4F5F7;font-size:clamp(2rem,3.5vw,3rem);letter-spacing:-.03em}
+.nf-flow{margin-top:clamp(2rem,6vh,4rem);padding-top:104px}
+.nf-track{display:flex;align-items:center;justify-content:center}
+.nf-start{display:inline-flex;align-items:center;gap:.6rem;color:#EDEEF3;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.045);border-radius:999px;padding:.72rem 1.35rem;font-family:var(--fd);font-weight:700;font-size:.95rem;white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.07)}
+.nf-start i{width:7px;height:7px;border-radius:50%;background:#8687F5;box-shadow:0 0 12px rgba(134,135,245,.9)}
+.nf-ln{width:66px;height:12px;flex-shrink:0}
+.nf-ln .d{stroke:rgba(255,255,255,.3);stroke-width:1.5;stroke-dasharray:5 5;animation:nfdash 1.5s linear infinite}
+.nf-ln .c{fill:none;stroke:rgba(255,255,255,.42);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+@keyframes nfdash{to{stroke-dashoffset:-10}}
+@media (prefers-reduced-motion:reduce){.nf-ln .d{animation:none}}
+.nf-step{position:relative;width:378px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.026));border:1px solid rgba(255,255,255,.11);border-radius:16px;padding:1.35rem 1.55rem 1.25rem;box-shadow:0 24px 56px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08)}
+.nf-step .k{font-family:var(--fm);font-weight:600;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:#9C9DF9}
+.nf-step .t{display:block;font-family:var(--fd);font-weight:800;font-size:1.32rem;letter-spacing:-.015em;color:#F4F5F7;margin-top:.32rem}
+.nf-step ul{list-style:none;margin-top:.6rem;display:flex;flex-direction:column;gap:.32rem}
+.nf-step li{color:#A2A5B0;font-size:.93rem;line-height:1.45;position:relative;padding-left:.9rem}
+.nf-step li::before{content:"";position:absolute;left:0;top:.5em;width:4px;height:4px;border-radius:1px;background:rgba(255,255,255,.3);transform:rotate(45deg)}
+.nf-step .f{display:block;margin-top:.7rem;padding-top:.6rem;border-top:1px solid rgba(255,255,255,.09);font-family:var(--fm);font-size:.6rem;letter-spacing:.05em;color:#7B7F8A}
+.nf-go{display:grid;place-items:center;min-width:172px;height:58px;padding:0 1.9rem;border-radius:999px;background:linear-gradient(180deg,#7877F2,#5857D4);color:#fff;font-family:var(--fd);font-weight:800;font-size:1.08rem;letter-spacing:.01em;white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.32),0 0 44px rgba(108,107,232,.5),0 14px 34px rgba(0,0,0,.45)}
+.nf-val{position:absolute;bottom:calc(100% + 40px);left:50%;transform:translateX(-50%);display:inline-flex;align-items:baseline;gap:.45rem;background:rgba(47,191,143,.09);border:1px solid rgba(47,191,143,.38);border-radius:11px;padding:.52rem 1rem;white-space:nowrap;box-shadow:0 0 34px rgba(47,191,143,.14)}
+.nf-val b{font-family:var(--fd);font-weight:800;font-size:.86rem;color:#5BD6A8}
+.nf-val span{font-size:.73rem;color:rgba(91,214,168,.72)}
+.nf-loop{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);width:150px;height:40px;overflow:visible}
+.nf-loop path{fill:none;stroke:#3ECF97;stroke-width:1.4;opacity:.85}
+.nf-loop polygon{fill:#3ECF97;opacity:.9}
+.nf-loop text{font-family:var(--fm);font-size:9.5px;fill:#4EC79B;font-weight:600;letter-spacing:.08em}
+.nf-pin{position:absolute;width:22px;height:22px;border-radius:50%;background:linear-gradient(180deg,#37C795,#1E9A6F);color:#06281C;display:grid;place-items:center;font-family:var(--fd);font-weight:800;font-size:.68rem;box-shadow:0 0 16px rgba(47,191,143,.45),inset 0 1px 0 rgba(255,255,255,.4);z-index:2}
+.nf-foot{margin-top:clamp(2.6rem,8vh,5rem)}
+.nf-cl{font-family:var(--fm);font-weight:600;font-size:.6rem;letter-spacing:.17em;text-transform:uppercase;color:#7B7F8A;display:flex;align-items:center;gap:.85rem;white-space:nowrap}
+.nf-cl::after{content:"";height:1px;flex:1;background:rgba(255,255,255,.09)}
+.nf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(2rem,3.4vw,3.4rem);margin-top:1.35rem}
+.nf-c{display:grid;grid-template-columns:22px 1fr;gap:.9rem;align-items:start}
+.nf-num{width:22px;height:22px;border-radius:50%;background:linear-gradient(180deg,#37C795,#1E9A6F);color:#06281C;display:grid;place-items:center;font-family:var(--fd);font-weight:800;font-size:.66rem;box-shadow:0 0 12px rgba(47,191,143,.35),inset 0 1px 0 rgba(255,255,255,.4);margin-top:.1rem}
+.nf-c p{font-size:.95rem;line-height:1.55;color:#A2A5B0}
+.nf-c p b{color:#F0F1F5;font-weight:700}
+
+@media (max-width:960px){.g2,.g3,.g4,.jobs,.rail,.split,.eg{grid-template-columns:1fr}.mt{grid-template-columns:1fr}.nf-head{flex-direction:column;align-items:flex-start;gap:1rem}.nf-track{flex-direction:column;gap:.8rem}.nf-ln{transform:rotate(90deg)}.nf-foot{grid-template-columns:1fr;gap:1.6rem}.nf-cmp{border-left:0;padding-left:0}}
+
+/* ================= navigation deck · per-slide ================= */
+
+/* slide 2 · three levels */
+.nv-lv{margin-top:2.4rem}
+.nv-lv .s2-card{gap:.42rem;padding:1.35rem 1.4rem}
+.nv-lv .s2-card .k{font-family:var(--fm);font-weight:600;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:#9C9DF9}
+.nv-lv .s2-card .t{font-family:var(--fd);font-weight:800;font-size:1.28rem;letter-spacing:-.02em;color:var(--ink)}
+.nv-lv .s2-card .d{font-size:.87rem;line-height:1.5;color:var(--ink2)}
+.nv-beat{margin-top:2.4rem;max-width:none}
+.nv-beat b{color:var(--ink);font-weight:700}
+
+/* slides 3 + 4 · the two old versions */
+.nv-kick{font-family:var(--fm);font-weight:600;font-size:.68rem;letter-spacing:.1em;color:var(--ink3);margin-top:.85rem}
+.nv-body{margin-top:1.9rem;align-items:center}
+.nv-how{font-size:.98rem;line-height:1.56;color:var(--ink2);max-width:52ch}
+.nv-crumb{margin:1.15rem 0 1.35rem;font-family:var(--fm);font-size:.83rem;letter-spacing:.01em;color:var(--ink);background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:9px;padding:.62rem .85rem;display:inline-block;max-width:100%}
+.nv-crumb span{color:#F08A7C;font-weight:700}
+.nv-crumb em{font-style:normal;color:var(--ink3);margin:0 .3rem}
+.nv-body .s3-p{padding:.66rem 0}
+.nv-body .s3-p p{font-size:.93rem;max-width:52ch}
+.nv-right{margin-top:1.5rem;max-width:52ch}
+.nv-fig{min-width:0;width:fit-content;max-width:100%;justify-self:center}
+.nv-fig .win{width:fit-content;max-width:100%}
+.nv-fig .win img{width:auto;max-width:100%;max-height:min(52vh,470px)}
+.nv-fig .caprow{margin-top:.9rem;align-items:flex-start}
+.nv-fig .caprow p{font-size:.86rem;line-height:1.45;max-width:44ch}
+
+/* slide 5 · evidence, three boxes */
+.nv-ev{display:grid;grid-template-columns:1.08fr 1fr 1fr;gap:1.4rem;margin-top:2.4rem;align-items:stretch}
+.nv-ev .s5-box{padding:1.55rem 1.6rem 1.7rem}
+.nv-ev .s5-l li{font-size:.95rem;line-height:1.56}
+.nv-h2{margin-top:1.6rem;padding-top:1.2rem;border-top:1px solid var(--line);border-bottom:0;padding-bottom:0}
+.nv-code{border-color:rgba(134,135,245,.32);background:rgba(134,135,245,.06)}
+.nv-code .s5-h{color:#A0A1F8}
+.nv-code .s5-l li b{font-family:var(--fm);font-weight:600;font-size:.9em;letter-spacing:-.01em}
+
+/* slide 6 */
+.nv-acc{margin-top:2rem;max-width:none}
+
+/* slide 9 · the model that shipped */
+.nv-sub{margin-top:.7rem;font-size:1.02rem;line-height:1.55;color:#A2A5B0;max-width:76ch}
+.nv-levels{display:flex;align-items:stretch;justify-content:center;gap:.4rem;margin-top:clamp(1.6rem,4.5vh,2.8rem)}
+.nv-levels .nf-ln{align-self:center}
+.nv-col{flex:1;min-width:0;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.026));border:1px solid rgba(255,255,255,.11);border-radius:16px;padding:1.15rem 1.25rem 1.2rem;box-shadow:0 24px 56px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08)}
+.nv-col .k{font-family:var(--fm);font-weight:600;font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:#9C9DF9;line-height:1.5}
+.nv-col .k em{font-style:normal;color:#7B7F8A;letter-spacing:.1em;margin-left:.45rem}
+.nv-col ul{list-style:none;margin-top:.75rem;display:flex;flex-direction:column;gap:.34rem}
+.nv-col li{color:#A2A5B0;font-size:.9rem;line-height:1.38;position:relative;padding-left:.85rem}
+.nv-col li::before{content:"";position:absolute;left:0;top:.5em;width:4px;height:4px;border-radius:1px;background:rgba(255,255,255,.28);transform:rotate(45deg)}
+.nv-col.dim{opacity:.52}
+.nv-bc{margin-top:clamp(1.4rem,3.5vh,2.2rem);display:flex;flex-direction:column;align-items:center;gap:.6rem}
+.nv-bcr{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;justify-content:center;font-family:var(--fm);font-size:.9rem;color:#EDEEF3;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:.62rem 1.35rem;box-shadow:inset 0 1px 0 rgba(255,255,255,.07)}
+.nv-bcr .sep{color:rgba(255,255,255,.28)}
+.nv-bcr .h{color:#9C9DF9;font-size:1.05rem;line-height:1}
+.nv-bcr .sw{color:#5BD6A8;border-bottom:1px solid rgba(62,207,151,.5);padding-bottom:1px}
+.nv-bcr .sw em{font-style:normal;font-size:.78em;margin-left:.16rem}
+.nv-bcl{font-family:var(--fm);font-weight:600;font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;color:#4EC79B}
+.nf .nf-foot{margin-top:clamp(1.8rem,5vh,3.2rem)}
+
+/* slide 10 · the objection */
+.nv-obj h2{max-width:none}
+.nv-quote{margin-top:1.7rem;border-left:3px solid var(--bad);padding-left:1.3rem;max-width:76ch}
+.nv-quote blockquote{font-family:var(--fd);font-weight:800;font-size:clamp(1.7rem,3vw,2.35rem);letter-spacing:-.028em;line-height:1.16;color:#F08A7C;margin:.5rem 0 .7rem}
+.nv-quote p{font-size:.99rem;line-height:1.56;color:var(--ink2)}
+.nv-tbl{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.12fr) minmax(0,1.12fr);gap:0 1.8rem;margin-top:1.9rem}
+.nv-tbl > div{padding:.66rem 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:.91rem;line-height:1.46}
+.nv-tbl .h{font-family:var(--fm);font-weight:600;font-size:.61rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink3);padding-bottom:.6rem;border-bottom:1px solid var(--line2)}
+.nv-tbl .rk{font-family:var(--fm);font-weight:600;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);align-self:center}
+.nv-tbl .was{color:var(--ink3)}
+.nv-tbl .now{color:var(--ink);font-weight:600;padding-left:.95rem;border-left:2px solid rgba(62,207,151,.42)}
+.nv-tbl code{font-family:var(--fm);font-size:.88em;background:rgba(255,255,255,.07);border-radius:4px;padding:.1em .4em}
+.nv-tbl > div:nth-last-child(-n+3){border-bottom:0}
+.nv-came{margin-top:1.6rem;max-width:none}
+
+/* slide 11 · page purpose */
+.nv-pgb{margin-top:1.9rem;gap:clamp(2.4rem,4vw,3.6rem)}
+.nv-int{display:grid;grid-template-columns:1fr auto;gap:0 1.4rem;margin-top:1.1rem}
+.nv-int > div{padding:.72rem 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.nv-int .q{font-size:.98rem;line-height:1.42;color:var(--ink)}
+.nv-int .p{font-family:var(--fm);font-weight:600;font-size:.72rem;letter-spacing:.09em;color:var(--ink3);align-self:center}
+.nv-int .p.p0{color:#9C9DF9}
+.nv-int > div:nth-last-child(-n+2){border-bottom:0}
+.nv-is{margin-top:1.1rem;border-left:2px solid var(--line2);padding-left:1.05rem}
+.nv-is p{font-size:.97rem;line-height:1.56;color:var(--ink2);margin-top:.4rem}
+.nv-isnt{margin-top:1.3rem;border-left:2px solid var(--bad);padding-left:1.05rem}
+.nv-isnt ul{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-top:.5rem}
+.nv-isnt li{font-size:.97rem;line-height:1.45;color:var(--ink)}
+.nv-isnt li em{display:block;font-style:normal;font-family:var(--fm);font-size:.7rem;letter-spacing:.06em;color:#F08A7C;margin-top:.16rem}
+.nv-cut{margin-top:1.9rem;padding-top:1.15rem;border-top:1px solid var(--line);font-size:.92rem;line-height:1.55;color:var(--ink3);max-width:96ch}
+.nv-cut b{color:var(--ink2);font-weight:700}
+
+/* slide 13 */
+.nv-open{border-color:rgba(224,178,92,.38);background:linear-gradient(180deg,rgba(224,178,92,.09),rgba(224,178,92,.03))}
+.nv-open .q{color:#E8C27A}
+
+/* slide 14 · impact */
+.s14 .s14-r.nv-v1{grid-template-columns:1fr auto auto;padding-top:1.1rem}
+.s14 .nv-v1 .af{color:#E8C27A;font-size:1.5rem}
+.s14 .nv-v1 .dl{min-width:0;text-align:right}
+.nv-imp{display:grid;grid-template-columns:1.24fr 1.12fr .8fr;gap:clamp(1.8rem,3.2vw,3rem);margin-top:1.7rem;padding-top:1.4rem;border-top:1px solid var(--line)}
+.nv-ib .mlab em{font-style:normal;color:#5B5F6A;letter-spacing:.12em;margin-left:.5rem}
+.nv-ib .mlab{margin-bottom:.6rem}
+.nv-ib p{font-size:.9rem;line-height:1.52;color:var(--ink2)}
+.nv-m2{margin-top:1.15rem}
+.nv-ib ul.l.s li{font-size:.9rem}
+.nv-still .mlab{color:#F08A7C}
+.nv-still p{color:var(--ink3)}
+
+@media (max-width:1180px){
+  .nv-ev{grid-template-columns:1fr}
+  .nv-levels{flex-direction:column;gap:.7rem}
+  .nv-levels .nf-ln{transform:rotate(90deg);align-self:center}
+  .nv-tbl{grid-template-columns:1fr}
+  .nv-imp{grid-template-columns:1fr}
+}
+
+/* ================= fit pass ================= */
+.slide{padding:6.5vh 5vw 5vh}
+
+/* 3 + 4 · version slides */
+.nv-vh h2{font-size:clamp(1.75rem,2.75vw,2.25rem);max-width:none}
+.nv-kick{margin-top:.6rem;font-size:.65rem}
+.nv-body{margin-top:1.3rem}
+.nv-how{font-size:.93rem;line-height:1.5}
+.nv-crumb{margin:.85rem 0 .95rem;font-size:.78rem;padding:.52rem .75rem}
+.nv-body .s3-p{padding:.5rem 0}
+.nv-body .s3-p p{font-size:.89rem;line-height:1.46}
+.nv-right{margin-top:1.05rem}
+.nv-right,.nv-right b{font-size:.92rem}
+.nv-fig .win img{max-height:min(43vh,392px)}
+.nv-fig .caprow{margin-top:.7rem}
+.nv-fig .caprow p{font-size:.82rem}
+
+/* 5 · evidence */
+.nv-ev{margin-top:1.8rem;gap:1.15rem}
+.nv-ev .s5-box{padding:1.3rem 1.35rem 1.4rem}
+.nv-ev .s5-l li{font-size:.9rem;line-height:1.5}
+.nv-ev .s5-l{gap:.85rem;margin-top:1rem}
+.nv-ev .s5-h{font-size:.98rem;padding-bottom:.8rem}
+
+/* 6 · goals */
+.s6-grid{gap:1.15rem;margin-top:1.7rem}
+.s6-card{padding:1.35rem 1.45rem 1.4rem}
+.s6-g{font-size:1.22rem;margin-top:.6rem}
+.s6-p{font-size:.9rem;margin-top:.55rem;line-height:1.5}
+.nv-acc{margin-top:1.35rem}
+
+/* 9 · model */
+.nv-sub{font-size:.96rem;margin-top:.55rem}
+.nv-levels{margin-top:1.5rem;gap:.32rem}
+.nv-col{padding:.95rem 1rem 1rem}
+.nv-col li{font-size:.845rem;gap:.28rem}
+.nv-col ul{margin-top:.6rem;gap:.26rem}
+.nv-bc{margin-top:1.15rem;gap:.5rem}
+.nv-bcr{font-size:.83rem;padding:.52rem 1.15rem}
+.nf .nf-foot{margin-top:1.5rem}
+.nf-grid{gap:clamp(1.5rem,2.6vw,2.6rem);margin-top:1rem}
+.nf-c p{font-size:.89rem;line-height:1.5}
+
+/* 10 · objection */
+.nv-quote{margin-top:1.2rem}
+.nv-quote blockquote{font-size:clamp(1.5rem,2.4vw,1.95rem);margin:.35rem 0 .5rem}
+.nv-quote p{font-size:.93rem;line-height:1.5}
+.nv-tbl{margin-top:1.35rem;gap:0 1.5rem}
+.nv-tbl > div{padding:.5rem 0;font-size:.86rem;line-height:1.42}
+.nv-tbl .rk{font-size:.66rem}
+.nv-came{margin-top:1.15rem;font-size:.95rem}
+
+/* 11 · page purpose */
+.nv-pgb{margin-top:1.5rem}
+.nv-int{margin-top:.85rem}
+.nv-int > div{padding:.6rem 0}
+.nv-int .q{font-size:.93rem}
+.nv-is p,.nv-isnt li{font-size:.92rem}
+.nv-cut{margin-top:1.4rem;padding-top:.95rem;font-size:.88rem}
+
+/* 12 · solution */
+.s12-shots{margin-top:1.3rem;gap:1.35rem}
+.s12-map{margin-top:.95rem;padding-top:.9rem;gap:1.25rem}
+
+/* 14 · impact */
+.s14-card{padding:1.45rem 1.6rem 1.5rem}
+.s14-hero{margin-top:1rem;padding-bottom:1.15rem;gap:2rem}
+.s14-ht .lb{font-size:1.42rem}
+.s14-ht p{font-size:.91rem;margin-top:.45rem}
+.s14-hn .af{font-size:3.4rem}
+.s14 .s14-r{padding:.85rem 0}
+.s14 .s14-r .lb{font-size:.95rem}
+.nv-imp{margin-top:1.25rem;padding-top:1.1rem}
+.nv-ib p,.nv-ib ul.l.s li{font-size:.87rem;line-height:1.5}
+
+/* ================= fit pass 2 ================= */
+.nv-vh .nv-how{font-size:.88rem;line-height:1.48}
+.nv-vh .nv-crumb{margin:.7rem 0 .8rem;font-size:.73rem;padding:.46rem .68rem}
+.nv-vh .s3-p{padding:.42rem 0}
+.nv-vh .s3-p p{font-size:.855rem;line-height:1.44}
+.nv-vh .mk{width:21px;height:21px;font-size:.66rem}
+.nv-vh .s3-p{grid-template-columns:21px 1fr;gap:.8rem}
+.nv-vh .nv-right{margin-top:.9rem;font-size:.87rem;padding-left:.9rem}
+.nv-vh .nv-fig .win img{max-height:min(38vh,352px)}
+.nv-vh .nv-fig .caprow p{font-size:.79rem;line-height:1.42}
+.nv-vh .nv-kick{margin-top:.5rem}
+.nv-vh .nv-body{margin-top:1.1rem}
+
+.s6-grid{gap:1rem;margin-top:1.45rem}
+.s6-card{padding:1.15rem 1.25rem 1.2rem}
+.s6-g{font-size:1.12rem;margin-top:.5rem;line-height:1.28}
+.s6-p{font-size:.855rem;margin-top:.45rem;line-height:1.48}
+.s6-lead{font-size:.95rem;margin-top:.6rem}
+.nv-acc{margin-top:1.1rem;font-size:.93rem}
+
+.nv-quote{margin-top:1rem;padding-left:1.15rem}
+.nv-quote blockquote{font-size:clamp(1.35rem,2.1vw,1.72rem);margin:.3rem 0 .42rem}
+.nv-quote p{font-size:.88rem;line-height:1.48}
+.nv-tbl{margin-top:1.05rem}
+.nv-tbl > div{padding:.4rem 0;font-size:.825rem;line-height:1.4}
+.nv-tbl .h{padding-bottom:.45rem}
+.nv-came{margin-top:.9rem;font-size:.9rem;padding-left:.95rem}
+
+.s14-card{padding:1.25rem 1.4rem 1.3rem}
+.s14-hero{margin-top:.85rem;padding-bottom:.95rem}
+.s14-ht .lb{font-size:1.28rem}
+.s14-ht p{font-size:.87rem}
+.s14-hn .af{font-size:3rem}
+.s14 .s14-r{padding:.72rem 0}
+.s14 .s14-r .lb{font-size:.9rem}
+.nv-imp{margin-top:1.05rem;padding-top:.95rem}
+.nv-ib p,.nv-ib ul.l.s li{font-size:.845rem;line-height:1.48}
+.nv-ib ul.l.s{gap:.42rem}
+
+.nv-levels{margin-top:1.35rem}
+.nf .nf-foot{margin-top:1.3rem}
+
+/* ================= fit pass 3 ================= */
+.nv-vh h2{font-size:clamp(1.6rem,2.4vw,2rem)}
+.nv-vh .s3-p{padding:.34rem 0}
+.nv-vh .s3-p p{font-size:.83rem;line-height:1.42}
+.nv-vh .nv-right{margin-top:.75rem;font-size:.84rem}
+.nv-vh .nv-fig .win img{max-height:min(34vh,320px)}
+.nv-vh .nv-how{font-size:.85rem}
+.nv-obj .nv-tbl > div{padding:.34rem 0;font-size:.8rem}
+.nv-obj .nv-came{margin-top:.75rem;font-size:.87rem}
+.s14 .nv-imp{margin-top:.9rem;padding-top:.85rem}
+.s14 .s14-hero{margin-top:.7rem;padding-bottom:.85rem}
+.s14 .s14-hn .af{font-size:2.7rem}
+.s14 .nv-ib p,.s14 .nv-ib ul.l.s li{font-size:.815rem}
+
+/* ================= fit pass 4 · version slides ================= */
+.nv-vh .cols.c57{gap:clamp(1.8rem,2.8vw,2.6rem)}
+.nv-vh .s3-p{padding:.44rem 0}
+.nv-vh .s3-p p{font-size:.885rem;line-height:1.46}
+.nv-vh .nv-right{margin-top:.95rem;font-size:.885rem}
+.nv-vh .nv-how{font-size:.9rem;line-height:1.5}
+.nv-vh .nv-fig .win img{max-height:min(34vh,330px)}
+.nv-crumb{display:block;width:fit-content;max-width:100%;margin:0 0 .8rem;font-size:.74rem;padding:.5rem .72rem}
+
+/* impact */
+.s14 .s14-card{padding:1.1rem 1.3rem 1.15rem}
+.s14 .s14-hn .af{font-size:2.5rem}
+.s14 .s14-ht .lb{font-size:1.18rem}
+.s14 .nv-imp{margin-top:.8rem;padding-top:.8rem}
+.s14 .nv-ib p,.s14 .nv-ib ul.l.s li{font-size:.79rem;line-height:1.46}
+.nv-vh .s3-p{padding:.36rem 0}
+.nv-vh .nv-right{margin-top:.8rem}
+.nv-vh .nv-fig .win img{max-height:min(32vh,310px)}
+.nv-vh .nv-fig .win img{max-height:min(38vh,360px)}
+.nv-vh .nv-right{margin-top:.7rem}
+.nv-vh .s3-p{padding:.32rem 0}
+.nv-vh .nv-right{margin-top:.6rem;font-size:.85rem;padding-left:.85rem}
+.nv-vh .nv-how{margin-bottom:.1rem}
+
+/* ================= problem story · slides 3-5 ================= */
+
+/* slide 3 · two navigations */
+.nv-two-body{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:clamp(2rem,3.4vw,3.2rem);margin-top:1.4rem;align-items:center}
+.nv-lead{font-size:.93rem;line-height:1.56;color:var(--ink2);margin-bottom:.85rem;max-width:46ch}
+.nv-lead b{color:var(--ink);font-weight:700}
+.nv-two-beat{margin-top:.2rem;max-width:46ch;font-size:.89rem}
+.nv-strip{margin:0}
+.nv-strip .win{border-radius:8px}
+.nv-strip .win img{width:100%;height:auto;display:block}
+.nv-striplab{display:flex;align-items:baseline;gap:.6rem;margin-bottom:.4rem}
+.nv-striplab em{font-style:normal;font-family:var(--fm);font-size:.66rem;letter-spacing:.09em;color:var(--ink3)}
+.nv-samespot{position:relative;height:34px;display:grid;place-items:center}
+.nv-samespot::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:repeating-linear-gradient(90deg,rgba(229,105,90,.5) 0 6px,transparent 6px 12px)}
+.nv-samespot span{position:relative;font-family:var(--fm);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:#F08A7C;background:var(--bg);padding:0 .7rem}
+.nv-onlytell{margin-top:.75rem;font-size:.8rem;line-height:1.5;color:var(--ink3)}
+.nv-onlytell code{font-family:var(--fm);font-size:.92em;color:#F08A7C;background:rgba(229,105,90,.1);border-radius:4px;padding:.1em .4em}
+
+/* slides 4 + 5 · annotated stage */
+.nv-stage{aspect-ratio:1400/620;margin:1.2rem auto 0}
+.nv-stage2{aspect-ratio:1400/470;margin-top:1rem}
+.nv-annimg{top:16.6%}
+.nv-stage2 .nv-annimg{top:10.1%}
+.nv-ann .s4-note p{font-size:.83rem;line-height:1.47}
+.nv-ann .s4-note{width:18.5%}
+.nv-anncap{display:grid;grid-template-columns:1fr auto;gap:1.6rem;align-items:center;margin-top:1rem}
+.nv-anncap .s4-cap{margin-top:0;justify-content:flex-start}
+.nv-annright{margin-top:0;font-size:.87rem;max-width:52ch;padding-left:.95rem}
+.nv-anncap2{margin-top:.85rem}
+
+/* slide 5 · kept / rebuilt / added */
+.nv-kr{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.4rem,2.6vw,2.4rem);margin-top:1rem;padding-bottom:.9rem;border-bottom:1px solid var(--line)}
+.nv-kri .mlab{margin-bottom:.4rem}
+.nv-kri p{font-size:.85rem;line-height:1.5;color:var(--ink2)}
+
+@media (max-width:1180px){
+  .nv-two-body{grid-template-columns:1fr}
+  .nv-kr{grid-template-columns:1fr}
+}
+.nv-ann h2{font-size:clamp(1.6rem,2.4vw,2rem);max-width:none}
+.nv-two h2{font-size:clamp(1.6rem,2.4vw,2rem);max-width:none}
+.nv-stage{aspect-ratio:1400/520;margin:.9rem auto 0}
+.nv-stage2{aspect-ratio:1400/430;margin-top:.8rem}
+.nv-annimg{top:10.2%}
+.nv-stage2 .nv-annimg{top:6.4%}
+.nv-kr{margin-top:.8rem;padding-bottom:.75rem}
+.nv-kri p{font-size:.82rem}
+
+/* ================= v3 structure ================= */
+.nv-gotright{margin:0 0 .9rem;max-width:46ch;font-size:.86rem}
+.nv-two .nv-how{margin-bottom:.9rem}
+.nv-ev4{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-top:1.5rem;align-items:stretch}
+.nv-ev4 .s5-box{padding:1.25rem 1.35rem 1.3rem}
+.nv-ev4 .s5-l li{font-size:.88rem;line-height:1.5}
+.nv-ev4 .s5-l{gap:.7rem;margin-top:.9rem}
+.nv-ev4 .s5-h{font-size:.96rem;padding-bottom:.7rem}
+.nv-ev4 code{font-family:var(--fm);font-size:.88em;background:rgba(255,255,255,.08);border-radius:4px;padding:.08em .35em}
+.nv-target{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--line2)}
+.nv-tl p{font-size:.92rem;color:var(--ink2);line-height:1.5}
+.nv-tn{display:flex;align-items:baseline;gap:.6rem;white-space:nowrap}
+.nv-tn b{font-family:var(--fd);font-weight:800;font-size:2.6rem;letter-spacing:-.03em;color:#F08A7C;line-height:.9}
+.nv-tn span{font-family:var(--fm);font-size:.68rem;letter-spacing:.1em;color:var(--ink3)}
+.nv-acc2{margin-top:.9rem;font-size:.88rem}
+.nv-v2right{margin:.75rem 0 0;max-width:none;font-size:.88rem}
+.nv-acch{color:#9C9DF9;font-weight:700}
+.nv-optgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.8rem,3vw,2.8rem);margin-top:1.3rem}
+.nv-opt{margin:0;min-width:0}
+.nv-optd{font-size:.88rem;line-height:1.5;color:var(--ink2);margin-top:.6rem}
+.nv-optx{margin:.8rem 0 .9rem;font-size:.85rem;max-width:none}
+.nv-opt .win img{width:100%;height:auto;max-height:26vh;object-fit:contain;background:#fff}
+.nv-test{margin-top:1.2rem;max-width:none;font-size:.93rem}
+.nv-g2{grid-template-columns:1fr 1fr}
+.nv-home{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:1.1rem;padding-top:.95rem;border-top:1px solid var(--line)}
+.nv-hi{display:grid;grid-template-columns:22px 1fr;gap:.75rem;align-items:start}
+.nv-hi p{font-size:.85rem;line-height:1.5;color:var(--ink2)}
+.nv-hi p b{color:var(--ink);font-weight:700}
+.nv-why{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(1.6rem,2.8vw,2.6rem);margin-top:1rem;padding-top:.9rem;border-top:1px solid var(--line)}
+.nv-whyl{margin-top:0;max-width:none;font-size:.86rem}
+.nv-whyr p{font-size:.84rem;line-height:1.5;color:var(--ink2)}
+.nv-whyr .mlab{margin-bottom:.35rem}
+@media (max-width:1180px){.nv-ev4,.nv-optgrid,.nv-home,.nv-why{grid-template-columns:1fr}}
+.s12 .nv-home{margin-top:.9rem;padding-top:.8rem;gap:1.2rem}
+.s12 .nv-why{margin-top:.85rem;padding-top:.8rem}
+.s12 .s12-shots{margin-top:1.1rem}
+
+/* ================= v4 · the nesting stack (slide 3) ================= */
+.nv-stack{display:flex;flex-direction:column;gap:.4rem;margin-top:1rem}
+.nv-sr{display:grid;grid-template-columns:auto 1fr;gap:.75rem;align-items:baseline;padding:.5rem .7rem .5rem 0;border-left:2px solid rgba(229,105,90,.28)}
+.nv-sr:nth-child(1){margin-left:0}
+.nv-sr:nth-child(2){margin-left:1.1rem}
+.nv-sr:nth-child(3){margin-left:2.2rem}
+.nv-sr:nth-child(4){margin-left:3.3rem}
+.nv-sr:nth-child(5){margin-left:4.4rem}
+.nv-sr .ly{font-family:var(--fm);font-weight:600;font-size:.63rem;letter-spacing:.11em;text-transform:uppercase;color:#F08A7C;white-space:nowrap;padding-left:.7rem}
+.nv-sr .cost{font-size:.83rem;line-height:1.44;color:var(--ink2)}
+.nv-sr .cost b{color:var(--ink);font-weight:700}
+.nv-sr.key{border-left-color:var(--bad);background:linear-gradient(90deg,rgba(229,105,90,.09),transparent 70%)}
+.nv-stacklab{font-family:var(--fm);font-weight:600;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);margin-bottom:.15rem}
+.nv-handoff{margin-top:1rem;padding-top:.75rem;border-top:1px solid var(--line);font-family:var(--fm);font-size:.68rem;letter-spacing:.06em;color:#5BD6A8}
+.nv-handoff b{color:#7FE3BC;font-weight:600}
+/* goal mapping row on the solution slide */
+.nv-gmap{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem;margin-top:.85rem;padding-top:.8rem;border-top:1px solid var(--line)}
+.nv-gm .g{font-family:var(--fm);font-weight:700;font-size:.68rem;letter-spacing:.06em;color:#9C9DF9}
+.nv-gm p{font-size:.8rem;line-height:1.45;color:var(--ink2);margin-top:.25rem}
+@media (max-width:1180px){.nv-gmap{grid-template-columns:1fr 1fr}}
+.nv-where{margin-top:.85rem;font-size:.88rem;line-height:1.55;color:var(--ink3);max-width:96ch}
+.nv-where b{color:var(--ink2);font-weight:700}
+.s12 .s12-shots{margin-top:.95rem;gap:1.2rem}
+.s12 .nv-home{margin-top:.8rem;padding-top:.7rem;gap:1.1rem}
+.s12 .nv-hi p{font-size:.81rem;line-height:1.45}
+.s12 .nv-gmap{margin-top:.7rem;padding-top:.7rem;gap:.9rem}
+.s12 .nv-gm p{font-size:.77rem;line-height:1.4}
+.s12 .nv-why{margin-top:.75rem;padding-top:.7rem}
+.s12 .nv-whyl{font-size:.83rem}
+.s12 .nv-whyr p{font-size:.81rem}
+.s12 .caprow{margin-top:.55rem}
+.s12 .caprow p{font-size:.82rem}
+
+/* ================= v5 · vertical rhythm and alignment pass ================= */
+
+/* Content sat in the top two-thirds of every slide with a dead band below.
+   Centre it so whitespace distributes evenly above and below. */
+.slide{justify-content:center;padding:5vh 5vw}
+.slide.mid{justify-content:center}
+
+/* slide 2 · equal-height cards, connectors on the true centre line */
+.nv-lv{align-items:stretch}
+.nv-lv .s2-card{justify-content:flex-start}
+.nv-lv .s2-ln{align-self:center}
+.nv-beat{margin-top:2rem}
+.nv-where{margin-top:1rem}
+
+/* slide 3 · balance the two columns instead of top-aligning them */
+.nv-two-body{align-items:center;gap:clamp(2.2rem,3.6vw,3.4rem)}
+.nv-stack{gap:.55rem}
+.nv-sr{padding:.55rem .7rem .55rem 0}
+.nv-sr .cost{font-size:.845rem;line-height:1.5}
+.nv-handoff{margin-top:1.35rem;padding-top:.9rem}
+.nv-onlytell{margin-top:.9rem}
+
+/* the strips are the evidence — give them room and stop them feeling cramped */
+.nv-striplab{margin-bottom:.5rem}
+.nv-samespot{height:42px}
+
+/* slide 6 · loosen the goal grid and the target block */
+.s6-grid{gap:1.15rem;margin-top:1.7rem}
+.s6-card{padding:1.35rem 1.45rem 1.4rem}
+.nv-target{margin-top:1.6rem;padding-top:1.25rem}
+.nv-acc2{margin-top:1.15rem}
+
+/* general · stop blocks from crowding each other */
+.co{margin-top:1.15rem}
+.s6-lead{margin-top:.7rem}
+/* fixed label column so the cost text starts at a consistent x inside every row */
+.nv-sr{grid-template-columns:132px 1fr;gap:.6rem;align-items:start}
+.nv-sr .ly{padding-left:.7rem;line-height:1.55;text-align:right;padding-right:.1rem}
+.nv-sr{grid-template-columns:150px 1fr;gap:.9rem}
+.nv-sr .ly{text-align:left;padding-right:0}
+/* impact · twist number aligns with the hero number */
+.s14 .s14-r.nv-v1{grid-template-columns:auto 1fr auto;align-items:baseline;gap:1.2rem}
+.s14 .nv-v1 .dl{text-align:right;min-width:0}
+.s14 .nv-v1 .af{min-width:3.2rem;text-align:right}
+.s14 .nv-still .mlab{color:#F08A7C}
+.s14 .nv-still .mlab.nv-warn{color:#E8C27A}
+/* solution · both shots cut to one height so the captions share a baseline */
+.s12 .s12-shots{gap:clamp(1.4rem,2.2vw,2rem);margin-top:1.4rem}
+.s12 .s12-shot{display:flex;flex-direction:column;gap:.8rem}
+.s12 .s12-shot .win{height:clamp(240px,30vh,300px);overflow:hidden;display:block}
+.s12 .s12-shot .win img{width:100%;height:100%;object-fit:cover;object-position:top left;display:block}
+.s12 .s12-shot .caprow{margin-top:auto}
+/* solution · reclaim the vertical space that was pushing the last line into the footer */
+.s12 .nv-gmap{margin-top:1.5rem;padding-top:1.2rem;gap:1.6rem}
+.s12 .nv-why{margin-top:1.3rem;padding-top:1.2rem}
+.s12 .nv-handoff{margin-top:.9rem}
+/* ── slide 3 · flat aligned list, no staircase ── */
+.nv-two .nv-stack{display:grid;gap:1.15rem;border-left:2px solid rgba(229,105,90,.22);padding-left:1.35rem}
+.nv-two .nv-sr{display:grid;grid-template-columns:2.1rem 10.6rem 1fr;gap:.55rem 1rem;align-items:baseline;margin:0;padding:0;border:0;background:none}
+.nv-two .nv-sr .ix{font-family:var(--fm);font-size:.72rem;letter-spacing:.06em;color:var(--ink3);opacity:.55}
+.nv-two .nv-sr .ly{font-family:var(--fm);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bad);text-align:left;padding:0;white-space:normal;line-height:1.45}
+.nv-two .nv-sr .cost{font-size:.98rem;line-height:1.58;color:var(--ink2)}
+.nv-two .nv-sr .cost b{color:var(--ink);font-weight:700}
+.nv-two .nv-sr.key .ly{color:#F08A7C}
+.nv-two .nv-sr.key .ix{color:#F08A7C;opacity:.85}
+.nv-two .nv-stacklab{margin-bottom:1.1rem}
+
+/* ── slide 3 · rail beside three stacked strips ── */
+.nv-map{display:grid;grid-template-columns:auto 1fr;gap:1.1rem;align-items:start}
+.nv-rail{margin:0;display:flex;flex-direction:column;gap:.5rem}
+.nv-rail .win{border-radius:8px;overflow:hidden;border:1px solid var(--line);box-shadow:0 10px 26px rgba(0,0,0,.45);width:46px}
+.nv-rail .win img{display:block;width:100%;height:auto}
+.nv-rail figcaption{font-family:var(--fm);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);opacity:.7;text-align:center}
+.nv-strips{display:grid;gap:1rem;min-width:0}
+.nv-two .nv-strip{margin:0}
+.nv-two .nv-strip .win img{display:block;width:100%;height:auto}
+.nv-two .nv-onlytell{margin-top:1.1rem}
+/* slide 3 · give the list room so lines stop breaking three ways */
+.nv-two .nv-two-body{grid-template-columns:minmax(0,1fr) minmax(0,1.06fr);gap:clamp(1.8rem,2.8vw,2.6rem)}
+.nv-two .nv-sr{grid-template-columns:2rem 9.1rem 1fr;gap:.5rem .85rem}
+.nv-two .nv-stack{gap:1.05rem}
+/* slide 3 · rail depth matches the strip stack */
+.nv-rail .win{width:40px}
+.nv-map{gap:.9rem}
+.nv-rail .nv-striplab{flex-wrap:wrap;row-gap:.25rem}
+.nv-two .nv-onlytell code{white-space:nowrap}
+/* slide 3 · the rail spans all three rows, caption beneath it */
+.nv-map{grid-template-columns:98px minmax(0,1fr);gap:1.1rem;align-items:center}
+.nv-rail{align-items:center;gap:.6rem}
+.nv-rail .win{width:56px}
+.nv-rail .nv-striplab{order:2;flex-direction:column;align-items:center;gap:.3rem;text-align:center;flex-wrap:nowrap}
+.nv-rail .nv-striplab em{font-style:normal}
+.nv-strips{gap:1.15rem}
+/* ── slide 5 · project page with the environment opened over it ── */
+.nv-ann .nv-stage2{aspect-ratio:1400/400}
+.nv-stage2 .v2-layers{position:absolute;left:19%;top:4%;width:60%;z-index:2}
+.v2-back{margin:0;width:72%;position:relative}
+.v2-front{margin:0;position:absolute;right:0;top:44%;width:64%}
+.v2-layers .v2-tag{position:absolute;top:-1.35rem;left:0;white-space:nowrap;font-family:var(--fm);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);background:rgba(14,15,20,.82);padding:.1rem .35rem;border-radius:3px}
+.v2-layers .win{border-radius:9px;overflow:hidden;border:1px solid rgba(255,255,255,.12)}
+.v2-back .win{box-shadow:0 16px 40px rgba(0,0,0,.5)}
+.v2-front .win{box-shadow:-16px 20px 52px rgba(0,0,0,.78)}
+.v2-layers img{display:block;width:100%;height:auto}
+
+/* ── slide 7 · what the breadcrumb does ── */
+.nv-did{margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid var(--line)}
+.nv-didl{font-family:var(--fm);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.9rem}
+.nv-didg{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem}
+.nv-didc .k{display:block;font-family:var(--fm);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);margin-bottom:.4rem}
+.nv-didc p{margin:0;font-size:.94rem;line-height:1.6;color:var(--ink2)}
+.nv-didc p b{color:var(--ink);font-weight:700}
+/* slide 7 · the breadcrumb block added depth, so give the shots back some height */
+.s12 .s12-shot .win{height:clamp(196px,25.5vh,268px)}
+.s12 .nv-gmap{margin-top:1.15rem;padding-top:1rem}
+.nv-did{margin-top:1.05rem;padding-top:1rem}
+.nv-didl{margin-bottom:.7rem}
+.nv-didc p{font-size:.9rem;line-height:1.55}
+/* slide 3 · the closing note is gone, so the artwork takes the room */
+.nv-two .nv-two-body{grid-template-columns:minmax(0,.94fr) minmax(0,1.12fr)}
+.nv-map{grid-template-columns:104px minmax(0,1fr);gap:1.2rem}
+.nv-rail .win{width:62px}
+.nv-strips{gap:1.25rem}
+/* slide 3 · push the artwork column wider now that nothing sits under it */
+.nv-two .nv-two-body{grid-template-columns:minmax(0,.9fr) minmax(0,1.18fr);gap:clamp(1.5rem,2.4vw,2.2rem)}
+.nv-map{grid-template-columns:92px minmax(0,1fr)}
+.nv-rail .win{width:58px}
+.nv-two .nv-two-body{grid-template-columns:minmax(0,.95fr) minmax(0,1.15fr)}
+.nv-rail .nv-striplab em{white-space:nowrap}
+/* slide 2 · the fifth row is an addendum, not a fifth navigation */
+.nv-two .nv-sr.nv-plus .ix{color:var(--ink3);opacity:.45}
+.nv-two .nv-sr.nv-plus .ly{color:var(--ink3)}
+
+/* slide 3 · what Apply actually did */
+.nv-ann .nv-apply{margin-top:1.1rem}
+
+/* slide 4 · version two keeps its credit in one line */
+.nv-credit{margin-top:.45rem;font-size:.98rem;line-height:1.55;color:var(--ink2);border-left:2px solid var(--good);padding-left:.9rem}
+.nv-credit .k{display:block;font-family:var(--fm);font-size:.62rem;letter-spacing:.11em;text-transform:uppercase;color:var(--good);margin-bottom:.2rem}
+.nv-credit b{color:var(--ink);font-weight:700}
+
+/* slide 5 · what the goals were built on */
+.nv-basis{margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:2.2rem}
+.nv-basis-i .k{display:block;font-family:var(--fm);font-size:.64rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink3);margin-bottom:.4rem}
+.nv-basis-i p{margin:0;font-size:.95rem;line-height:1.6;color:var(--ink2)}
+.nv-basis-i p b{color:var(--ink);font-weight:700}
+/* slide 3 · the artefact gives back height for the Apply finding */
+.nv-ann .nv-stage{aspect-ratio:1400/452;margin-top:1.2rem}
+.nv-ann .nv-stage2{aspect-ratio:1400/400}
+.nv-ann .nv-anncap{margin-top:1.1rem}
+.nv-ann .nv-apply{margin-top:.85rem;font-size:.95rem;line-height:1.55;padding-top:.7rem;padding-bottom:.7rem}
+/* ── slide 7 · what we did on the left, the shipped screens on the right ── */
+.nv-sol{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.02fr);gap:clamp(2rem,3.2vw,3rem);align-items:center;margin-top:1.5rem}
+.nv-soll{font-family:var(--fm);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.95rem}
+.nv-solist{list-style:none;margin:0;padding:0;display:grid;gap:.72rem}
+.nv-solist li{position:relative;padding-left:1.1rem;font-size:.94rem;line-height:1.55;color:var(--ink2)}
+.nv-solist li:before{content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--good)}
+.nv-solist li b{color:var(--ink);font-weight:700}
+.nv-sol-r{display:grid;gap:1.1rem;min-width:0}
+.nv-sol-r .s12-shot{margin:0;display:flex;flex-direction:column;gap:.6rem}
+.nv-sol-r .s12-shot .win{height:clamp(150px,19vh,210px);overflow:hidden;display:block;border-radius:10px;border:1px solid var(--line)}
+.nv-sol-r .s12-shot .win img{width:100%;height:100%;object-fit:cover;object-position:top left;display:block}
+/* three-across cards, release-deck shape */
+.s6-grid.nv-g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.nv-impcards{margin-top:1.5rem}
+.nv-impcards .s6-card{padding:1.4rem 1.5rem 1.5rem}
+.nv-impcards .s6-g{font-size:1.05rem;line-height:1.35}
+.nv-impcards .s6-p{margin-top:.55rem}
+/* impact · a real numeric column, every value on the same axis */
+.s14 .nv-nums{border-top:0}
+.s14 .nv-nums .s14-r{grid-template-columns:1fr 3.4rem 1.3rem 6.2rem 8rem;gap:0;padding:1.25rem 0}
+.s14 .nv-nums .s14-r .bf{text-align:right;padding-right:.55rem}
+.s14 .nv-nums .s14-r .ar{text-align:center}
+.s14 .nv-nums .s14-r .af{text-align:right;font-size:2.1rem;color:#9C9DF9}
+.s14 .nv-nums .s14-r .dl{text-align:left;padding-left:1rem;min-width:0}
+/* solution · single-line pointers */
+.nv-solist li{padding-left:1.15rem;font-size:.98rem;line-height:1.5}
+.nv-solist{gap:.9rem}
+/* impact cards with no subtext size to the claim */
+.nv-impcards .s6-card{padding:1.5rem 1.6rem}
+.nv-impcards .s6-k{margin-bottom:.75rem}
+/* impact · empty before/arrow cells keep their grid slot so the column holds */
+.s14 .nv-nums .s14-r .bf:empty,.s14 .nv-nums .s14-r .ar:empty{visibility:hidden}
+/* evidence · the wide box reads top-aligned, like the release deck */
+.s5-box.s5-wide{align-items:start}
+.s5-box.s5-wide .s5-h{align-self:start}
+/* ── every headline lands on the same baseline across the deck ── */
+.slide{justify-content:flex-start;padding:9.4vh 5vw 5vh}
+.slide.mid{justify-content:center;padding:5vh 5vw}
+/* one eyebrow-to-headline gap everywhere — .nf and .s12 were overriding it */
+.slide .eb{margin-bottom:1rem}
+/* one headline size for the whole deck — the old 32px override was for long titles that are gone */
+.slide:not(.mid) h2{font-size:clamp(2rem,3.55vw,2.9rem);line-height:1.1;letter-spacing:-.028em}
+/* ── version two · the overlapped pair takes the space the code block left behind ── */
+.nv-ann .nv-stage2{aspect-ratio:1400/553}
+.nv-ann .nv-stage2 .s4-note{width:16%}
+.nv-ann .nv-stage2 .s4-note p{font-size:.8rem;line-height:1.45}
+.nv-stage2 .v2-layers{left:17%;top:4%;width:66%}
+.nv-stage2 .v2-back{width:80%}
+.nv-stage2 .v2-front{width:74%;top:64%}
+/* version one · switching — the caption centres on the screenshot above it */
+.nv-anncap{grid-template-columns:minmax(0,1fr)}
+.nv-anncap .s4-cap{justify-content:center}
+/* on a short, very wide window the stages scale down instead of running off the slide */
+.nv-ann .nv-stage{width:min(100%,calc(258vh - 412px))}
+.nv-ann .nv-stage2{width:min(100%,calc(210vh - 253px))}
+</style>
+</head>
+<body>
+<div class="pr" id="pr"></div>
+<div class="brand">Rohit<span class="d">.</span></div>
+<div class="nb">Notes · press N</div>
+
+<div class="deck" id="deck">
+
+<!-- 1 -->
+<section class="slide mid active" data-sec="Title"><div class="in wide s1">
+  <div class="eb">Flow deep dive</div>
+  <h1>The navigation model</h1>
+  <p class="s1-lede"><span>How you find your way around the Facets control plane. Rebuilt first, because every other screen sits on it.</span></p>
+  <div class="s1-role">
+    <div class="mlab">My role</div>
+    <p>Owned the research, the information architecture and every design decision. Worked in the codebase and shipped some screens.</p>
+  </div>
+  <div class="s1-by"><b>Rohit Kumar</b> · Product Designer, Facets</div>
+  <div class="pn">
+    <span class="k">Say your role out loud — it is not on the slide</span>
+    "Research, information architecture and every design decision. I worked in the codebase and shipped some screens. <b>Two frontend engineers built most of it.</b>"
+    <br><br>
+    <span class="k">Frame it as a chain, not a before and after</span>
+    "Two versions came before mine, and they had <b>different navigation from each other</b>. So this isn't one before and one after. It's what the first got wrong, what the second fixed and broke, and what I did with both in front of me."
+    <br><br>
+    <span class="k">Three live hand-offs are built into this deck</span>
+    After slide 3 → <b>running v1</b>. After slide 5 → <b>running v2</b>. After slide 9 → <b>live product</b>. Slide 7 → <b>Figma</b>.
+  </div>
+</div></section>
+
+<!-- 2 -->
+<section class="slide s2" data-sec="What the product is made of"><div class="in wide">
+  <div class="eb"><span class="n">01</span> Context</div>
+  <h2>What the product is made of</h2>
+  <p class="s2-def">A project is the design. An environment is <b>one running copy</b> of that design. A resource is one thing running inside it.</p>
+
+  <div class="s2-flow nv-lv">
+    <div class="s2-card"><div class="k">Project</div><div class="t">infra-dev</div><div class="d">What resources exist and how they connect.</div></div>
+    <svg class="s2-ln" viewBox="0 0 44 12"><path class="d" d="M1 6h32"/><path class="c" d="M30 1.5 37 6l-7 4.5"/></svg>
+    <div class="s2-card"><div class="k">Environment</div><div class="t">gcp-infra-dev</div><div class="d">One running copy: dev, staging, production. Most teams run about five.</div></div>
+    <svg class="s2-ln" viewBox="0 0 44 12"><path class="d" d="M1 6h32"/><path class="c" d="M30 1.5 37 6l-7 4.5"/></svg>
+    <div class="s2-card"><div class="k">Resource</div><div class="t">database</div><div class="d">One service, store or queue, actually running.</div></div>
+  </div>
+
+
+  <div class="pn">
+    <span class="k">Land the beat, then set the question</span>
+    One <code>database</code> nobody cares about, one serving customers. <b>Which environment you're in isn't a detail on the screen, it's what everything on the screen means.</b>
+    <br><br>
+    <span class="k">Where the work happens — say this, don't put it on the slide</span>
+    Mixpanel, customer interviews and a task mapping all pointed the same way: <b>the frequent work is inside an environment</b> — changing configuration, debugging a release, running one.
+    <br><br>
+    <span class="k">Never attach a percentage</span>
+    Mixpanel was checked and customers were interviewed, but <b>no cut produces a number</b>. Say the three sources, not a figure. Org level gets set up once at project creation and barely touched.
+  </div>
+</div></section>
+
+<!-- 3 -->
+<section class="slide nv-vh nv-two" data-sec="Version one · the navigation"><div class="in wide">
+  <div class="eb"><span class="n">02</span> Problem</div>
+  <h2>Version one · the navigation</h2>
+
+  <div class="nv-two-body">
+    <div class="nv-two-left">
+      <div class="nv-stacklab">Stacked, one inside the next</div>
+      <div class="nv-stack">
+        <div class="nv-sr"><span class="ix">01</span><span class="ly">Org rail</span><span class="cost">4 icons, identical on every screen, so it <b>held what you set up once</b> and could never say where you were.</span></div>
+        <div class="nv-sr"><span class="ix">02</span><span class="ly">Project tabs</span><span class="cost">10 items in one row, so <b>daily work and yearly settings sat at the same weight</b>.</span></div>
+        <div class="nv-sr key"><span class="ix">03</span><span class="ly">Environment tabs</span><span class="cost">11 items in the <b>same position, none shared</b>, so you couldn't tell the level had changed.</span></div>
+        <div class="nv-sr"><span class="ix">04</span><span class="ly">Resource tabs</span><span class="cost">A third row, and the resource's name <b>only appeared in the page heading</b>.</span></div>
+        <div class="nv-sr nv-plus"><span class="ix">&#43;</span><span class="ly">Inside one tab</span><span class="cost">Designer opens a second row &mdash; Designer / Pull Requests / Github Actions &mdash; so <b>in one place there were five</b>.</span></div>
+      </div>
+    </div>
+
+    <div class="nv-two-right">
+      <div class="nv-map">
+        <figure class="nv-rail">
+          <div class="nv-striplab"><span class="tag grey">Org rail</span><em>never changes</em></div>
+          <div class="win"><img src="../assets/img/nav/v1-org-rail.png" alt="Version one left rail, four icons"></div>
+        </figure>
+        <div class="nv-strips">
+          <figure class="nv-strip">
+            <div class="nv-striplab"><span class="tag grey">At a project</span><em>10 items</em></div>
+            <div class="win"><img src="../assets/img/nav/v1-topnav-project-b.png" alt="Version one top navigation at project level, ten items"></div>
+          </figure>
+          <figure class="nv-strip">
+            <div class="nv-striplab"><span class="tag grey">Inside an environment</span><em>11 items, none shared</em></div>
+            <div class="win"><img src="../assets/img/nav/v1-topnav-environment-b.png" alt="Version one top navigation inside an environment, eleven items"></div>
+          </figure>
+          <figure class="nv-strip">
+            <div class="nv-striplab"><span class="tag grey">Inside the Designer tab</span><em>a second row opens under the first</em></div>
+            <div class="win"><img src="../assets/img/nav/v1-designer-two-rows.png" alt="Version one project tab row with the Designer tab open, and its own second tab row underneath"></div>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pn">
+    <span class="k">Start on the rail — it sets up everything</span>
+    Blueprints, Audit Logs, Settings, Trash. <b>Identical at the org, inside a project, and three levels down inside an environment.</b> <code>getSidebarConfig(currentURL)</code> used the URL only to decide which icon lights up. So the rail was structurally incapable of saying where you were — <b>and what it held was the material you configure once and never touch.</b>
+    <br><br>
+    <span class="k">Then the indent is the argument</span>
+    Each row on the left sits one step deeper than the last. <b>Four rows of navigation, stacked, and not one of them answers "where am I".</b>
+    <br><br>
+    <span class="k">Be fair to version one — this is what makes the green line on the next slide land</span>
+    Point at the bottom strip: <b>Releases, Resource Center and Secrets are all in it.</b> Everything you needed to work in an environment was inside the environment. It just couldn't tell you that you were there.
+    <br><br>
+    <span class="k">Hand off</span>
+    "Let me show you that live rather than describe it." <b>Switch to localhost:4300</b>, click a project, then an environment, and let them watch the row swap.
+  </div>
+</div></section>
+
+<!-- 4 -->
+<section class="slide nv-ann" data-sec="Version one · switching"><div class="in wide">
+  <div class="eb"><span class="n">03</span> Problem</div>
+  <h2>Version one · switching</h2>
+
+  <div class="s4-stage nv-stage">
+    <img class="s4-img nv-annimg" src="../assets/img/nav/v1-switcher-with-crumb.jpg" alt="Version one context switcher, three lists and an Apply button">
+    <svg class="s4-lines" viewBox="0 0 1400 520" preserveAspectRatio="none" aria-hidden="true">
+      <line x1="272" y1="73"  x2="383"  y2="72"  vector-effect="non-scaling-stroke"/>
+      <line x1="272" y1="300" x2="478"  y2="290" vector-effect="non-scaling-stroke"/>
+      <line x1="1128" y1="166" x2="838" y2="180" vector-effect="non-scaling-stroke"/>
+      <line x1="1128" y1="437" x2="1052" y2="441" vector-effect="non-scaling-stroke"/>
+      <circle cx="383"  cy="72"  r="4.5"/><circle cx="478"  cy="290" r="4.5"/>
+      <circle cx="838"  cy="180" r="4.5"/><circle cx="1052" cy="441" r="4.5"/>
+    </svg>
+    <div class="s4-note s4-nl" style="top:14%"><p><b>Changing one environment opened all three lists</b>, so a one-level move became a three-level decision.</p><span class="mk">1</span></div>
+    <div class="s4-note s4-nl" style="top:58%"><p><b>Nothing said what happened to the lists you left alone</b>, so you couldn't tell whether you'd changed one thing or three.</p><span class="mk">2</span></div>
+    <div class="s4-note s4-nr" style="top:32%"><span class="mk">3</span><p><b>The panel covered the page you were reading</b>, so you lost sight of what you were deciding about.</p></div>
+    <div class="s4-note s4-nr" style="top:84%"><span class="mk">4</span><p><b>Apply stayed greyed until a background check returned</b>, so you could pick correctly and still be stuck.</p></div>
+  </div>
+
+  <div class="nv-anncap">
+    <div class="s4-cap"><span class="tag red">Version one</span><p>The context switcher, opened from the chevron on the breadcrumb.</p></div>
+  </div>
+
+
+  <div class="pn">
+    <span class="k">Keep this short — the room interrupts here</span>
+    The strongest evidence about this panel is <b>what happened to it</b>: version two didn't fix it, it deleted it and started again. Nobody defended it.
+    <br><br>
+    <span class="k">The scale is what makes it properly bad</span>
+    A customer runs <b>about five environments</b>. A form, with a commit step, to choose one of five. <b>Never say fifty-one</b> — those are demo-project dummies.
+    <br><br>
+    <span class="k">The observation that stays in your mouth</span>
+    The type labels took as much width as the names, so the thing you were trying to read got half the space. <b>That's a designer's note, not a user's problem</b> — say it only if someone asks what else was wrong.
+    <br><br>
+    <span class="k">Where the objection gets answered</span>
+    If anyone says <b>"we already tried this"</b>, the green line on this slide is the answer. Version one's own switcher preserved your page. <b>The idea was right; the cost of using it is what got rejected.</b>
+  </div>
+</div></section>
+
+<!-- 5 -->
+<section class="slide nv-ann" data-sec="Version two"><div class="in wide">
+  <div class="eb"><span class="n">04</span> Problem</div>
+  <h2>Version two</h2>
+  <div class="s4-stage nv-stage nv-stage2">
+    <div class="v2-layers">
+      <figure class="v2-back">
+        <span class="v2-tag">Project page</span>
+        <div class="win"><img src="../assets/img/nav/v2-resource-center-context-widget.jpg" alt="Version two project page, nine tabs, three of them needing an environment"></div>
+      </figure>
+      <figure class="v2-front">
+        <span class="v2-tag">Environment, opened over it</span>
+        <div class="win"><img src="../assets/img/nav/v2-env-drawer.png" alt="Version two environment drawer with its own six-tab row"></div>
+      </figure>
+    </div>
+    <svg class="s4-lines" viewBox="0 0 1400 553" preserveAspectRatio="none" aria-hidden="true">
+      <line x1="232"  y1="104" x2="500" y2="104" vector-effect="non-scaling-stroke"/>
+      <line x1="232"  y1="397" x2="493" y2="397" vector-effect="non-scaling-stroke"/>
+      <line x1="1168" y1="289" x2="830" y2="289" vector-effect="non-scaling-stroke"/>
+      <circle cx="500" cy="104" r="4.5"/><circle cx="493" cy="397" r="4.5"/>
+      <circle cx="830" cy="289" r="4.5"/>
+    </svg>
+    <div class="s4-note s4-nl" style="top:18.8%"><p><b>Releasing, resources and secrets were project tabs</b>, so half an environment lived inside it and half outside.</p><span class="mk">1</span></div>
+    <div class="s4-note s4-nl" style="top:71.8%"><p><b>An environment opened as a panel over the project</b>, so you stacked layers instead of arriving anywhere.</p><span class="mk">2</span></div>
+    <div class="s4-note s4-nr" style="top:52.3%"><span class="mk">3</span><p><b>Six tabs inside, and the work isn't among them</b>, so you leave the environment to do the environment's work.</p></div>
+  </div>
+
+  <div class="pn">
+    <span class="k">Credit them before you take it apart</span>
+    <b>They saw the same thing I did.</b> The frequent work is environment-scoped, so they made it reachable. That's a reasonable answer to a real finding.
+    <br><br>
+    <span class="k">What it did to the environment</span>
+    Inside one: launch, scale, destroy, Kubernetes credentials, VPN profile. But <b>releasing, resources and secrets became project tabs. Half in, half out, and no route between them.</b>
+    <br><br>
+    <span class="k">Hand off</span>
+    "And this is the screen that made me sure." <b>Switch to the running v2.</b> Breadcrumb reads <code>Projects › infra-dev</code>; the page is scoped to <code>arm-env</code>, <b>which nobody picked</b>.
+  </div>
+</div></section>
+
+<!-- 6 -->
+<section class="slide s5" data-sec="Evidence"><div class="in wide">
+  <div class="eb"><span class="n">05</span> Problem</div>
+  <h2>Evidence</h2>
+
+  <div class="s5-grid">
+    <div class="s5-box">
+      <div class="s5-h">Customer interviews <span>14 people</span></div>
+      <ul class="s5-l">
+        <li><b>Customers ran both old products at the same time</b>, moving between them depending on which one made a given task easier.</li>
+        <li><b>Nobody could say how to get back out to project settings</b> once they were inside an environment.</li>
+        <li><b>Nobody defended the three-list switcher.</b> Version two deleted it rather than fix it.</li>
+      </ul>
+    </div>
+
+    <div class="s5-box">
+      <div class="s5-h">Usage data <span>Mixpanel</span></div>
+      <ul class="s5-l">
+        <li><b>The frequent work is inside an environment</b> &mdash; changing configuration, debugging a release, running one.</li>
+        <li><b>Organisation settings are touched at onboarding and rarely after</b>, yet they held the only permanent navigation.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="pn">
+    <span class="k">Lead with the behaviour, not the opinion</span>
+    <b>Customers running both products at once is the strongest thing here</b> &mdash; it's something they did, not something they said. Two products, different navigation, and people picking per task.
+    <br><br>
+    <span class="k">Reading the code is the differentiator</span>
+    <b>Say that you went and read it.</b> One hardcoded list, the URL thrown away, identical in both generations. That's the root cause, and it's why the fix is one condition in one file rather than a restyle.
+    <br><br>
+    <span class="k">Never attach a percentage</span>
+    Mixpanel was checked and customers were interviewed, but <b>no cut produces a number</b> for where the work happens. Say the three sources, not a figure.
+  </div>
+</div></section>
+
+<!-- 6 -->
+<section class="slide s6" data-sec="Goals"><div class="in wide">
+  <div class="eb"><span class="n">06</span> Goals</div>
+  <h2>Goals</h2>
+  <p class="s6-lead">Three goals. Two for the people using it, one for the business.</p>
+
+  <div class="s6-grid nv-g3">
+    <div class="s6-card">
+      <div class="s6-k"><i>G1</i></div>
+      <div class="s6-g">Reduce the confusion between levels, and make the product easy to understand</div>
+      <p class="s6-p">Four navigations stacked, and none of them said which level you were on.</p>
+    </div>
+    <div class="s6-card">
+      <div class="s6-k"><i>G2</i></div>
+      <div class="s6-g">Fewer clicks and more speed on the day-to-day work</div>
+      <p class="s6-p">Routine tasks sat behind a level switch, a three-list panel and a commit step.</p>
+    </div>
+    <div class="s6-card">
+      <div class="s6-k"><i>G3</i></div>
+      <div class="s6-g">Retire the older version and move every customer onto one product</div>
+      <p class="s6-p">Two live products with different navigation, and customers split across both.</p>
+    </div>
+  </div>
+
+  <div class="pn">
+    <span class="k">G2 is the subtle one</span>
+    It isn't "put it all back". <b>Releasing one environment is environment work. Comparing secrets across all your environments is project work</b>, because you can't do it from inside one. <b>Version two moved both. I only moved one back.</b>
+    <br><br>
+    <span class="k">Hold version one's 5 back</span>
+    Only the 7 goes here. <b>Version one's five is the twist on the impact slide</b> — don't spend it twice.
+  </div>
+</div></section>
+
+<!-- 8 -->
+<section class="slide nf" data-sec="The new model"><div class="in wide">
+  <div class="eb"><span class="n">07</span> Decision</div>
+  <h2>The new model</h2>
+  <p class="nv-sub">You drill in. Each level owns its navigation, and the breadcrumb moves you both ways.</p>
+
+  <div class="nv-levels">
+    <div class="nv-col"><div class="k">Org</div><ul><li>Projects</li><li>Audit Logs</li><li>Project Type</li><li>Module Registry</li><li>Settings</li></ul></div>
+    <svg class="nf-ln" viewBox="0 0 66 12"><path class="d" d="M1 6h50"/><path class="c" d="M48 1.5 55 6l-7 4.5"/></svg>
+    <div class="nv-col"><div class="k">Project · infra-dev</div><ul><li>Overview</li><li>Blueprint Resources</li><li>Environments</li><li>Secrets &amp; Variables</li><li>Cost · Settings</li></ul></div>
+    <svg class="nf-ln" viewBox="0 0 66 12"><path class="d" d="M1 6h50"/><path class="c" d="M48 1.5 55 6l-7 4.5"/></svg>
+    <div class="nv-col"><div class="k">Environment · gcp-infra-dev</div><ul><li>Overview</li><li>Resource Center</li><li>Secrets &amp; Variables</li><li>Releases</li><li>Monitoring · Settings</li></ul></div>
+    <svg class="nf-ln" viewBox="0 0 66 12"><path class="d" d="M1 6h50"/><path class="c" d="M48 1.5 55 6l-7 4.5"/></svg>
+    <div class="nv-col dim"><div class="k">Resource · database <em>unchanged</em></div><ul><li>Live</li><li>Release History</li><li>Overrides</li><li>Actions · Compare</li></ul></div>
+  </div>
+
+  <div class="nv-bc">
+    <div class="nv-bcr"><span class="h">&#8962;</span><span class="sep">/</span><span>infra-dev</span><span class="sep">/</span><span class="sw">gcp-infra-dev <em>&#9662;</em></span><span class="sep">/</span><span class="sw">Releases <em>&#9662;</em></span></div>
+  </div>
+
+  <div class="pn">
+    <span class="k">The discipline point</span>
+    <b>The resource level is unchanged on purpose.</b> Two of three levels were broken; changing the third would have cost migration risk for nothing. <b>Say "same model", not "same tabs".</b>
+    <br><br>
+    <span class="k">Where the root-cause fix lives</span>
+    <code>AppLayout.tsx</code> reads the URL and renders a different sidebar component. <b>One condition in one file.</b>
+    <br><br>
+    <b>Don't walk this slide.</b> It exists so the next one is understood.
+  </div>
+</div></section>
+
+<!-- 9 -->
+<section class="slide s12" data-sec="Solution"><div class="in wide">
+  <div class="eb"><span class="n">08</span> Solution</div>
+  <h2>Solution</h2>
+
+  <div class="nv-sol">
+    <div class="nv-sol-l">
+      <div class="nv-soll">What we did</div>
+      <ul class="nv-solist">
+        <li><b>One navigation per level</b> &mdash; org, project and environment</li>
+        <li><b>Releasing, resources and secrets moved back inside the environment</b></li>
+        <li><b>A persistent environment header</b> on every page inside it</li>
+        <li><b>The environment overview shows health</b>, not the configuration it was built with</li>
+        <li><b>Every breadcrumb crumb is a link and a menu</b></li>
+        <li><b>Switching environment keeps the page you're on</b></li>
+        <li><b>Project Overview added</b> for quick actions without drilling in</li>
+        <li><b>Resource level unchanged</b>, and a hierarchical URL at every level</li>
+      </ul>
+    </div>
+    <div class="nv-sol-r">
+      <figure class="s12-shot">
+        <div class="win"><img src="../assets/img/compare/env-overview-after.png" alt="The shipped environment overview"></div>
+        <div class="caprow"><span class="tag green">Environment &middot; shipped</span><p>Health, alerts, what's running, what needs attention.</p></div>
+      </figure>
+      <figure class="s12-shot">
+        <div class="win"><img src="../assets/img/nav/new-crumb-page-menu.png" alt="The breadcrumb page menu open"></div>
+        <div class="caprow"><span class="tag green">One click</span><p>Every crumb is a menu &mdash; environment, page, resource.</p></div>
+      </figure>
+    </div>
+  </div>
+
+  <div class="pn">
+    <span class="k">Walk the three changes aloud — they're not on the slide</span>
+    <b>1.</b> Releasing, resources and secrets are environment pages again, so nothing throws you back out. <b>2.</b> A header stays on every page inside the environment, so which environment you're in is answered while you work. <b>3.</b> The overview showed the settings it was created with; now it shows what the environment is doing.
+    <br><br>
+    <span class="k">Answer the obvious objection before it's asked</span>
+    Project Overview sounds like what you criticised version two for. <b>The difference is order.</b> Version two had the shortcut and no home. Here the home came first.
+    <br><br>
+    <span class="k">Say what stayed at the project</span>
+    <b>Comparing secrets across environments.</b> You can't do it from inside one. Version two put that one in the right place and it stayed there.
+    <br><br>
+    <span class="k">The phasing is a senior signal</span>
+    <b>"You don't swap the navigation of the most-used product in the company in one go."</b>
+    <br><br>
+    <span class="k">Be ready for</span>
+    <b>There is no environment rail</b> — inside an environment the rail is still the project sidebar, so the way back never moves. <b>Frequency argues for reachability, not occupancy.</b>
+  </div>
+</div></section>
+
+<!-- 11 -->
+<section class="slide s14" data-sec="Impact"><div class="in wide">
+  <div class="eb"><span class="n">09</span> Impact</div>
+  <h2>Impact</h2>
+
+  <div class="s14-grid">
+    <div class="s14-card">
+      <div class="s14-k">Measured</div>
+      <div class="s14-m nv-nums">
+        <div class="s14-r"><span class="lb">Clicks on the top tasks</span><span class="bf"></span><span class="ar"></span><span class="af">54%</span><span class="dl">fewer</span></div>
+        <div class="s14-r"><span class="lb">Satisfaction, fourteen customers scored before and after</span><span class="bf">5.8</span><span class="ar">&rarr;</span><span class="af">8.4</span><span class="dl">out of 10</span></div>
+        <div class="s14-r"><span class="lb">Customers on the new product, both old interfaces retired</span><span class="bf"></span><span class="ar"></span><span class="af">100%</span><span class="dl">in four weeks</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="s6-grid nv-g3 nv-impcards">
+    <div class="s6-card">
+      <div class="s6-k"><i>01</i></div>
+      <div class="s6-g">Project Overview became the page people navigate from</div>
+    </div>
+    <div class="s6-card">
+      <div class="s6-k"><i>02</i></div>
+      <div class="s6-g">People know where they are and what they're doing</div>
+    </div>
+    <div class="s6-card">
+      <div class="s6-k"><i>03</i></div>
+      <div class="s6-g">Moving from one page to another got smoother</div>
+    </div>
+  </div>
+
+  <div class="pn">
+    <span class="k">Volunteer the method before anyone asks</span>
+    <b>54% across the top tasks</b> I counted by hand, in both old products and in what shipped, and you can reproduce it. The headline journey &mdash; <b>checking releases in two environments from inside a project &mdash; went 7 clicks to 3</b>; the 3-click path uses a hover menu, the pure-click path is 4. <b>Satisfaction is fourteen interviews before and the same fourteen after, scored by me</b> &mdash; a consistent before-and-after on one cohort, not a validated survey. <b>Migration is a record</b>, not an estimate.
+    <br><br>
+    <span class="k">Concede the soft ones first — it's what makes the hard ones stick</span>
+    "The click counts I counted and you can reproduce. The migration is a record. Satisfaction is my read of the same fourteen customers before and after, so I'd hold it as direction rather than precision."
+    <br><br>
+    <span class="k">Project Overview is the line to lead with</span>
+    It's a <b>Mixpanel ranking, not a percentage</b>, and it isn't cut by role. If pushed: "top page by visits; I haven't segmented it."
+    <br><br>
+    <span class="k">The twist, if you want it</span>
+    <b>Version one took five clicks.</b> The redesign built to fix version one had made that journey longer, not shorter. Say it only if there's room.
+    <br><br>
+    <span class="k">What went wrong, and still open</span>
+    We built the switcher as a menu, so <b>cmd-click did nothing</b> and people who compare two environments wanted two tabs. Added after launch. <b>Settings still means three different things</b>, and only the breadcrumb tells them apart. <b>When you replace a navigation people have habits around, you check the habits, not just the tasks.</b>
+  </div>
+</div></section>
+
+</div>
+
+<div class="chrome">
+  <div class="sec" id="sec"></div>
+  <div class="nv">
+    <button id="p" aria-label="Previous">&lsaquo;</button>
+    <span class="ct"><span id="c">1</span> / <span id="t">10</span></span>
+    <button id="n" aria-label="Next">&rsaquo;</button>
+  </div>
+</div>
+<div class="hint" id="h">← → navigate · F fullscreen · N notes</div>
+
+<script>
+(function(){
+  const s=[...document.querySelectorAll('.slide')];
+  const T=s.length, MAIN=s.filter(el=>!el.dataset.ap).length;
+  let i=0;
+  const pr=document.getElementById('pr'),c=document.getElementById('c'),
+        sec=document.getElementById('sec'),h=document.getElementById('h'),t=document.getElementById('t');
+  function show(k){
+    i=Math.max(0,Math.min(T-1,k));
+    s.forEach((el,x)=>el.classList.toggle('active',x===i));
+    const ap=!!s[i].dataset.ap;
+    pr.style.width=(ap?100:((i+1)/MAIN*100))+'%';
+    c.textContent=ap?('A'+(i-MAIN+1)):(i+1);
+    t.textContent=ap?('A'+(T-MAIN)):MAIN;
+    sec.textContent=s[i].dataset.sec||'';
+    history.replaceState(null,'','#'+(i+1));
+  }
+  const nx=()=>show(i+1),pv=()=>show(i-1);
+  document.getElementById('n').onclick=nx; document.getElementById('p').onclick=pv;
+  document.addEventListener('keydown',e=>{
+    if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();nx();}
+    else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();pv();}
+    else if(e.key==='Home')show(0);
+    else if(e.key==='End')show(MAIN-1);
+    else if(e.key==='f'||e.key==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();}
+    else if(e.key==='n'||e.key==='N'){document.body.classList.toggle('notes');}
+    if(!'fFnN'.includes(e.key))h.classList.add('hide');
+  });
+  const st=parseInt((location.hash||'').replace('#',''),10);
+  show(isNaN(st)?0:st-1);
+  setTimeout(()=>h.classList.add('hide'),5200);
+})();
+</script>
+</body>
+</html>
