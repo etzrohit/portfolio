@@ -1,0 +1,1697 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Web app redesign case study · Rohit Kumar</title>
+<meta name="description" content="Cutting daily clicks by 57% by redesigning Facets' web app around how engineers work. A product design case study by Rohit Kumar.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://etzrohit.github.io/portfolio/web-app-redesign/">
+<meta property="og:title" content="Web app redesign case study · Rohit Kumar">
+<meta property="og:description" content="Cutting daily clicks by 57% by redesigning Facets' web app around how engineers work. A product design case study by Rohit Kumar.">
+<meta property="og:image" content="https://etzrohit.github.io/portfolio/web-app-redesign/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23493af0'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='38' text-anchor='middle' fill='white'%3ER%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Young+Serif&display=swap">
+<style>
+/* Layout: one centred reading column (720px) with wider media (1040px); sections separated by large white space, the rhythm of the reference case study. Light only, by choice. */
+:root {
+  color-scheme: light;
+  --bg: #ffffff;
+  --ink: #16131f;
+  --text: #555168;
+  --mute: #8b879c;
+  --line: #ebe8f4;
+  --accent: #493af0;
+  --accent-deep: #3326cf;
+  --tint: #f6f4ff;
+  --tint-2: #ece8ff;
+  --panel: #f5f4f9;
+  --red: #cf3f36;
+  --red-soft: #fdeceb;
+  --green: #11845a;
+  --green-soft: #e6f5ee;
+  --display: "Young Serif", Georgia, "Times New Roman", serif;
+  --sans: "Figtree", "Helvetica Neue", Arial, sans-serif;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 400 18px/1.65 var(--sans); }
+.page { position: relative; overflow-x: clip; padding-inline: 20px; padding-block: 0 120px; }
+.col { max-width: 720px; margin-inline: auto; }
+.wide { max-width: 1040px; margin-inline: auto; }
+h1, h2, h3, p, figure, ul, ol { margin: 0; }
+h1, h2, h3 { text-wrap: balance; color: var(--ink); }
+img { display: block; max-width: 100%; height: auto; }
+.glow { position: absolute; pointer-events: none; border-radius: 50%; filter: blur(8px); background: radial-gradient(circle, rgba(73,58,240,.13) 0%, rgba(73,58,240,0) 62%); }
+
+/* Top line */
+.topline { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding-block: 22px; font-size: 14px; color: var(--mute); }
+.topline b { color: var(--ink); font-weight: 600; }
+
+/* Hero */
+.hero-panel { position: relative; max-width: 1100px; margin: 8px auto 0; border-radius: 28px; padding: 64px 64px 0; overflow: hidden;
+  background: radial-gradient(120% 100% at 15% 0%, #6e63ff 0%, #493af0 48%, #3628d6 100%); }
+.hero-panel::after { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 50% at 85% 10%, rgba(255,255,255,.18), rgba(255,255,255,0) 70%); pointer-events: none; }
+.hero-panel img { position: relative; z-index: 1; width: 100%; border-radius: 14px 14px 0 0; box-shadow: 0 -2px 0 rgba(255,255,255,.25), 0 30px 70px rgba(18,8,90,.45); }
+.hero-title { text-align: center; margin: 64px auto 0; max-width: 880px; }
+.hero-title h1 { font: 400 clamp(32px, 4.6vw, 50px)/1.15 var(--display); color: var(--accent); letter-spacing: -0.01em; }
+.hero-title .when { margin-top: 14px; font-size: 16px; color: var(--mute); }
+.intro { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(0,1fr); gap: 56px; margin-top: 64px; }
+.intro .lead { font-size: 22px; line-height: 1.45; color: var(--ink); font-weight: 600; margin-bottom: 14px; }
+.facts-list { display: grid; gap: 18px; align-content: start; }
+.facts-list div { display: grid; gap: 4px; }
+.facts-list dt, .k { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--mute); font-weight: 600; }
+.facts-list dd { margin: 0; font-size: 16px; line-height: 1.5; color: var(--ink); }
+@media (max-width: 760px) { .intro { grid-template-columns: 1fr; gap: 32px; } .hero-panel { padding: 28px 18px 0; border-radius: 20px; } }
+
+/* TL;DR */
+.tldr { margin-top: 88px; background: var(--tint); border-radius: 24px; padding: 34px 40px; }
+.tldr .label { margin-bottom: 10px; }
+.tldr .row { display: grid; grid-template-columns: 130px minmax(0,1fr); gap: 20px; padding-block: 16px; border-top: 1px solid var(--tint-2); }
+.tldr .row:first-of-type { border-top: 0; }
+.tldr .row span { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--accent); padding-top: 4px; }
+.tldr .row p { font-size: 17px; color: var(--ink); }
+.tldr .row p strong { color: var(--accent-deep); font-weight: 700; }
+@media (max-width: 600px) { .tldr { padding: 24px 20px; } .tldr .row { grid-template-columns: 1fr; gap: 4px; } }
+
+/* Sections */
+.sec { padding-top: 140px; }
+.label { display: block; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; color: var(--accent); }
+.sec h2 { font: 600 clamp(25px, 3.1vw, 32px)/1.25 var(--sans); letter-spacing: -0.01em; margin-top: 12px; }
+.sec .lede { margin-top: 16px; }
+.stack { display: grid; gap: 28px; margin-top: 40px; }
+.caption { font-size: 15px; color: var(--mute); margin-top: 12px; text-align: center; }
+@media (max-width: 600px) { .sec { padding-top: 96px; } }
+
+/* Chips */
+.chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.chip { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; }
+.chip::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+
+/* Diagram: what Facets is */
+.diagram { background: #fbfaff; border: 1px solid var(--line); border-radius: 24px; padding: 30px; display: grid; gap: 26px; }
+.lane { display: grid; gap: 12px; }
+.lane + .lane { border-top: 1px dashed var(--line); padding-top: 26px; }
+.lane .k { color: var(--mute); }
+.lane.with .k { color: var(--accent); }
+.flowrow { display: grid; grid-template-columns: auto 34px minmax(0,1fr) 34px minmax(0,1.15fr); align-items: center; gap: 10px; }
+.devs { display: grid; gap: 6px; }
+.dev { width: 34px; height: 34px; border-radius: 50%; background: #efedf6; display: grid; place-items: center; }
+.dev svg { width: 18px; height: 18px; fill: #9a96ad; }
+.arr { text-align: center; color: #b7b3c8; font-size: 20px; }
+.lane.with .arr { color: var(--accent); }
+.mid { border-radius: 14px; padding: 16px; text-align: center; display: grid; gap: 4px; }
+.mid b { color: var(--ink); font-weight: 600; font-size: 16px; }
+.mid small { font-size: 14px; color: var(--mute); }
+.mid.team { background: #fff5e8; border: 1px solid #f3dcbd; }
+.mid.rules { background: var(--tint); border: 1.5px dashed #b8b0fb; }
+.mid .note { font-size: 13.5px; font-weight: 700; margin-top: 6px; }
+.mid.team .note { color: var(--red); }
+.mid.rules .note { color: var(--accent); }
+.app { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 14px; display: grid; gap: 8px; box-shadow: 0 6px 18px rgba(22,19,31,.05); }
+.app b { color: var(--ink); font-size: 15.5px; font-weight: 600; text-align: center; }
+.app span { background: var(--tint); border-radius: 8px; padding: 6px 10px; font-size: 14px; color: var(--ink); text-align: center; }
+.app small { font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--mute); text-align: center; }
+@media (max-width: 680px) {
+  .flowrow { grid-template-columns: 1fr; justify-items: stretch; }
+  .devs { grid-auto-flow: column; justify-content: center; }
+  .arr { transform: rotate(90deg); }
+}
+
+/* Diagram: what a release is */
+.steps5 { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 14px; }
+.s5 { position: relative; border-radius: 16px; padding: 18px 16px; display: grid; gap: 6px; align-content: start; }
+.s5 b { font-size: 16px; color: var(--ink); font-weight: 700; line-height: 1.3; }
+.s5 small { font-size: 14px; color: var(--text); line-height: 1.4; }
+.s5.down { background: var(--red-soft); }
+.s5.down b { color: var(--red); }
+.s5.neutral { background: #f6f5fa; }
+.s5.go { background: var(--accent); }
+.s5.go b, .s5.go small { color: #fff; }
+.s5.up { background: var(--green-soft); }
+.s5.up b { color: var(--green); }
+.s5 + .s5::before { content: "→"; position: absolute; left: -13px; top: 50%; transform: translate(-50%,-50%); color: #b7b3c8; font-size: 16px; }
+@media (max-width: 760px) { .steps5 { grid-template-columns: 1fr; } .s5 + .s5::before { content: "↓"; left: 50%; top: -10px; } }
+
+/* Users */
+.cards3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+.card { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 24px; display: grid; gap: 8px; align-content: start; box-shadow: 0 8px 24px rgba(22,19,31,.04); }
+.card .k { color: var(--accent); }
+.card h3 { font-size: 19px; font-weight: 600; }
+.card p { font-size: 16px; line-height: 1.55; }
+.card ul { padding-left: 18px; font-size: 15.5px; line-height: 1.5; display: grid; gap: 6px; }
+@media (max-width: 760px) { .cards3 { grid-template-columns: 1fr; } }
+.brief { font-size: 17px; color: var(--ink); text-align: center; }
+.brief span { color: var(--mute); }
+.quote { text-align: center; padding-block: 36px 8px; }
+.quote p { font: 400 clamp(24px, 3.2vw, 34px)/1.3 var(--display); color: var(--accent); max-width: 760px; margin-inline: auto; }
+.quote small { display: block; margin: 18px auto 0; max-width: 600px; font-size: 18px; color: var(--text); }
+
+/* Journey */
+.journey { display: grid; grid-template-columns: repeat(6, minmax(0,1fr)); gap: 12px; position: relative; }
+.jstep { display: grid; gap: 8px; align-content: start; }
+.jstep .n { width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--accent); color: var(--accent); font-weight: 700; font-size: 14px; display: grid; place-items: center; background: #fff; position: relative; z-index: 1; }
+.jstep b { font-size: 15.5px; color: var(--ink); font-weight: 600; line-height: 1.35; }
+.jstep small { font-size: 14px; line-height: 1.4; color: var(--red); }
+.journey::before { content: ""; position: absolute; left: 15px; right: 15px; top: 15px; border-top: 1.5px dashed #d3cff0; }
+@media (max-width: 760px) { .journey { grid-template-columns: 1fr 1fr; row-gap: 24px; } .journey::before { display: none; } }
+
+.bignum { display: grid; grid-template-columns: 1fr auto 1fr; align-items: end; gap: 24px; text-align: center; padding-block: 24px; }
+.bignum .n { font: 400 clamp(64px, 10vw, 112px)/1 var(--display); color: var(--ink); }
+.bignum .n.a { color: var(--accent); }
+.bignum small { display: block; margin-top: 10px; font-size: 16px; color: var(--mute); }
+.bignum .of { font-size: 18px; color: var(--mute); padding-bottom: 46px; }
+@media (max-width: 600px) { .bignum { grid-template-columns: 1fr; gap: 8px; } .bignum .of { padding: 0; } }
+
+/* Annotated screens */
+.shot { background: var(--panel); border-radius: 24px; padding: 28px; }
+.shot figure { position: relative; }
+.shot img { border-radius: 12px; box-shadow: 0 18px 44px rgba(22,19,31,.14); background: #fff; }
+.pin { position: absolute; transform: translate(-50%,-50%); width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 13.5px; font-weight: 700; display: grid; place-items: center; border: 2.5px solid #fff; box-shadow: 0 4px 14px rgba(73,58,240,.45); }
+.legend { list-style: none; padding: 0; margin-top: 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 28px; counter-reset: pin; }
+.legend li { counter-increment: pin; display: grid; grid-template-columns: 24px minmax(0,1fr); gap: 10px; font-size: 15.5px; line-height: 1.45; color: var(--ink); }
+.legend li::before { content: counter(pin); width: 22px; height: 22px; border-radius: 50%; background: var(--tint-2); color: var(--accent); font-size: 12px; font-weight: 700; display: grid; place-items: center; margin-top: 1px; }
+.legend li em { font-style: normal; color: var(--mute); }
+@media (max-width: 600px) { .shot { padding: 14px; border-radius: 18px; } .legend { grid-template-columns: 1fr; } .pin { width: 22px; height: 22px; font-size: 11.5px; border-width: 2px; } }
+.stat { font: 400 56px/1 var(--display); color: var(--accent); }
+
+/* Facts and assumptions */
+.fa { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.2fr); gap: 16px; }
+.fa .side { border-radius: 22px; padding: 26px; display: grid; gap: 14px; align-content: start; }
+.fa .facts { background: var(--tint); }
+.fa .assume { background: #fff; border: 1px solid var(--line); }
+.fa ul { list-style: none; padding: 0; display: grid; gap: 12px; }
+.fa .facts li { display: grid; grid-template-columns: 18px minmax(0,1fr); gap: 10px; font-size: 16px; line-height: 1.45; color: var(--ink); }
+.fa .facts li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); margin-top: 8px; margin-left: 4px; }
+.asm { display: grid; grid-template-columns: 30px minmax(0,1fr); gap: 12px; }
+.badge { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 14px; }
+.badge.no { background: var(--red-soft); color: var(--red); }
+.badge.yes { background: var(--green-soft); color: var(--green); }
+.asm b { display: block; color: var(--ink); font-size: 16.5px; font-weight: 600; line-height: 1.35; }
+.asm small { display: block; font-size: 15px; line-height: 1.45; color: var(--text); margin-top: 3px; }
+@media (max-width: 760px) { .fa { grid-template-columns: 1fr; } }
+
+/* How might we */
+.hmw { display: grid; }
+.hmw .q { display: grid; grid-template-columns: 76px minmax(0,1fr); gap: 16px; padding-block: 22px; border-top: 1px solid var(--line); align-items: baseline; }
+.hmw .q:last-child { border-bottom: 1px solid var(--line); }
+.hmw .num { font: 400 36px/1 var(--display); color: #d9d4fb; }
+.hmw p { font-size: 19px; color: var(--ink); line-height: 1.45; }
+.hmw p b { font-weight: 700; }
+.hmw small { display: block; font-size: 14.5px; color: var(--mute); margin-top: 6px; }
+@media (max-width: 600px) { .hmw .q { grid-template-columns: 48px minmax(0,1fr); } .hmw .num { font-size: 26px; } }
+
+/* Before / after flow */
+.flows { display: grid; gap: 22px; background: #fbfaff; border: 1px solid var(--line); border-radius: 24px; padding: 28px; }
+.flow { display: grid; gap: 10px; }
+.flow .k { color: var(--mute); }
+.flow.after .k { color: var(--accent); }
+.pills { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.pill { border-radius: 12px; padding: 10px 14px; font-size: 15px; line-height: 1.35; color: var(--ink); background: #fff; border: 1px solid var(--line); }
+.pill.bad { background: var(--red-soft); border-color: #f6cfcb; color: #8f2a23; }
+.flow.after .pill { background: var(--tint); border-color: #d6d0fd; }
+.flow.after .pill.go { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+.pills .to { color: #b7b3c8; }
+.flow.after .pills .to { color: var(--accent); }
+.dropped { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+.dropped figure { display: grid; gap: 10px; }
+.dropped .thumb { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: #fff; aspect-ratio: 16/10; }
+.dropped .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top left; filter: grayscale(.35); opacity: .9; }
+.dropped .thumb span { position: absolute; top: 10px; left: 10px; font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--red); background: #fff; border-radius: 999px; padding: 4px 9px; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+.dropped figcaption { font-size: 15px; line-height: 1.45; color: var(--ink); }
+.dropped figcaption small { display: block; color: var(--mute); font-size: 14.5px; }
+@media (max-width: 760px) { .dropped { grid-template-columns: 1fr; } }
+
+/* Impact and effort */
+.matrix { position: relative; aspect-ratio: 2/1; background: #fbfaff; border: 1px solid var(--line); border-radius: 24px; overflow: hidden; }
+.matrix .limit { position: absolute; left: 4%; width: 46%; top: 0; bottom: 0; background: rgba(73,58,240,.05); border-right: 1.5px dashed #c7c0fb; }
+.matrix .ql { position: absolute; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: #a9a4c4; }
+.matrix .ax { position: absolute; font-size: 13px; color: var(--mute); }
+.matrix .ax.x { left: 50%; bottom: 10px; transform: translateX(-50%); }
+.matrix .ax.y { left: 18px; top: 50%; transform: translate(-50%,-50%) rotate(-90deg); white-space: nowrap; }
+.dot { position: absolute; display: flex; align-items: center; gap: 8px; transform: translate(-8px,-50%); font-size: 14px; font-weight: 600; color: var(--ink); white-space: nowrap; }
+.dot i { width: 16px; height: 16px; border-radius: 50%; background: #c9c5dc; flex: none; box-shadow: 0 0 0 4px #fff; }
+.dot.ship i { background: var(--accent); box-shadow: 0 0 0 4px #fff, 0 0 0 8px rgba(73,58,240,.15); }
+.dot.drop i { background: #fff; border: 2.5px solid #c9c5dc; }
+.dot.drop { color: var(--mute); }
+.dot.l { flex-direction: row-reverse; transform: translate(calc(-100% + 8px), -50%); }
+.mkey { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; font-size: 14px; color: var(--mute); margin-top: 14px; }
+.mkey span { display: inline-flex; gap: 8px; align-items: center; }
+.mkey i { width: 12px; height: 12px; border-radius: 50%; background: #c9c5dc; display: inline-block; }
+.mkey i.ship { background: var(--accent); }
+.mkey i.drop { background: #fff; border: 2px solid #c9c5dc; }
+@media (max-width: 680px) { .matrix { aspect-ratio: 4/5; } .dot { white-space: normal; max-width: 130px; font-size: 12.5px; } .matrix .ql { font-size: 10.5px; } }
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 18px; background: #fff; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th, td { text-align: left; vertical-align: top; padding: 14px 16px; border-bottom: 1px solid var(--line); line-height: 1.45; }
+th { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--mute); font-weight: 700; background: #fbfaff; }
+td { color: var(--ink); }
+td.m { color: var(--text); }
+tr:last-child td { border-bottom: 0; }
+.tag { display: inline-block; font-size: 12.5px; font-weight: 700; border-radius: 999px; padding: 3px 10px; white-space: nowrap; }
+.tag.ship { background: var(--tint-2); color: var(--accent-deep); }
+.tag.drop { background: var(--red-soft); color: var(--red); }
+.tag.plan { background: #f1f0f5; color: var(--text); }
+
+/* Tabs */
+.tabs { display: inline-flex; flex-wrap: wrap; gap: 4px; background: #f1effa; border-radius: 999px; padding: 4px; }
+.tabs button { font: 600 14.5px/1 var(--sans); color: var(--text); background: transparent; border: 0; border-radius: 999px; padding: 10px 18px; cursor: pointer; }
+.tabs button[aria-selected="true"] { background: #fff; color: var(--accent); box-shadow: 0 2px 10px rgba(22,19,31,.08); }
+.tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tabwrap { display: grid; gap: 18px; justify-items: center; }
+.tabpanel { width: 100%; }
+.tabpanel[hidden] { display: none !important; }
+.tabnote { font-size: 15px; color: var(--mute); text-align: center; margin-top: 14px; }
+
+/* Before and after pair */
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: center; }
+.pair figure { display: grid; gap: 10px; }
+.pair .k { color: var(--mute); }
+.pair .after .k { color: var(--accent); }
+.pair .frame { background: var(--panel); border-radius: 18px; padding: 22px; display: grid; place-items: center; min-height: 140px; }
+.pair .frame img { border-radius: 10px; box-shadow: 0 10px 26px rgba(22,19,31,.10); background: #fff; }
+@media (max-width: 680px) { .pair { grid-template-columns: 1fr; } }
+
+/* Rules */
+.rules { list-style: none; padding: 0; display: grid; gap: 0; counter-reset: rule; }
+.rules li { counter-increment: rule; display: grid; grid-template-columns: 60px minmax(0,1fr); gap: 16px; padding-block: 20px; border-top: 1px solid var(--line); }
+.rules li:last-child { border-bottom: 1px solid var(--line); }
+.rules li::before { content: counter(rule); font: 400 34px/1 var(--display); color: var(--accent); }
+.rules b { display: block; color: var(--ink); font-size: 18px; font-weight: 600; }
+.rules span { font-size: 16px; color: var(--text); }
+
+/* Metrics */
+.metric { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 26px; display: grid; gap: 8px; align-content: start; box-shadow: 0 8px 24px rgba(22,19,31,.04); }
+.metric .k { color: var(--accent); }
+.metric h3 { font: 400 26px/1.2 var(--display); color: var(--ink); }
+.metric p { font-size: 16px; }
+.cards2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 680px) { .cards2 { grid-template-columns: 1fr; } }
+.callout { background: var(--tint); border-radius: 18px; padding: 22px 26px; font-size: 17px; color: var(--ink); }
+
+/* Results */
+.results { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(0,1fr); gap: 16px; }
+.r-main { border-radius: 26px; padding: 40px; display: grid; gap: 14px; align-content: center;
+  background: radial-gradient(120% 120% at 0% 0%, #ffffff 0%, var(--tint) 55%, var(--tint-2) 100%); border: 1px solid #e3defd; }
+.r-main p.big { font: 400 clamp(30px, 4vw, 44px)/1.15 var(--display); color: var(--ink); }
+.r-main p.big em { font-style: normal; color: var(--accent); }
+.r-main small { font-size: 16px; color: var(--text); }
+.r-side { display: grid; gap: 16px; }
+.r-card { background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 26px; display: grid; gap: 6px; box-shadow: 0 8px 24px rgba(22,19,31,.04); }
+.r-card .v { font: 400 34px/1.1 var(--display); color: var(--accent); }
+.r-card p { font-size: 16px; color: var(--ink); }
+@media (max-width: 760px) { .results { grid-template-columns: 1fr; } .r-main { padding: 28px; } }
+.after-launch { display: grid; grid-template-columns: auto minmax(0,1fr); gap: 10px 18px; margin-top: 28px; font-size: 16.5px; }
+.after-launch dt { color: var(--accent); font-weight: 700; }
+.after-launch dd { margin: 0; color: var(--ink); }
+
+footer { max-width: 1040px; margin: 140px auto 0; padding-top: 28px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 14.5px; color: var(--mute); }
+footer b { color: var(--ink); font-weight: 600; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+@media (prefers-reduced-motion: no-preference) { .tabs button { transition: background .15s, color .15s; } }
+
+/* v2 components */
+.diagram-title { display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; }
+.diagram-title b { font-size: 17px; color: var(--ink); font-weight: 700; }
+.diagram-title span { font-size: 15px; color: var(--mute); }
+.stakes { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.stakes div { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 20px 22px; display: grid; gap: 6px; }
+.stakes .v { font: 400 30px/1.1 var(--display); color: var(--accent); }
+.stakes p { font-size: 16px; color: var(--ink); }
+@media (max-width: 680px) { .stakes { grid-template-columns: 1fr; } }
+
+.stepper { display: grid; gap: 22px; }
+.steps { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 10px; position: relative; }
+.steps::before { content: ""; position: absolute; left: 22px; right: 22px; top: 22px; border-top: 1.5px dashed #d3cff0; }
+.steps button { position: relative; display: grid; gap: 10px; justify-items: start; text-align: left; background: transparent; border: 0; padding: 0 6px 0 0; cursor: pointer; font: inherit; color: var(--text); }
+.steps .n { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; font: 700 16px/1 var(--sans); color: var(--accent); background: #fff; border: 1.5px solid #cfc9fb; position: relative; z-index: 1; transition: background .15s, color .15s; }
+.steps .t { font-size: 15.5px; font-weight: 600; color: var(--ink); line-height: 1.35; }
+.steps button[aria-selected="true"] .n { background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 6px 18px rgba(73,58,240,.35); }
+.steps button[aria-selected="true"] .t { color: var(--accent); }
+.steps button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 8px; }
+.step-panel .pain { display: flex; gap: 12px; align-items: flex-start; margin-top: 18px; background: var(--red-soft); border-radius: 14px; padding: 14px 18px; color: #7d2620; font-size: 16px; line-height: 1.5; }
+.step-panel .pain b { color: var(--red); font-weight: 700; white-space: nowrap; }
+@media (max-width: 760px) { .steps { grid-template-columns: 1fr 1fr; row-gap: 18px; } .steps::before { display: none; } }
+.sources { text-align: center; font-size: 15px; color: var(--mute); }
+
+.facts-grid { display: grid; grid-template-columns: minmax(0,0.8fr) minmax(0,1.5fr); gap: 16px; align-items: start; }
+.facts-card { background: var(--tint); border-radius: 22px; padding: 26px; display: grid; gap: 14px; }
+.facts-card ul { list-style: none; padding: 0; display: grid; gap: 12px; }
+.facts-card li { display: grid; grid-template-columns: 16px minmax(0,1fr); gap: 10px; font-size: 16px; line-height: 1.45; color: var(--ink); }
+.facts-card li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); margin-top: 8px; }
+.asm-table { border: 1px solid var(--line); border-radius: 22px; overflow: hidden; background: #fff; }
+.asm-row { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.2fr) minmax(0,1fr); }
+.asm-row > div { padding: 16px 18px; border-top: 1px solid var(--line); font-size: 15px; line-height: 1.45; color: var(--ink); }
+.asm-row > div + div { border-left: 1px solid var(--line); }
+.asm-row.h > div { border-top: 0; background: #fbfaff; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--mute); }
+.asm-row .a { color: var(--text); }
+.asm-row .a::before { content: "✕"; color: var(--red); font-weight: 700; margin-right: 8px; }
+.asm-row .q { color: var(--accent-deep); font-weight: 600; }
+@media (max-width: 860px) { .facts-grid { grid-template-columns: 1fr; } .asm-row { grid-template-columns: 1fr; } .asm-row > div + div { border-left: 0; border-top: 0; padding-top: 0; } .asm-row.h { display: none; } .asm-row > div:first-child { padding-top: 18px; } }
+
+.evo { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; align-items: start; }
+.evo .v { background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 18px; display: grid; gap: 12px; box-shadow: 0 8px 24px rgba(22,19,31,.04); }
+.evo .v.ship { border-color: #d6d0fd; }
+.evo .meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.evo .tag { font-size: 12px; }
+.evo h3 { font-size: 18px; font-weight: 600; line-height: 1.3; }
+.evo p { font-size: 15.5px; line-height: 1.55; }
+.evo img { border-radius: 12px; border: 1px solid var(--line); }
+@media (max-width: 860px) { .evo { grid-template-columns: 1fr; } }
+
+.decision { display: grid; gap: 22px; padding-top: 72px; }
+.decision:first-of-type { padding-top: 40px; }
+.decision .dl { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--accent); }
+.decision h3 { font: 600 clamp(22px, 2.6vw, 26px)/1.3 var(--sans); color: var(--ink); margin-top: 6px; }
+.decision .why { font-size: 17px; margin-top: 8px; }
+.dropped-one { display: grid; grid-template-columns: 220px minmax(0,1fr); gap: 18px; align-items: center; background: #fbfaff; border: 1px solid var(--line); border-radius: 18px; padding: 14px; }
+.dropped-one .thumb { position: relative; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); aspect-ratio: 16/10; background: #fff; }
+.dropped-one .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top left; filter: grayscale(.4); }
+.dropped-one .tagx { font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--red); }
+.dropped-one p { font-size: 15.5px; color: var(--ink); margin-top: 4px; }
+.dropped-one small { display: block; font-size: 14.5px; color: var(--mute); margin-top: 2px; }
+@media (max-width: 600px) { .dropped-one { grid-template-columns: 1fr; } }
+.rule { background: var(--tint); border-radius: 16px; padding: 16px 20px; font-size: 16.5px; color: var(--ink); }
+.rule b { color: var(--accent-deep); }
+
+/* v3 components */
+.hs { position: absolute; border: 2px solid var(--red); border-radius: 8px; background: rgba(207,63,54,.07); box-shadow: 0 0 0 4px rgba(207,63,54,.12); pointer-events: none; }
+.hs-l { position: absolute; left: -2px; bottom: 100%; margin-bottom: 8px; background: var(--red); color: #fff; font: 600 13px/1.3 var(--sans); padding: 6px 11px; border-radius: 10px; white-space: nowrap; box-shadow: 0 6px 16px rgba(207,63,54,.30); }
+.hs.below .hs-l { bottom: auto; top: 100%; margin: 8px 0 0; }
+.hs.inside .hs-l { bottom: auto; top: 10px; left: 10px; margin: 0; }
+.hs.right .hs-l { left: auto; right: -2px; }
+@media (max-width: 680px) { .hs-l { font-size: 10.5px; padding: 4px 7px; white-space: normal; width: max-content; max-width: 150px; } }
+.step-note { margin-top: 14px; font-size: 15px; color: var(--mute); text-align: center; }
+.problem { border: 1px solid var(--line); border-radius: 24px; overflow: hidden; background: #fff; }
+.problem .pr { display: grid; grid-template-columns: 210px minmax(0,1fr); gap: 24px; padding: 28px 32px; }
+.problem .pr + .pr { border-top: 1px solid var(--line); }
+.problem .pr > span { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--accent); padding-top: 7px; }
+.problem .pr p { font: 400 clamp(20px, 2.4vw, 26px)/1.35 var(--display); color: var(--ink); }
+.problem .pr.goal { background: var(--tint); }
+.problem .pr.block > span { color: var(--red); }
+@media (max-width: 680px) { .problem .pr { grid-template-columns: 1fr; gap: 6px; padding: 20px; } }
+.vpanel { display: grid; gap: 20px; }
+.vtext { display: grid; gap: 10px; max-width: 760px; }
+.vtext h3 { font-size: 22px; font-weight: 600; color: var(--ink); }
+.vtext p { font-size: 17px; }
+.goalchips { display: flex; flex-wrap: wrap; gap: 8px; }
+.gc { font-size: 13.5px; font-weight: 600; border-radius: 999px; padding: 6px 12px; }
+.gc.y { background: var(--green-soft); color: var(--green); }
+.gc.p { background: #fff3df; color: #a35b00; }
+.gc.n { background: #f1f0f5; color: var(--mute); }
+.explored { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.explored figure { display: grid; gap: 10px; align-content: start; }
+.explored .k { color: var(--red); }
+.explored .frame2 { background: var(--panel); border-radius: 16px; padding: 14px; }
+.explored .frame2 img { border-radius: 10px; box-shadow: 0 8px 22px rgba(22,19,31,.10); }
+.explored figcaption { font-size: 15.5px; color: var(--ink); line-height: 1.5; }
+.explored figcaption small { display: block; color: var(--text); font-size: 15px; margin-top: 2px; }
+@media (max-width: 760px) { .explored { grid-template-columns: 1fr; } }
+.why-box { background: #fbfaff; border: 1px solid var(--line); border-radius: 18px; padding: 22px 26px; display: grid; gap: 10px; }
+.why-box .k { color: var(--accent); }
+.why-box ul { margin: 0; padding-left: 20px; display: grid; gap: 8px; font-size: 16.5px; line-height: 1.55; color: var(--ink); }
+.tabcenter { display: flex; justify-content: center; }
+.dpanel { display: grid; gap: 16px; }
+.dpanel .why-dropped { text-align: center; font-size: 16px; color: var(--ink); }
+.dpanel .why-dropped b { color: var(--red); }
+.small-shot { max-width: 760px; margin-inline: auto; width: 100%; }
+.hs.side .hs-l { left: 100%; bottom: auto; top: 50%; transform: translateY(-50%); margin: 0 0 0 10px; }
+
+/* v4 components */
+.shot figure { container-type: inline-size; }
+.hs.v { border-color: var(--accent); background: rgba(73,58,240,.06); box-shadow: 0 0 0 4px rgba(73,58,240,.13); }
+.hs.v .hs-l { background: var(--accent); box-shadow: 0 6px 16px rgba(73,58,240,.32); }
+.hs.lead-r .hs-l, .hs.lead-l .hs-l { bottom: auto; top: var(--ly, 50%); transform: translateY(-50%); margin: 0; }
+.hs.lead-r .hs-l { left: calc(100% + var(--gap, 5cqw)); }
+.hs.lead-l .hs-l { left: auto; right: calc(100% + var(--gap, 5cqw)); }
+.hs.lead-r .hs-l::before, .hs.lead-l .hs-l::before { content: ""; position: absolute; top: 50%; width: var(--gap, 5cqw); border-top: 1.5px solid var(--accent); }
+.hs.lead-r .hs-l::before { right: 100%; }
+.hs.lead-l .hs-l::before { left: 100%; }
+.hs.inside.right .hs-l { left: auto; right: 10px; }
+.hs .hs-l.wrap { white-space: normal; width: max-content; max-width: calc(100% + 4px); }
+.shot.pad-b { padding-bottom: 64px; }
+.anno-legend { display: none; list-style: none; padding: 0; margin: 16px 0 0; gap: 8px; counter-reset: an; }
+.anno-legend li { counter-increment: an; display: grid; grid-template-columns: 22px minmax(0,1fr); gap: 8px; font-size: 14.5px; line-height: 1.45; color: var(--ink); }
+.anno-legend li::before { content: counter(an); width: 20px; height: 20px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; display: grid; place-items: center; margin-top: 1px; }
+.anno-legend.red li::before { background: var(--red); }
+.mlegend { display: none; list-style: none; padding: 0; margin: 14px 0 0; gap: 6px; font-size: 14px; line-height: 1.45; color: var(--ink); }
+.mlegend b { color: var(--accent); }
+@media (max-width: 680px) {
+  .hs .hs-l { display: none; }
+  .hs::after { content: attr(data-n); position: absolute; left: -11px; top: -11px; width: 20px; height: 20px; border-radius: 50%; background: var(--red); color: #fff; font: 700 11px/20px var(--sans); text-align: center; }
+  .hs.v::after { background: var(--accent); }
+  .hs.lead-r::after, .hs.right::after { left: auto; right: -11px; }
+  .anno-legend { display: grid; }
+  .shot.pad-b { padding-bottom: 14px; }
+  .diagram-title { flex-direction: column; gap: 2px; }
+  .matrix .dot, .matrix .dot.l, .matrix .dot.ml { font-size: 0; gap: 0; flex-direction: row; transform: translate(-50%,-50%); }
+  .matrix .dot i { width: 22px; height: 22px; display: grid; place-items: center; font: 700 11px/1 var(--sans); color: #fff; }
+  .matrix .dot.drop i { color: var(--mute); }
+  .matrix .dot i::after { content: attr(data-k); }
+  .mlegend { display: grid; }
+}
+
+.fails { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; margin-top: 12px; }
+.fails > span { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--red); margin-right: 2px; }
+.fails b { font-size: 14px; font-weight: 600; color: #8f2a23; background: var(--red-soft); border-radius: 999px; padding: 5px 12px; }
+.step-panel .step-note { color: var(--text); font-size: 15.5px; max-width: 760px; margin-inline: auto; }
+
+.needs-h { font-size: 19px; font-weight: 600; color: var(--ink); text-align: center; }
+.needs { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 14px; margin-top: 18px; }
+.need { background: var(--tint); border-radius: 18px; padding: 22px 20px; display: grid; gap: 8px; align-content: start; }
+.need b { font: 400 22px/1.2 var(--display); color: var(--accent); }
+.need p { font-size: 15.5px; line-height: 1.45; color: var(--ink); }
+@media (max-width: 860px) { .needs { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 460px) { .needs { grid-template-columns: 1fr; } }
+
+.devs-col { display: grid; justify-items: center; gap: 8px; }
+.who { font-size: 13px; font-weight: 600; color: var(--ink); white-space: nowrap; }
+.mid.rules b { font-size: 16px; }
+.matrix .limit { left: 0; width: 50%; }
+.matrix .qx { position: absolute; left: 0; right: 0; top: 50%; border-top: 1px dashed #dcd8ee; }
+.matrix .qn { position: absolute; font: 700 12.5px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: #a8a3c2; }
+.matrix .ql { color: #7f75f2; }
+.matrix .ax { font-size: 14px; font-weight: 600; color: var(--text); }
+@media (max-width: 680px) { .matrix .qn { font-size: 10.5px; } }
+
+.cutwrap { display: grid; gap: 12px; margin-top: 8px; }
+.cutwrap > .k { color: var(--red); }
+.acc { border: 1px solid var(--line); border-radius: 18px; background: #fff; overflow: hidden; box-shadow: 0 8px 24px rgba(22,19,31,.04); }
+.acc summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 18px; align-items: center; padding: 20px 22px; }
+.acc summary::-webkit-details-marker { display: none; }
+.acc summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: 18px; }
+.acc-main { display: grid; gap: 4px; }
+.acc-main b { font-size: 17px; font-weight: 600; color: var(--ink); line-height: 1.4; }
+.acc-main > span { font-size: 15.5px; line-height: 1.5; color: var(--text); }
+.acc-main em { font-style: normal; font-weight: 700; color: var(--red); }
+.acc-btn { font-size: 14px; font-weight: 600; color: var(--accent); background: var(--tint); border-radius: 999px; padding: 9px 16px; white-space: nowrap; }
+.acc-btn .c { display: none; }
+.acc[open] .acc-btn .o { display: none; }
+.acc[open] .acc-btn .c { display: inline; }
+.acc-body { padding: 4px 22px 24px; }
+.steps.n3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+.steps.n2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+@media (max-width: 600px) { .acc summary { grid-template-columns: 1fr; padding: 18px; } .acc-btn { justify-self: start; } .acc-body { padding: 4px 10px 14px; } }
+.facts-list dd strong { font-weight: 700; color: var(--accent-deep); }
+.facts-list dd a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.facts-list dd a:hover { text-decoration: underline; }
+
+/* Navigation case study additions */
+.levels { background: #fbfaff; border: 1px solid var(--line); border-radius: 24px; padding: 26px; display: grid; gap: 12px; }
+.lv { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--mute); }
+.lv small { text-transform: none; letter-spacing: 0; font-weight: 500; margin-left: 8px; font-size: 14px; }
+.lvbox { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 18px; display: grid; gap: 14px; box-shadow: 0 8px 24px rgba(22,19,31,.04); }
+.lvbox > .lv { color: var(--ink); }
+.envs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.env { border: 1.5px solid #cfc9fb; background: var(--tint); border-radius: 14px; padding: 14px; display: grid; gap: 10px; }
+.env b { font-size: 15px; color: var(--accent-deep); }
+.res { display: flex; flex-wrap: wrap; gap: 8px; }
+.res span { font-size: 14px; background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; color: var(--ink); }
+.res span.db { border-color: #f0b6b0; background: var(--red-soft); color: var(--red); font-weight: 600; }
+.same { text-align: center; font-size: 15px; font-weight: 700; color: var(--red); }
+@media (max-width: 600px) { .envs { grid-template-columns: 1fr; } .levels { padding: 16px; } }
+.strips { display: grid; gap: 10px; }
+.strips figure { display: grid; gap: 6px; }
+.strips figcaption { font-size: 14px; color: var(--mute); }
+.steps.n4 { grid-template-columns: repeat(4, minmax(0,1fr)); }
+@media (max-width: 760px) { .steps.n4 { grid-template-columns: 1fr 1fr; } }
+.hs.inside.right.bottom .hs-l { top: auto; bottom: 10px; }
+.ver-intro { font-size: 16px; color: var(--text); max-width: 760px; }
+.pair.top { align-items: start; }
+.pair .frame.side { min-height: 0; }
+
+/* Redesign page additions */
+.goalbox { background: var(--tint); border-radius: 24px; padding: 36px 40px; display: grid; gap: 12px; text-align: center; }
+.goalbox .k { color: var(--accent); }
+.goalbox p { font: 400 clamp(24px, 3.2vw, 34px)/1.3 var(--display); color: var(--ink); max-width: 820px; margin-inline: auto; }
+.goalbox small { display: block; font-size: 17px; color: var(--text); max-width: 620px; margin-inline: auto; }
+@media (max-width: 600px) { .goalbox { padding: 26px 20px; } }
+.subsec { display: grid; gap: 22px; padding-top: 88px; }
+.subsec > .col h3 { font: 600 clamp(22px, 2.6vw, 26px)/1.3 var(--sans); color: var(--ink); margin-top: 6px; }
+.subsec > .col p { margin-top: 10px; }
+.gal-text { max-width: 760px; font-size: 17px; color: var(--ink); }
+.gal-text a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.gal-text a:hover { text-decoration: underline; }
+.pair.gal { align-items: start; }
+.pair.gal .frame { padding: 16px; min-height: 0; }
+.metrics3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+@media (max-width: 860px) { .metrics3 { grid-template-columns: 1fr; } }
+.patterns { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+@media (max-width: 860px) { .patterns { grid-template-columns: 1fr; } }
+.s5 small { font-size: 13.5px; }
+
+/* v3: layout wireframes, three-part navigation, header system */
+.wf { display: grid; grid-template-columns: 170px minmax(0,1fr); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: #fff; box-shadow: 0 14px 36px rgba(22,19,31,.08); min-height: 300px; }
+.wf.nosb { grid-template-columns: minmax(0,1fr); }
+.wf-side { background: #f8f7fc; border-right: 1px solid var(--line); padding: 16px 12px; display: grid; gap: 4px; align-content: start; }
+.wf-logo { width: 22px; height: 22px; border-radius: 6px; background: linear-gradient(135deg, #41d1c0, #6a5cff); margin: 0 0 10px 6px; }
+.wf-group { font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--mute); margin: 10px 8px 4px; }
+.wf-item { font-size: 13px; line-height: 1.2; padding: 7px 10px; border-radius: 8px; color: var(--text); display: flex; align-items: center; gap: 8px; }
+.wf-item.on { background: var(--tint-2); color: var(--accent-deep); font-weight: 600; }
+.wf-item.sub { padding-left: 24px; font-size: 12.5px; }
+.wf-item.gone { color: var(--red); text-decoration: line-through; background: var(--red-soft); }
+.wf-item.new { color: var(--green); background: var(--green-soft); }
+.wf-dot { width: 8px; height: 8px; border-radius: 3px; flex: none; }
+.wf-main { padding: 16px 18px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.wf-crumb { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 12.5px; color: var(--mute); }
+.wf-crumb b { font-weight: 600; color: var(--ink); }
+.wf-crumb .dd { border: 1px solid var(--line); border-radius: 6px; padding: 2px 7px; color: var(--ink); background: #fff; }
+.wf-head { display: flex; align-items: center; gap: 10px; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
+.wf-ic { width: 28px; height: 28px; border-radius: 8px; background: #232f3e; color: #fff; font: 700 9px/28px var(--sans); text-align: center; flex: none; }
+.wf-head b { font-size: 14px; color: var(--ink); }
+.wf-chip { font-size: 11px; border: 1px solid var(--line); border-radius: 6px; padding: 2px 7px; color: var(--text); }
+.wf-btn { margin-left: auto; font-size: 11.5px; font-weight: 600; color: #fff; background: var(--accent); border-radius: 7px; padding: 5px 10px; }
+.wf-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.wf-tab { font-size: 12px; padding: 5px 10px; border-radius: 999px; background: #f1effa; color: var(--text); }
+.wf-tab.on { background: var(--accent); color: #fff; }
+.wf-canvas { position: relative; border: 1px dashed #d8d4ec; border-radius: 12px; min-height: 150px; background-image: radial-gradient(#e2def3 1px, transparent 1px); background-size: 14px 14px; }
+.wf-node { position: absolute; font-size: 11px; padding: 5px 9px; border: 1px solid var(--line); border-radius: 7px; background: #fff; color: var(--ink); box-shadow: 0 2px 6px rgba(22,19,31,.06); }
+.wf-flag { position: absolute; right: 10px; top: 10px; font-size: 11px; font-weight: 600; border: 1.5px solid var(--red); color: var(--red); background: #fff; border-radius: 7px; padding: 4px 8px; }
+.wf-switch { display: inline-flex; background: #f1effa; border-radius: 999px; padding: 3px; justify-self: start; }
+.wf-switch span { font-size: 12px; padding: 4px 12px; border-radius: 999px; color: var(--text); }
+.wf-switch span.on { background: #fff; color: var(--accent); font-weight: 600; box-shadow: 0 1px 4px rgba(22,19,31,.12); }
+.wf-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.wf-cap { font-size: 13px; color: var(--mute); text-align: center; margin-top: 8px; }
+.wf-lines { display: grid; gap: 8px; }
+.wf-lines i { display: block; height: 10px; border-radius: 5px; background: #efedf6; }
+@media (max-width: 760px) { .wf { grid-template-columns: 1fr; } .wf-side { border-right: 0; border-bottom: 1px solid var(--line); } .wf-pair { grid-template-columns: 1fr; } }
+
+.hstack { display: grid; gap: 10px; }
+.hrow { display: grid; grid-template-columns: minmax(0,1fr); gap: 6px; }
+.hrow .k { color: var(--accent); }
+.hrow img { border-radius: 12px; border: 1px solid var(--line); box-shadow: 0 8px 22px rgba(22,19,31,.07); background: #fff; }
+@media (max-width: 680px) { .hrow { grid-template-columns: 1fr; gap: 6px; } }
+.anat { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; }
+.anat div { border-top: 3px solid var(--accent); padding-top: 10px; display: grid; gap: 4px; }
+.anat b { font-size: 15px; color: var(--ink); }
+.anat p { font-size: 14.5px; line-height: 1.45; }
+@media (max-width: 760px) { .anat { grid-template-columns: 1fr 1fr; } }
+.stable { width: 100%; border-collapse: collapse; font-size: 15px; background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.stable th, .stable td { padding: 12px 16px; border-bottom: 1px solid var(--line); text-align: left; }
+.stable th { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--mute); background: #fbfaff; }
+.stable tr:last-child td { border-bottom: 0; }
+.stable .st { display: inline-block; font-size: 12.5px; font-weight: 600; border-radius: 6px; padding: 2px 8px; border: 1px solid var(--line); }
+.stable .st.run { color: var(--green); border-color: #bfe5d2; background: var(--green-soft); }
+.stable .st.fail { color: var(--red); border-color: #f2c4bf; background: var(--red-soft); }
+.stable .pb { display: inline-block; font-size: 12.5px; font-weight: 600; color: #fff; background: var(--accent); border-radius: 6px; padding: 3px 9px; margin-right: 6px; }
+.stable .sb { display: inline-block; font-size: 12.5px; font-weight: 600; color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 2px 9px; margin-right: 6px; background: #fff; }
+.stable .db { display: inline-block; font-size: 12.5px; font-weight: 600; color: var(--red); border: 1px solid #f2c4bf; border-radius: 6px; padding: 2px 9px; margin-right: 6px; background: #fff; }
+.tablewrap2 { overflow-x: auto; border-radius: 16px; }
+.figrows { display: grid; gap: 14px; background: var(--panel); border-radius: 20px; padding: 22px; }
+.figrows figure { display: grid; gap: 6px; }
+.figrows figcaption { font-size: 13px; color: var(--mute); }
+.figrows img { border-radius: 10px; box-shadow: 0 6px 18px rgba(22,19,31,.08); background: #fff; max-width: min(740px, 100%); }
+.stack, .decision, .dpanel, .vpanel, .hstack, .figrows { grid-template-columns: minmax(0,1fr); }
+.cards2 .card h3 { font-size: 19px; }
+
+/* v4: levels and who works where; facts groups; label to the left */
+.model { display: grid; grid-template-columns: minmax(0,1.55fr) minmax(0,1fr); grid-template-areas: "org pe" "proj pe" "env dev"; gap: 14px 22px; background: #fbfaff; border: 1px solid var(--line); border-radius: 24px; padding: 26px; }
+.m-org { grid-area: org; } .m-proj { grid-area: proj; margin-left: 32px; } .m-env { grid-area: env; margin-left: 64px; }
+.r-pe { grid-area: pe; } .r-dev { grid-area: dev; }
+.mbox { position: relative; background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; display: grid; gap: 8px; align-content: start; box-shadow: 0 6px 18px rgba(22,19,31,.04); }
+.m-proj::before, .m-env::before { content: ""; position: absolute; left: -20px; top: -15px; width: 14px; height: 44px; border-left: 1.5px solid #c9c2f7; border-bottom: 1.5px solid #c9c2f7; border-bottom-left-radius: 8px; }
+.mlv { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--accent); }
+.mbox h4 { margin: 0; font-size: 16.5px; font-weight: 600; color: var(--ink); line-height: 1.35; }
+.mchips { display: flex; flex-wrap: wrap; gap: 6px; }
+.mchips span { font-size: 13.5px; border: 1px solid var(--line); border-radius: 8px; padding: 5px 10px; background: #fbfaff; color: var(--ink); }
+.mchips span.key { border-color: #cfc9fb; background: var(--tint); color: var(--accent-deep); font-weight: 600; }
+.menvs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.menv { border: 1.5px solid #dcd7fb; background: var(--tint); border-radius: 12px; padding: 12px; display: grid; gap: 4px; }
+.menv.prod { border-color: var(--accent); }
+.menv b { font-size: 15px; color: var(--accent-deep); }
+.menv .spec { font-size: 13.5px; color: var(--ink); }
+.menv .spec i { font-style: normal; font-weight: 600; margin-right: 6px; }
+.menv small { font-size: 12.5px; color: var(--text); }
+.mrole { border-radius: 16px; padding: 18px; display: grid; gap: 6px; align-content: center; }
+.mrole .k { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; }
+.mrole b { font-size: 16px; color: var(--ink); line-height: 1.35; }
+.mrole p { font-size: 14.5px; line-height: 1.5; color: var(--text); }
+.r-pe { background: var(--tint-2); } .r-pe .k { color: var(--accent-deep); }
+.r-dev { background: var(--green-soft); } .r-dev .k { color: var(--green); }
+.mrole .fix { margin-top: 6px; font-size: 13.5px; font-weight: 600; color: var(--accent-deep); background: #fff; border: 1.5px dashed #b8b0fb; border-radius: 10px; padding: 7px 10px; }
+@media (max-width: 760px) { .model { grid-template-columns: minmax(0,1fr); grid-template-areas: "org" "proj" "pe" "env" "dev"; padding: 16px; } .m-proj, .m-env { margin-left: 0; } .m-proj::before, .m-env::before { display: none; } .menvs { grid-template-columns: 1fr; } }
+.facts-grid { grid-template-columns: minmax(0,1fr) minmax(0,1.45fr); }
+.facts-card .fsub { font-size: 13.5px; font-weight: 700; color: var(--ink); margin-top: 4px; }
+.hs.lft .hs-l { left: auto; right: calc(100% + 10px); bottom: auto; top: 50%; transform: translateY(-50%); margin: 0; }
+
+/* v5: skim path */
+.tldr .row p b.lead { display: block; font-weight: 700; color: var(--ink); font-size: 18px; line-height: 1.4; margin-bottom: 4px; }
+.ba { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 16px; align-items: start; max-width: 1180px; margin-inline: auto; }
+.wide .ba { margin-inline: calc((min(1180px, 100vw - 40px) - 100%) / -2); }
+.ba figure { display: grid; gap: 12px; }
+.ba .k { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; }
+.ba .bf .k { color: var(--red); }
+.ba .af .k { color: var(--accent); }
+.ba .frame { background: var(--panel); border-radius: 18px; padding: 10px; }
+.pinwrap { position: relative; }
+.ba .frame img { border-radius: 10px; box-shadow: 0 10px 26px rgba(22,19,31,.12); background: #fff; }
+.ba .pin { width: 22px; height: 22px; font-size: 11.5px; border-width: 2px; }
+.pin.red { background: var(--red); box-shadow: 0 4px 14px rgba(207,63,54,.45); }
+.ba ol { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; counter-reset: b; }
+.ba ol li { counter-increment: b; display: grid; grid-template-columns: 22px minmax(0,1fr); gap: 8px; font-size: 15px; line-height: 1.45; color: var(--ink); }
+.ba ol li::before { content: counter(b); width: 20px; height: 20px; border-radius: 50%; color: #fff; font-size: 11px; font-weight: 700; display: grid; place-items: center; margin-top: 1px; }
+.ba .bf ol li::before { background: var(--red); }
+.ba .af ol li::before { background: var(--accent); }
+@media (max-width: 760px) { .ba { grid-template-columns: minmax(0,1fr); } }
+.parts { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+.part { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 22px; display: grid; gap: 8px; align-content: start; box-shadow: 0 8px 24px rgba(22,19,31,.04); }
+.part .k { color: var(--accent); }
+.part h3 { font: 400 22px/1.25 var(--display); color: var(--ink); }
+.part p { font-size: 15.5px; line-height: 1.5; }
+@media (max-width: 860px) { .parts { grid-template-columns: minmax(0,1fr); } }
+
+/* v6: the split, options, proof, header facts */
+.split { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 14px; background: #fbfaff; border: 1px solid var(--line); border-radius: 20px; padding: 18px; margin: 4px 0 2px; }
+.sp { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; gap: 10px; align-content: start; }
+.sp .k { color: var(--mute); }
+.sp.proj { border-color: #f2c4bf; }
+.sp.proj .k { color: var(--red); }
+.mchips span.key2 { border-color: #f2c4bf; background: var(--red-soft); color: #8f2a23; font-weight: 600; }
+.spn { font-size: 14px; color: #8f2a23; }
+.split-note { font-size: 16px; color: var(--ink); max-width: 760px; margin-bottom: 8px; }
+@media (max-width: 680px) { .split { grid-template-columns: minmax(0,1fr); } }
+.opts { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+.opt { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 22px; display: grid; gap: 10px; align-content: start; box-shadow: 0 8px 24px rgba(22,19,31,.04); }
+.opt.pick { border: 1.5px solid var(--accent); background: var(--tint); }
+.opt .k { color: var(--mute); }
+.opt.pick .k { color: var(--accent); }
+.opt h3 { font-size: 19px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+.oc { display: flex; flex-wrap: wrap; gap: 8px; }
+.oc span { font-size: 13px; color: var(--text); background: #f6f5fa; border-radius: 999px; padding: 5px 11px; }
+.opt.pick .oc span { background: #fff; }
+.oc b { color: var(--ink); font-weight: 700; margin-left: 4px; }
+.oc b.no { color: var(--red); }
+.oc b.yes { color: var(--green); }
+.opt p { font-size: 15.5px; line-height: 1.5; }
+@media (max-width: 860px) { .opts { grid-template-columns: minmax(0,1fr); } }
+.princ { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; max-width: 760px; }
+.princ li { position: relative; padding-left: 22px; font-size: 16.5px; color: var(--ink); }
+.princ li::before { content: ""; position: absolute; left: 4px; top: 10px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.ctable { width: 100%; border-collapse: separate; border-spacing: 0; background: #fff; border: 1px solid var(--line); border-radius: 16px; font-size: 15.5px; }
+.ctable th, .ctable td { text-align: left; padding: 14px 18px; border-bottom: 1px solid var(--line); vertical-align: top; line-height: 1.45; }
+.ctable th { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--mute); background: #fbfaff; }
+.ctable th:first-child { border-top-left-radius: 16px; } .ctable th:last-child { border-top-right-radius: 16px; }
+.ctable td:first-child { color: var(--mute); width: 24%; }
+.ctable td.old { color: #8f2a23; }
+.ctable td.new { color: var(--ink); font-weight: 600; }
+.ctable tr:last-child td { border-bottom: 0; }
+.proof { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 12px; counter-reset: pf; }
+.proof > div { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 18px 16px; display: grid; gap: 8px; align-content: start; counter-increment: pf; }
+.proof > div::before { content: counter(pf); width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: #fff; font: 700 13px/28px var(--sans); text-align: center; }
+.proof > div:last-child { background: var(--green-soft); border-color: #bfe5d2; }
+.proof > div:last-child::before { background: var(--green); }
+.proof b { font-size: 16px; color: var(--ink); }
+.proof p { font-size: 14.5px; line-height: 1.5; }
+@media (max-width: 960px) { .proof { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 560px) { .proof { grid-template-columns: minmax(0,1fr); } }
+.hard { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+.hard > div { background: var(--tint); border-radius: 16px; padding: 16px 18px; display: grid; gap: 4px; }
+.hard b { font: 400 22px/1.2 var(--display); color: var(--accent); }
+.hard p { font-size: 14.5px; color: var(--ink); }
+.hard-note { font-size: 15.5px; color: var(--text); max-width: 760px; }
+.hard-note b { color: var(--ink); }
+@media (max-width: 760px) { .hard { grid-template-columns: minmax(0,1fr); } }
+@media (max-width: 600px) {
+  .ctable, .ctable tbody, .ctable tr, .ctable td { display: block; width: auto; }
+  .ctable tr:first-child { display: none; }
+  .ctable tr { border-bottom: 1px solid var(--line); padding: 10px 0; }
+  .ctable tr:last-child { border-bottom: 0; }
+  .ctable td { border-bottom: 0; padding: 3px 16px; }
+  .ctable td:first-child { width: auto; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; }
+  .ctable td.old::before { content: "Before: "; font-weight: 700; }
+  .ctable td.new::before { content: "Now: "; font-weight: 700; color: var(--accent); }
+}
+
+/* v7: screen recordings */
+.vid { position: relative; }
+.vid video { display: block; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 18px 44px rgba(22,19,31,.14); background: #fff; }
+.vbtn { position: absolute; right: 12px; bottom: 12px; width: 34px; height: 34px; border: 0; border-radius: 50%; display: grid; place-items: center; background: rgba(22,19,31,.62); color: #fff; cursor: pointer; opacity: .82; }
+.vbtn:hover, .vbtn:focus-visible { opacity: 1; }
+.vbtn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.vbtn svg { width: 13px; height: 13px; fill: currentColor; }
+.vbtn .i-play, .vbtn[data-state="paused"] .i-pause { display: none; }
+.vbtn[data-state="paused"] .i-play { display: block; }
+@media (max-width: 600px) { .vbtn { right: 8px; bottom: 8px; width: 30px; height: 30px; } }
+
+/* v8: measured results beside each screen */
+.mres { display: flex; flex-wrap: wrap; gap: 10px; }
+.mres span { display: inline-flex; align-items: baseline; flex-wrap: wrap; column-gap: 10px; row-gap: 2px; max-width: 100%; background: var(--green-soft); border: 1px solid #bfe5d2; border-radius: 14px; padding: 10px 16px; font-size: 15.5px; line-height: 1.4; color: var(--ink); }
+.mres b { font: 400 21px/1.15 var(--display); color: var(--green); white-space: nowrap; }
+
+/* v11: captures beside the comparison table; numbered rows are the key to the pins */
+.ba.pv { margin-bottom: 14px; }
+.ctable .pn { display: inline-grid; place-items: center; width: 20px; height: 20px; margin-right: 10px; border-radius: 50%; background: var(--tint-2); color: var(--accent); font-size: 11px; font-weight: 700; vertical-align: 1px; }
+.wide .tablewrap2.pvt { margin-inline: calc((min(1180px, 100vw - 40px) - 100%) / -2); }
+
+/* v12: the header's Before, shown on the old screens */
+.hb { display: grid; gap: 14px; }
+.hb-strips { display: grid; gap: 16px; }
+.hb-strips figure { display: grid; gap: 8px; }
+.hb-strips .k { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--red); }
+.hb-strips .frame { background: var(--panel); border-radius: 18px; padding: 10px; }
+.hb-strips .frame img { border-radius: 10px; box-shadow: 0 10px 26px rgba(22,19,31,.12); background: #fff; }
+.hb-note { font-size: 16px; color: var(--ink); max-width: 760px; }
+.hb-note b.now { color: var(--accent); }
+
+/* v13: the core problem rows read at a calmer size */
+.problem .pr p { font-size: clamp(18px, 2vw, 22px); line-height: 1.4; }
+
+/* Case study thumbnails: the main screen sits big and touches the bottom of the brand panel; real UI pieces float at the sides and top. Shared by the homepage cards and the case study heroes. Positions are % of the panel, so it scales. */
+.cs-thumb { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 16px; container-type: inline-size; isolation: isolate; }
+.cs-thumb-rel { background: radial-gradient(120% 100% at 15% 0%, #7a70ff 0%, #493af0 48%, #3527d2 100%); }
+.cs-thumb-nav { background: radial-gradient(90% 100% at 80% 0%, #5d50ff 0%, #2f249c 46%, #17123a 100%); }
+.cs-thumb img { display: block; width: 100%; height: auto; }
+.t-main, .t-piece { position: absolute; background: #fff; overflow: hidden; }
+.t-main { left: 50%; bottom: 0; width: 78%; transform: translateX(-50%); border-radius: 1.2cqw 1.2cqw 0 0; box-shadow: 0 -1px 0 rgba(255,255,255,.3), 0 2.5cqw 6cqw rgba(12,6,60,.38); }
+.t-piece { border-radius: 1cqw; box-shadow: 0 0 0 1px rgba(22,19,31,.06), 0 1.6cqw 4cqw rgba(12,6,60,.38); }
+.t-piece.round { border-radius: .8cqw; }
+/* release flow: target environment on the left, the Pending tab at the top, the review step's changes on the right */
+.cs-thumb-rel .p-pending { right: 5%; top: 6%; width: 17%; }
+.cs-thumb-rel .p-env { left: 2%; top: 73%; width: 26%; }
+.cs-thumb-rel .p-review { right: 2%; top: 58%; width: 46%; }
+/* web app redesign: the header at the top, the project side menu on the left, the environment switcher on the right */
+.cs-thumb-nav .p-header { left: 24%; top: 5%; width: 46%; }
+.cs-thumb-nav .p-menu { left: 2.5%; top: 34%; width: 17%; }
+.cs-thumb-nav .p-drop { right: 2.5%; top: 30%; width: 21%; }
+@media (prefers-reduced-motion: no-preference) {
+  .t-piece { transition: transform .6s cubic-bezier(.2,.8,.2,1); }
+  .cs-thumb:hover .p-env, .work:hover .p-env { transform: translate(-1.2cqw, -.4cqw) rotate(-2deg); }
+  .cs-thumb:hover .p-pending, .work:hover .p-pending { transform: translate(.8cqw, -.8cqw) rotate(2deg); }
+  .cs-thumb:hover .p-review, .work:hover .p-review { transform: translate(1.2cqw, .4cqw) rotate(1.5deg); }
+  .cs-thumb:hover .p-header, .work:hover .p-header { transform: translateY(-1cqw); }
+  .cs-thumb:hover .p-menu, .work:hover .p-menu { transform: translate(-1.2cqw, .2cqw) rotate(-2deg); }
+  .cs-thumb:hover .p-drop, .work:hover .p-drop { transform: translate(1.2cqw, .2cqw) rotate(2deg); }
+}
+/* As the hero of a case study page: bigger main screen */
+.cs-thumb.cs-hero { max-width: 1100px; margin: 8px auto 0; border-radius: 28px; aspect-ratio: 16 / 8.4; }
+.cs-thumb.cs-hero .t-main { width: 84%; border-radius: 14px 14px 0 0; }
+@media (max-width: 760px) { .cs-thumb.cs-hero { border-radius: 20px; aspect-ratio: 16 / 10; } }
+
+/* Site navigation: back to the homepage */
+.topline a { color: inherit; text-decoration: none; }
+.topline .tl-home:hover b { color: var(--accent); }
+.topline .tl-back { font-weight: 600; color: var(--ink); }
+.topline .tl-back:hover { color: var(--accent); }
+footer a { color: var(--accent); font-weight: 600; text-decoration: none; }
+footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
+</style>
+<style>[hidden]{display:none!important}</style>
+</head>
+<body>
+<div class="page">
+  <span class="glow" style="width:900px;height:900px;left:-300px;top:-260px" aria-hidden="true"></span>
+  <span class="glow" style="width:800px;height:800px;right:-320px;top:1500px" aria-hidden="true"></span>
+
+  <div class="topline"><a class="tl-home" href="../"><b>Rohit Kumar</b> · Product designer</a><a class="tl-back" href="../#work">← All work</a></div>
+
+  <!-- HERO -->
+  <div class="cs-thumb cs-thumb-nav cs-hero" role="img" aria-label="Facets' redesigned web app: the Resource Center, with the project side menu, the environment switcher and the header pulled out">
+  <div class="t-main"><img src="../assets/thumbs/nav_main.jpg" width="1496" height="794" alt=""></div>
+  <div class="t-piece p-header"><img src="../assets/thumbs/nav_header.jpg" width="759" height="105" alt=""></div>
+  <div class="t-piece p-menu"><img src="../assets/thumbs/nav_menu.jpg" width="252" height="450" alt=""></div>
+  <div class="t-piece p-drop"><img src="../assets/thumbs/nav_drop.jpg" width="332" height="502" alt=""></div>
+</div>
+  <div class="hero-title">
+    <h1>Cutting daily clicks by 57% by redesigning Facets' web app around how engineers work</h1>
+    <p class="when">Part of Facets' move to React</p>
+  </div>
+  <div class="wide intro">
+    <div>
+      <p class="lead">Facets is a tool companies use to set up and change the cloud servers and databases their apps run on.</p>
+      <p>Platform engineers set it up, and developers use its web app every day to change and release their apps.</p>
+    </div>
+    <dl class="facts-list">
+      <div><dt>My role</dt><dd>Sole product designer. I led the research and designed every screen, and coded parts of the web app. Two frontend engineers built most of it.</dd></div>
+      <div><dt>Team</dt><dd>The CTO, a PM and two frontend engineers</dd></div>
+      <div><dt>Tools</dt><dd>Figma for design, Mixpanel for analysis, Claude Code for shipping my part of the code<br><a href="https://github.com/rohitkumar-bug" target="_blank" rel="noopener">282 contributions on GitHub ↗</a><br>This redesign: <strong>119 commits</strong>, <strong>19 pull requests</strong></dd></div>
+    </dl>
+  </div>
+
+  <!-- TL;DR -->
+  <div class="wide tldr">
+    <span class="label">TL;DR</span>
+    <div class="row"><span>Situation</span><p><b class="lead">Facets was rebuilding its web app in React, while two older versions still ran side by side.</b>Customers had pushed back on an earlier redesign. If this one failed too, Facets would be running three versions.</p></div>
+    <div class="row"><span>Problem</span><p><b class="lead">The navigation didn't match how people work.</b>Developers work inside projects, but every screen showed them the organisation's setup tools and crammed their own pages into a row at the top. The most common daily task took <strong>14 clicks</strong>.</p></div>
+    <div class="row"><span>What I did</span><p><b class="lead">I designed the navigation around the two kinds of users first, then rebuilt every screen on it.</b>A side menu for each level, a breadcrumb that switches environment in one click, and one header that shows status and actions. The team had tried breadcrumbs before, so I proved it first: a working build, tests with users, and a two-phase rollout.</p></div>
+    <div class="row"><span>Result</span><p><b class="lead">57% fewer clicks on the most common daily task, and satisfaction up from 5.8 to 8.4.</b>Every customer moved to the new web app, and both older versions were switched off.</p></div>
+  </div>
+
+  <!-- BEFORE AND AFTER -->
+  <section class="sec">
+    <div class="col">
+      <span class="label">Before and after</span>
+      <h2>The same environment page, before and after</h2>
+    </div>
+    <div class="wide stack">
+      <div class="ba">
+        <figure class="bf">
+          <span class="k">Before · the original UI</span>
+          <div class="frame"><div class="pinwrap">
+            <img src="img/7e3d2702299f.jpg" width="1503" height="812" alt="The original UI on an environment's Resource Center: the organisation's four icons in the side menu, eleven tabs in one row, and the environment named only in the breadcrumb">
+            <span class="pin red" style="left:2%;top:22%">1</span>
+            <span class="pin red" style="left:81%;top:10%">2</span>
+            <span class="pin red" style="left:43.5%;top:3.4%">3</span>
+          </div></div>
+          <ol><li>The organisation's tools in the side menu, even inside an environment</li><li>The environment's 11 pages crammed into one row</li><li>The environment, named only in the breadcrumb</li></ol>
+        </figure>
+        <figure class="af">
+          <span class="k">After · the new web app</span>
+          <div class="frame"><div class="pinwrap">
+            <img src="img/efd3e4b0ab97.jpg" width="1496" height="794" alt="The new web app on an environment's Resource Center: the project's side menu, a breadcrumb with menus, and the environment header">
+            <span class="pin" style="left:2.1%;top:64%">1</span>
+            <span class="pin" style="left:32%;top:3%">2</span>
+            <span class="pin" style="left:30.5%;top:13.3%">3</span>
+          </div></div>
+          <ol><li>A side menu for the project you're in</li><li>A breadcrumb that switches environment or page in one click</li><li>One header: which environment, its state, and what you can do</li></ol>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTEXT -->
+  <section class="sec">
+    <div class="col">
+      <span class="label">Context</span>
+      <h2>Facets was rebuilding its web app in React, while two older versions still ran side by side</h2>
+      <p class="lede">Customers had pushed back on an earlier redesign, so both versions stayed up. The React rebuild would add a third, and if customers didn't take to it, Facets would be supporting all three.</p>
+    </div>
+    <div class="wide stack">
+      <div class="goalbox">
+        <span class="k">The goal</span>
+        <p>Less confusion and less friction for the engineers who use the web app every day.</p>
+        <small>Every screen was being rebuilt in React anyway, so this was the moment to fix the experience instead of carrying the old problems into new code.</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- USERS -->
+  <section class="sec">
+    <div class="col">
+      <span class="label">The users</span>
+      <h2>Platform engineering / DevOps sets up the organisation. Developers work inside projects</h2>
+    </div>
+    <div class="wide stack">
+      <div class="model" role="img" aria-label="The organisation holds shared setup: modules, project types, cloud accounts, users and roles, audit logs. Platform engineering or DevOps sets it up, and writes each project's blueprint. The project's blueprint defines a web service, a database and a queue once. Each environment runs the same resources with its own settings: dev has a small database for testing, production a large one for real data and traffic. Developers work inside the environments every day, and DevOps steps in when something breaks.">
+        <div class="mbox m-org">
+          <span class="mlv">Organisation</span>
+          <h4>Shared setup that every project uses</h4>
+          <div class="mchips"><span>Modules</span><span>Project types</span><span>Cloud accounts</span><span>Users and roles</span><span>Audit logs</span></div>
+        </div>
+        <div class="mbox m-proj">
+          <span class="mlv">Project · shopping-app</span>
+          <h4>Its blueprint defines each resource once</h4>
+          <div class="mchips"><span>web service</span><span class="key">database</span><span>queue</span></div>
+        </div>
+        <div class="mbox m-env">
+          <span class="mlv">Environments</span>
+          <h4>Each runs the same resources, with its own settings</h4>
+          <div class="menvs">
+            <div class="menv"><b>dev</b><span class="spec"><i>database</i>2 CPU · 4 GB memory</span><small>Small, for testing</small></div>
+            <div class="menv prod"><b>production</b><span class="spec"><i>database</i>8 CPU · 32 GB memory</span><small>Large, for real data and traffic</small></div>
+          </div>
+        </div>
+        <div class="mrole r-pe">
+          <span class="k">Platform engineering / DevOps</span>
+          <b>Sets up the organisation and each project</b>
+          <p>The modules, cloud accounts and settings every project uses, and the blueprint that defines each project's resources.</p>
+        </div>
+        <div class="mrole r-dev">
+          <span class="k">Developers</span>
+          <b>Work inside the environments every day</b>
+          <p>Release changes, check what's running and read logs.</p>
+          <span class="fix">When something breaks, DevOps steps in here to fix it</span>
+        </div>
+      </div>
+      <p class="wf-cap">An example project.</p>
+      <div class="quote">
+        <p>Most of the daily work happens inside a project's environments.</p>
+        <small>Mixpanel usage data, customer interviews and a map of their most frequent tasks all showed this.</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- USER GOAL -->
+  <section class="sec">
+    <div class="col">
+      <span class="label">The user's goal</span>
+      <h2>Get to the right place in a few clicks, and always know where you are</h2>
+      <p class="lede">Dev and production run the same resources, so their screens look almost the same. If you think you're in dev but you're in production, your change goes to production.</p>
+    </div>
+    <div class="wide stack">
+      <div>
+        <p class="needs-h">To move around with confidence, an engineer needs four things</p>
+        <div class="needs">
+          <div class="need"><b>Where am I</b><p>Which project and environment this screen belongs to</p></div>
+          <div class="need"><b>Environment work</b><p>Developers spend most of their day in an environment, so its releases, resources and secrets belong together there</p></div>
+          <div class="need"><b>Switching</b><p>The same page in another environment, without starting over</p></div>
+          <div class="need"><b>Common actions</b><p>Frequent actions without going through menus every time</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEFORE -->
+  <section class="sec">
+    <div class="col">
+      <span class="label">Before</span>
+      <h2>Both older versions showed developers the organisation's tools and crammed their own pages into the top</h2>
+      <p class="lede">Click through both versions. Each screen marks what went wrong, and which of the four needs it fails.</p>
+    </div>
+    <div class="wide stack">
+      <div class="tabwrap" data-tabs>
+        <div class="tabs" role="tablist" aria-label="The two older versions">
+          <button role="tab" aria-selected="true" aria-controls="b1" id="b1-tab">The original UI</button>
+          <button role="tab" aria-selected="false" aria-controls="b2" id="b2-tab" tabindex="-1">The earlier redesign</button>
+        </div>
+        <div class="tabpanel" id="b1" role="tabpanel" aria-labelledby="b1-tab">
+          <div class="stepper" data-tabs>
+            <div class="steps n3" role="tablist" aria-label="The original UI">
+              <button role="tab" aria-selected="true" aria-controls="o0" id="o0-tab"><span class="n">1</span><span class="t">The side menu held the organisation's tools</span></button>
+              <button role="tab" aria-selected="false" aria-controls="o1" id="o1-tab" tabindex="-1"><span class="n">2</span><span class="t">The top row changed in place</span></button>
+              <button role="tab" aria-selected="false" aria-controls="o2" id="o2-tab" tabindex="-1"><span class="n">3</span><span class="t">Changing environment was a form</span></button>
+            </div>
+            <div class="step-panel" id="o0" role="tabpanel" aria-labelledby="o0-tab">
+              <div class="shot"><figure>
+                <img src="img/7e3d2702299f.jpg" width="1503" height="812" alt="The original UI inside an environment: a narrow side menu with the organisation's four icons, eleven tabs across the top, and a link to switch to the other UI">
+                <span class="hs side" data-n="1" style="left:0.3%;top:7.4%;width:3.6%;height:29.6%"><span class="hs-l">The organisation's tools, even inside an environment</span></span>
+                <span class="hs below right" data-n="2" style="left:4.4%;top:7.6%;width:73.6%;height:5%"><span class="hs-l">The environment's 11 pages, crammed into one row</span></span>
+                <span class="hs lft" data-n="3" style="left:82.7%;top:1.3%;width:8.9%;height:4.5%"><span class="hs-l">The link to the other UI</span></span>
+              </figure><ol class="anno-legend red"><li>The organisation's tools, even inside an environment</li><li>The environment's 11 pages, crammed into one row</li><li>The link to the other UI</li></ol></div>
+              <p class="step-note">Developers spend their day inside projects, but the side menu only held the organisation's setup tools, the same four on every screen. Everything they needed was squeezed into a row at the top.</p>
+              <div class="fails"><span>Fails</span><b>Where am I</b></div>
+            </div>
+            <div class="step-panel" id="o1" role="tabpanel" aria-labelledby="o1-tab" hidden>
+              <div class="shot"><div class="strips">
+                <figure><img src="img/efb66c5f53b5.jpg" width="1560" height="115" alt="The top row inside a project, 10 items"><figcaption>Inside a project: 10 items</figcaption></figure>
+                <figure><img src="img/5cbe896f6248.jpg" width="1559" height="115" alt="The same row inside an environment, 11 items"><figcaption>Inside an environment: 11 items, in the same spot</figcaption></figure>
+              </div></div>
+              <p class="step-note">Only one extra breadcrumb segment marked the change, and the side menu showed the same four items everywhere, so it was easy to lose track of the level you were on.</p>
+              <div class="fails"><span>Fails</span><b>Where am I</b></div>
+            </div>
+            <div class="step-panel" id="o2" role="tabpanel" aria-labelledby="o2-tab" hidden>
+              <div class="shot"><figure>
+                <img src="img/d2440d68692f.jpg" width="1503" height="812" alt="A panel with three lists, Environment, Resource Type and Resource, then Cancel and Apply">
+                <span class="hs inside right bottom" data-n="1" style="left:8.65%;top:8.87%;width:69.33%;height:57.27%"><span class="hs-l">Up to three lists to change one environment</span></span>
+                <span class="hs below right" data-n="2" style="left:73.52%;top:68.47%;width:5.12%;height:4.68%"><span class="hs-l">Apply, greyed until a check came back</span></span>
+              </figure><ol class="anno-legend red"><li>Up to three lists to change one environment</li><li>Apply, greyed until a check came back</li></ol></div>
+              <p class="step-note">Most customers run about five environments, and picking one still meant a panel, up to three lists and an Apply button.</p>
+              <div class="fails"><span>Fails</span><b>Switching</b></div>
+            </div>
+          </div>
+        </div>
+        <div class="tabpanel" id="b2" role="tabpanel" aria-labelledby="b2-tab" hidden>
+          <p class="ver-intro">It got one thing right: most work happens inside an environment. But to make that work quicker to reach, it moved Releases, Resource Center and Secrets &amp; Variables up to the project, and split each environment in two.</p>
+          <div class="split" role="img" aria-label="In the earlier redesign, an environment opened as a panel with Overview, Tools, Alerts, Information, Template Inputs and Settings, and its Release button sent you to the project. Releases, Resource Center and Secrets and Variables were project tabs, each asking you to pick the environment again.">
+            <div class="sp"><span class="k">Inside the environment · a panel over the project</span><div class="mchips"><span>Overview</span><span>Tools</span><span>Alerts</span><span>Information</span><span>Template Inputs</span><span>Settings</span></div><p class="spn">Its Release button sent you back out to the project</p></div>
+            <div class="sp proj"><span class="k">At the project · tabs</span><div class="mchips"><span class="key2">Releases</span><span class="key2">Resource Center</span><span class="key2">Secrets &amp; Variables</span></div><p class="spn">Each one asked you to pick the environment again, then Apply</p></div>
+          </div>
+          <p class="split-note">A developer works in one environment at a time, but its work now lived in two places, with no link between them. Checking releases in two environments took 7 clicks, two more than in the original UI.</p>
+          <div class="stepper" data-tabs>
+            <div class="steps n4" role="tablist" aria-label="The earlier redesign">
+              <button role="tab" aria-selected="true" aria-controls="r1" id="r1-tab"><span class="n">1</span><span class="t">The work moved up to the project</span></button>
+              <button role="tab" aria-selected="false" aria-controls="r2" id="r2-tab" tabindex="-1"><span class="n">2</span><span class="t">The environment opened as a panel</span></button>
+              <button role="tab" aria-selected="false" aria-controls="r3" id="r3-tab" tabindex="-1"><span class="n">3</span><span class="t">The breadcrumb and the page disagreed</span></button>
+              <button role="tab" aria-selected="false" aria-controls="r4" id="r4-tab" tabindex="-1"><span class="n">4</span><span class="t">A second switcher, with Apply</span></button>
+            </div>
+            <div class="step-panel" id="r1" role="tabpanel" aria-labelledby="r1-tab">
+              <div class="shot"><figure>
+                <img src="img/c4b115e55238.jpg" width="1568" height="706" alt="Project page with tabs for Secrets and Variables, Resource Center and Releases, each marked with a cloud icon">
+                <span class="hs below" data-n="1" style="left:22.96%;top:22.10%;width:34.76%;height:5.38%"><span class="hs-l">Secrets, resources and releases became project tabs, each asking for an environment</span></span>
+                <span class="hs side" data-n="2" style="left:6.40%;top:34.71%;width:13.40%;height:3.80%"><span class="hs-l">The project opened on a list of environments</span></span>
+                <span class="hs side" data-n="3" style="left:0.30%;top:10.17%;width:4.20%;height:87.33%"><span class="hs-l">Still the organisation's tools, inside the project</span></span>
+              </figure><ol class="anno-legend red"><li>Secrets, resources and releases became project tabs, each asking for an environment</li><li>The project opened on a list of environments</li><li>Still the organisation's tools, inside the project</li></ol></div>
+              <p class="step-note">To check one environment's releases, you left the environment, opened the project's Releases tab and picked the environment again.</p>
+              <div class="fails"><span>Fails</span><b>Environment work</b></div>
+            </div>
+            <div class="step-panel" id="r2" role="tabpanel" aria-labelledby="r2-tab" hidden>
+              <div class="shot"><figure>
+                <img src="img/1d0ea3312a62.jpg" width="1326" height="608" alt="An environment opened as a panel, its overview showing configuration settings">
+                <span class="hs side" data-n="1" style="left:0.6%;top:13.16%;width:48.66%;height:5.26%"><span class="hs-l">No tab for releases, resources or secrets</span></span>
+                <span class="hs side" data-n="2" style="left:1.12%;top:21.05%;width:31.49%;height:78.95%"><span class="hs-l">The overview led with the settings it was created with</span></span>
+              </figure><ol class="anno-legend red"><li>No tab for releases, resources or secrets</li><li>The overview led with the settings it was created with</li></ol></div>
+              <p class="step-note">Its Release button sent you back out to the project's Releases tab.</p>
+              <div class="fails"><span>Fails</span><b>Environment work</b></div>
+            </div>
+            <div class="step-panel" id="r3" role="tabpanel" aria-labelledby="r3-tab" hidden>
+              <div class="shot"><figure>
+                <img src="img/8643be195ebd.jpg" width="1395" height="388" alt="Breadcrumb reads Projects, infra-dev, while the page is set to the environment arm-env">
+                <span class="hs side" data-n="1" style="left:5.59%;top:7.73%;width:17.21%;height:8.76%"><span class="hs-l">The breadcrumb names the project</span></span>
+                <span class="hs side" data-n="2" style="left:2.73%;top:79.38%;width:26.81%;height:13.92%"><span class="hs-l">The page is set to one environment, arm-env</span></span>
+              </figure><ol class="anno-legend red"><li>The breadcrumb names the project</li><li>The page is set to one environment, arm-env</li></ol></div>
+              <div class="fails"><span>Fails</span><b>Where am I</b></div>
+            </div>
+            <div class="step-panel" id="r4" role="tabpanel" aria-labelledby="r4-tab" hidden>
+              <div class="shot"><figure>
+                <img src="img/735edfeba822.jpg" width="1568" height="725" alt="An environment switcher inside the page, with its own Cancel and Apply buttons">
+                <span class="hs side" data-n="1" style="left:9.76%;top:4.55%;width:17.79%;height:5.38%"><span class="hs-l">A second switcher, inside the page</span></span>
+                <span class="hs side" data-n="2" style="left:26.91%;top:80.41%;width:5.36%;height:5.66%"><span class="hs-l">With its own Cancel and Apply</span></span>
+              </figure><ol class="anno-legend red"><li>A second switcher, inside the page</li><li>With its own Cancel and Apply</li></ol></div>
+              <p class="step-note">The original panel stayed too, and one page had its own modal: three different ways to switch environment.</p>
+              <div class="fails"><span>Fails</span><b>Switching</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA -->
+  <section class="sec">
+    <div class="col">
+      <span class="label">What the data showed</span>
+      <h2>Interviews, usage data and support tickets all showed the navigation was the problem</h2>
+    </div>
+    <div class="wide stack">
+      <div class="cards3">
+        <div class="card"><span class="k">Interviews</span><h3>14 people, 9 customer organisations</h3><ul><li>Called it confusing, slow and too many steps</li><li>Said moving between pages felt like a task of its own</li><li>Some used both versions, switching between them depending on the task</li></ul></div>
+        <div class="card"><span class="k">Mixpanel</span><h3>A month of funnels</h3><p>People doubled back between pages on common tasks.</p></div>
+        <div class="card"><span class="k">Support tickets</span><h3>Multiple tickets every month</h3><p>On UX issues: confusion, lack of clarity and the number of clicks.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CORE PROBLEM -->
+  <section class="sec">
+    <div class="col">
+      <span class="label">The core problem</span>
+      <h2>Getting around Facets took too many clicks, and people lost track of where they were</h2>
+    </div>
+    <div class="wide stack">
+      <div class="problem">
+        <div class="pr goal"><span>The user's goal</span><p>Get to my work in a few clicks, and always know which environment I'm in.</p></div>
+        <div class="pr block"><span>What got in the way</span><p>The side menu showed the organisation's tools on every screen, so it never told you where you were. The project's pages were crammed into one row. The earlier redesign split each environment's work across the project.</p></div>
+        <div class="pr"><span>What it cost</span><p>The most common daily task took 14 clicks, and some customers kept using both versions.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FACTS AND ASSUMPTIONS -->
+  <section class="sec">
+    <div class="col">
+      <span class="label">Facts and assumptions</span>
+      <h2>Developers and platform engineers work at different levels, but both older versions gave them the same menu</h2>
+      <p class="lede">I separated what's true about how people work from what the older versions assumed about them, and turned each wrong assumption into a question.</p>
+    </div>
+    <div class="wide stack">
+      <div class="facts-grid">
+        <div class="facts-card">
+          <span class="k">Facts</span>
+          <span class="fsub">How people work</span>
+          <ul>
+            <li>Developers spend their day inside a project's environments: releasing, checking status and reading logs</li>
+            <li>Platform engineers set up the organisation once, then step into projects when something breaks</li>
+            <li>Engineers switch environments many times a day, often to check the same page in another one</li>
+          </ul>
+          <span class="fsub">What we can't change</span>
+          <ul>
+            <li>Facets has four levels, and every page belongs to one of them</li>
+            <li>Every environment runs the same resources with its own settings, so a change in the wrong one can break production</li>
+          </ul>
+        </div>
+        <div class="asm-table">
+          <div class="asm-row h"><div>The older versions assumed</div><div>What was true</div><div>So the question became</div></div>
+          <div class="asm-row"><div class="a">Everyone needs the organisation's tools on every screen</div><div>Developers work inside projects and rarely use them. Those tools are for platform engineers</div><div class="q">How does each person see the menu for their level?</div></div>
+          <div class="asm-row"><div class="a">People can tell where they are from the breadcrumb</div><div>One extra breadcrumb segment was the only sign of a new level, and people called the web app confusing</div><div class="q">How do we show where you are, on every screen?</div></div>
+          <div class="asm-row"><div class="a">Frequent work belongs at the project</div><div>The work happens inside environments. As project tabs, every page asked for the environment again</div><div class="q">How does each environment keep its work in one place?</div></div>
+          <div class="asm-row"><div class="a">Changing environment is occasional, so a confirm step is fine</div><div>People switch all the time, usually to check the same page somewhere else</div><div class="q">How does switching take one click and keep your page?</div></div>
+          <div class="asm-row"><div class="a">People will go looking for common actions</div><div>Advanced users were hunting through the navigation for routine actions</div><div class="q">How do common actions sit one click from the project?</div></div>
+          <div class="asm-row"><div class="a">Each screen can follow its own pattern</div><div>The same kind of task looked different on each screen: three side panels, each with its own layout and save button</div><div class="q">How does every screen work the same way?</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GOALS -->
+  <section class="sec">
+    <div class="col">
+      <span class="label">Goals</span>
+      <h2>Five goals the redesign had to meet</h2>
+      <div class="hmw stack">
+        <div class="q"><span class="num">#01</span><p><b>How might the navigation show where you are</b>, on every screen?<small>From: the organisation's tools on every screen, even inside projects</small></p></div>
+        <div class="q"><span class="num">#02</span><p><b>How might each environment keep all its work in one place?</b><small>From: its releases, resources and secrets moved up to the project</small></p></div>
+        <div class="q"><span class="num">#03</span><p><b>How might switching environment take one click</b> and keep your page?<small>From: switchers that needed Apply</small></p></div>
+        <div class="q"><span class="num">#04</span><p><b>How might common actions sit one click from the project?</b><small>From: advanced users hunting for routine actions</small></p></div>
+        <div class="q"><span class="num">#05</span><p><b>How might every screen work the same way?</b><small>From: three different side panels and two icon sets</small></p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT EVOLVED -->
+  <section class="sec">
+    <div class="col">
+      <span class="label">How it evolved</span>
+      <h2>I rebuilt the navigation first, because it would make or break the redesign</h2>
+      <p class="lede">A smaller fix would have been cheaper. But the confusion came from the navigation itself, and every other screen is built on it.</p>
+    </div>
+    <div class="wide stack">
+      <div class="opts">
+        <div class="opt"><span class="k">Option 1</span><h3>Port the navigation as it was</h3><div class="oc"><span>Effort <b>Low</b></span><span>Fixes the confusion <b class="no">No</b></span></div><p>The same problems, in new code.</p></div>
+        <div class="opt"><span class="k">Option 2</span><h3>Touch it up</h3><div class="oc"><span>Effort <b>Medium</b></span><span>Fixes the confusion <b class="no">No</b></span></div><p>The earlier redesign moved pages around, and customers pushed back.</p></div>
+        <div class="opt pick"><span class="k">Option 3 · Chosen</span><h3>Rebuild it around how people work</h3><div class="oc"><span>Effort <b>High</b></span><span>Fixes the confusion <b class="yes">Yes</b></span></div><p>Every page's links and redirects would change. It was the biggest change in the redesign, and the only option that fixed the cause.</p></div>
+      </div>
+      <p class="gal-text">I mapped the whole web app first: every level, every page, and what each page has to show. Two principles came out of it:</p>
+      <ul class="princ"><li><b>The environment comes first.</b> It's where people work.</li><li><b>Switching keeps your page.</b> People switch environments all the time.</li></ul>
+      <div class="shot"><figure><img src="img/a3304dd7d425.jpg" width="1069" height="691" alt="FigJam board mapping the web app: the project with Overview, Environment, Secret and Variable, Resource and Blueprint, Pipeline and Settings; inside each environment its Release, Monitor, Secrets and variables, Resources and Settings pages; and notes on what each page holds"></figure>
+      <p class="wf-cap">The map in FigJam.</p></div>
+      <p class="needs-h">Then I tried three ways to lay it out</p>
+      <div class="tabwrap" data-tabs>
+        <div class="tabs" role="tablist" aria-label="Navigation layouts I tried">
+          <button role="tab" aria-selected="true" aria-controls="l1" id="l1-tab">A menu per level</button>
+          <button role="tab" aria-selected="false" aria-controls="l2" id="l2-tab" tabindex="-1">A switch at the top</button>
+          <button role="tab" aria-selected="false" aria-controls="l3" id="l3-tab" tabindex="-1">Resource first</button>
+        </div>
+        <div class="tabpanel vpanel" id="l1" role="tabpanel" aria-labelledby="l1-tab">
+          <div class="vtext">
+            <span class="tag ship" style="justify-self:start">Shipped</span>
+            <h3>Each level gets its own menu, and each environment has its own pages</h3>
+            <p>The organisation and the project each get their own side menu. Each environment gets its own pages, reached from the project and switched from inside it. This shipped first, and every other screen was built on it.</p>
+          </div>
+          <div class="wf" role="img" aria-label="Wireframe: a project side menu with Overview, Blueprint, Environments listing dev, staging and production, Secrets and Variables, Cost and Settings. The main area shows the breadcrumb project, environment and page, the environment header, and the environment's pages.">
+            <div class="wf-side">
+              <span class="wf-logo"></span>
+              <span class="wf-group">Project</span>
+              <span class="wf-item">Overview</span>
+              <span class="wf-item">Blueprint</span>
+              <span class="wf-item on">Environments</span>
+              <span class="wf-item sub">dev</span>
+              <span class="wf-item sub">staging</span>
+              <span class="wf-item sub">production</span>
+              <span class="wf-item">Secrets &amp; Variables</span>
+              <span class="wf-item">Cost</span>
+              <span class="wf-item">Settings</span>
+            </div>
+            <div class="wf-main">
+              <div class="wf-crumb"><b>infra-dev</b> / <span class="dd">staging ▾</span> / <span class="dd">Releases ▾</span></div>
+              <div class="wf-head"><span class="wf-ic">AWS</span><b>staging</b><span class="wf-chip">Running</span><span class="wf-chip">QA</span><span class="wf-btn">Release</span></div>
+              <div class="wf-tabs"><span class="wf-tab">Overview</span><span class="wf-tab">Resources</span><span class="wf-tab">Secrets</span><span class="wf-tab on">Releases</span><span class="wf-tab">Monitoring</span><span class="wf-tab">Settings</span></div>
+              <div class="wf-lines"><i style="width:92%"></i><i style="width:78%"></i><i style="width:85%"></i><i style="width:64%"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="tabpanel vpanel" id="l2" role="tabpanel" aria-labelledby="l2-tab" hidden>
+          <div class="vtext">
+            <span class="tag drop" style="justify-self:start">Dropped</span>
+            <h3>One side menu, with a switch at the top that swaps its items</h3>
+            <p>Flip the switch between project and environment, and the same menu changes underneath. Dropped because Pipeline and Cost exist only for a project, so the menu would change every time you switched. That's the problem the original UI had, where the top row changed in place.</p>
+          </div>
+          <div class="wf-pair">
+            <div>
+              <div class="wf nosb" role="img" aria-label="Wireframe: the switch set to Project; the side menu shows Overview, Blueprint, Secrets, Pipeline, Cost and Settings">
+                <div class="wf-main">
+                  <div class="wf-switch"><span class="on">Project</span><span>Environment</span></div>
+                  <div class="wf-side" style="border:1px solid var(--line);border-radius:12px">
+                    <span class="wf-item">Overview</span><span class="wf-item">Blueprint</span><span class="wf-item">Secrets &amp; Variables</span><span class="wf-item">Pipeline</span><span class="wf-item">Cost</span><span class="wf-item">Settings</span>
+                  </div>
+                </div>
+              </div>
+              <p class="wf-cap">Switch set to Project</p>
+            </div>
+            <div>
+              <div class="wf nosb" role="img" aria-label="Wireframe: the switch set to Environment; Pipeline and Cost disappear and Resources and Releases appear in the same menu">
+                <div class="wf-main">
+                  <div class="wf-switch"><span>Project</span><span class="on">Environment</span></div>
+                  <div class="wf-side" style="border:1px solid var(--line);border-radius:12px">
+                    <span class="wf-item">Overview</span><span class="wf-item new">Resources</span><span class="wf-item">Secrets &amp; Variables</span><span class="wf-item new">Releases</span><span class="wf-item gone">Pipeline</span><span class="wf-item gone">Cost</span><span class="wf-item">Settings</span>
+                  </div>
+                </div>
+              </div>
+              <p class="wf-cap">Switch set to Environment: the same menu changes underneath you</p>
+            </div>
+          </div>
+        </div>
+        <div class="tabpanel vpanel" id="l3" role="tabpanel" aria-labelledby="l3-tab" hidden>
+          <div class="vtext">
+            <span class="tag drop" style="justify-self:start">Dropped</span>
+            <h3>The project opens on its resources, with an environment switcher in the corner</h3>
+            <p>Dropped because the environment becomes a filter on the project's pages, as in the earlier redesign, instead of having its own pages.</p>
+          </div>
+          <div class="wf nosb" role="img" aria-label="Wireframe: project tabs at the top, a canvas of resources, and a small environment switcher in the corner of the canvas">
+            <div class="wf-main">
+              <div class="wf-crumb"><b>infra-dev</b></div>
+              <div class="wf-tabs"><span class="wf-tab on">Blueprint</span><span class="wf-tab">Environments</span><span class="wf-tab">Variables</span><span class="wf-tab">Pipelines</span><span class="wf-tab">Settings</span></div>
+              <div class="wf-canvas" style="min-height:200px">
+                <span class="wf-flag">Environment: dev ▾</span>
+                <span class="wf-node" style="left:8%;top:30%">web service</span>
+                <span class="wf-node" style="left:30%;top:58%">database</span>
+                <span class="wf-node" style="left:52%;top:28%">queue</span>
+                <span class="wf-node" style="left:70%;top:62%">cache</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROVING IT -->
+  <section class="sec">
+    <div class="col">
+      <span class="label">Proving it</span>
+      <h2>The team had tried breadcrumbs before, so I had to prove this would work</h2>
+      <p class="lede">The original UI already had a breadcrumb that switched environments, and it hadn't worked. So when I proposed this, the answer was: we already tried this.</p>
+    </div>
+    <div class="wide stack">
+      <div>
+        <p class="needs-h">The old breadcrumb and the new navigation, side by side</p>
+        <div class="ba pv">
+          <figure class="bf">
+            <span class="k">The original UI</span>
+            <div class="frame"><div class="pinwrap">
+              <img src="img/d9f4b133c440.jpg" width="1503" height="622" alt="The original UI's breadcrumb with its switcher open: one panel with three lists, Environment, Resource Type and Resource, then Cancel and a grey Apply">
+              <span class="pin red" style="left:7.3%;top:48.2%">1</span>
+              <span class="pin red" style="left:79.8%;top:92.3%">2</span>
+              <span class="pin red" style="left:59.5%;top:4.5%">3</span>
+              <span class="pin red" style="left:46.6%;top:15.1%">4</span>
+            </div></div>
+          </figure>
+          <figure class="af">
+            <span class="k">The new navigation</span>
+            <div class="frame"><div class="pinwrap">
+              <img src="img/3dc4a79384bd.jpg" width="1496" height="586" alt="The new breadcrumb, iac-qa, qa-aws, Resource Center, each with its own menu, and the environment menu open from one click">
+              <span class="pin" style="left:38.8%;top:15.4%">1</span>
+              <span class="pin" style="left:31.4%;top:4.1%">3</span>
+              <span class="pin" style="left:11%;top:10.2%">4</span>
+            </div></div>
+          </figure>
+        </div>
+        <div class="tablewrap2 pvt"><table class="ctable">
+          <tr><th></th><th>The original UI</th><th>The new navigation</th></tr>
+          <tr><td><span class="pn">1</span>Changing environment</td><td class="old">A panel with up to three lists, then Apply</td><td class="new">One click on the breadcrumb</td></tr>
+          <tr><td><span class="pn">2</span>Waiting</td><td class="old">Apply stayed grey until a check came back</td><td class="new">None</td></tr>
+          <tr><td><span class="pn">3</span>Moving to another page</td><td class="old">Not possible from the breadcrumb</td><td class="new">The page name is a menu of that environment's pages</td></tr>
+          <tr><td><span class="pn">4</span>What you switch</td><td class="old">Environment, resource type and resource, all in one panel</td><td class="new">Each level from its own menu</td></tr>
+        </table></div>
+      </div>
+      <div>
+        <p class="needs-h">How I proved it</p>
+        <div class="proof">
+          <div><b>Counted the clicks</b><p>Clicks for the most common tasks in both older versions and in my proposal, and what made each step confusing. The most common daily task: 14 clicks before, 6 after.</p></div>
+          <div><b>Built it</b><p>The whole new navigation, in code with Claude Code, running locally, so people could use it instead of imagining it.</p></div>
+          <div><b>Tested it</b><p>Our own team and a few customers tried it. I wrote down all their feedback.</p></div>
+          <div><b>Got agreement</b><p>I took the click counts and the feedback to the stakeholders, and they agreed to go ahead.</p></div>
+          <div><b>Shipped in two phases</b><p>Some doubt remained, so phase one shipped only the organisation's pages with the new side menu. The feedback was good, and phase two shipped the whole web app on the new navigation.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE REDESIGN -->
+  <section class="sec">
+    <div class="col">
+      <span class="label">The redesign</span>
+      <h2>Three parts that work together: the side menu, the breadcrumb and the header</h2>
+      <p class="lede">Facets has four levels, dozens of pages and up to twelve actions on one environment. Each part of the navigation answers one question, in the same place on every screen.</p>
+    </div>
+    <div class="wide stack">
+      <div class="parts">
+        <div class="part"><span class="k">1 · Side menu</span><h3>Which level am I at?</h3><p>The organisation's menu outside a project, the project's menu inside one.</p></div>
+        <div class="part"><span class="k">2 · Breadcrumb</span><h3>Where exactly am I?</h3><p>Project, environment and page. Each step is a menu, so you can switch environment or page in one click.</p></div>
+        <div class="part"><span class="k">3 · Header</span><h3>What is this, and what can I do?</h3><p>The environment or resource you're on, its state, and the action you need now.</p></div>
+      </div>
+
+      <!-- Goal 01 -->
+      <div class="decision">
+        <div class="col" style="margin:0;max-width:760px">
+          <span class="dl">Goal #01 · Where am I</span>
+          <h3>The side menu changes with the level, so the menu itself tells you where you are</h3>
+        </div>
+        <div class="pair top">
+          <figure><span class="k">Outside a project: the organisation's menu</span><div class="frame side"><img src="img/b43b84054628.jpg" width="252" height="794" alt="Organisation menu: Projects, Audit Logs, Project Type, Module Registry, Intelligence, custom pages and Settings" style="max-width:240px"></div></figure>
+          <figure class="after"><span class="k">Inside a project: the project's menu</span><div class="frame side"><img src="img/d02ca42f97a2.jpg" width="252" height="450" alt="Project menu: Overview, Blueprint Resources, Environments, Secrets and Variables, Cost, Intelligence and Project Settings" style="max-width:240px"></div></figure>
+        </div>
+        <div class="mres"><span><b>3.4 → 1.1</b> back-and-forth page visits to reach a task</span></div>
+        <div class="why-box">
+          <span class="k">Why this design</span>
+          <ul>
+            <li>Platform engineers find the organisation's setup outside projects. Developers inside a project see only that project's pages. The two never mix, so the menu always shows which level you're at.</li>
+            <li>The project's pages moved out of the crowded row at the top and into the side menu, which had room for them.</li>
+            <li>Environments, the item people use most, opens a list of every environment and its pages, so you can go straight to a page in any of them.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Goal 02 -->
+      <div class="decision">
+        <div class="col" style="margin:0;max-width:760px">
+          <span class="dl">Goal #02 · Environment work</span>
+          <h3>Releases, resources and secrets went back inside the environment</h3>
+        </div>
+        <div class="tabwrap" data-tabs>
+          <div class="tabs" role="tablist" aria-label="An environment's pages: shipped and before">
+            <button role="tab" aria-selected="true" aria-controls="d2a" id="d2a-tab">Shipped</button>
+            <button role="tab" aria-selected="false" aria-controls="d2b" id="d2b-tab" tabindex="-1">Before</button>
+          </div>
+          <div class="tabpanel dpanel" id="d2a" role="tabpanel" aria-labelledby="d2a-tab">
+            <div class="shot"><figure>
+              <img src="img/fe7eb487447c.jpg" width="1496" height="794" alt="The page menu on the breadcrumb, listing the environment's pages">
+              <span class="hs v side" data-n="1" style="left:19.2%;top:5%;width:11%;height:31.3%"><span class="hs-l">Every page of this environment, one click away</span></span>
+            </figure><ol class="anno-legend"><li>Every page of this environment, one click away</li></ol></div>
+          </div>
+          <div class="tabpanel dpanel" id="d2b" role="tabpanel" aria-labelledby="d2b-tab" hidden>
+            <div class="shot"><figure><img src="img/8643be195ebd.jpg" width="1395" height="388" alt="Resource Center as a project tab, with an environment picker inside the page"></figure></div>
+            <p class="why-dropped"><b>Before:</b> Resource Center was a project tab. You picked the environment inside the page, and the breadcrumb never said which one you were in.</p>
+          </div>
+        </div>
+        <div class="mres"><span><b>Fewer clicks</b> for everyday work inside an environment</span><span><b>Good feedback</b> on the new navigation</span></div>
+        <div class="why-box">
+          <span class="k">Why this design</span>
+          <ul>
+            <li>Each environment has its own pages again: Resource Center, Secrets &amp; Variables, Releases, Monitoring &amp; Alerts and more. Going into an environment takes you to its work.</li>
+            <li>Secrets &amp; Variables also stays at the project level, for comparing environments side by side. That was the one job the earlier redesign had right.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Goal 03 -->
+      <div class="decision">
+        <div class="col" style="margin:0;max-width:760px">
+          <span class="dl">Goal #03 · Switching</span>
+          <h3>Changing environment is one click, and you stay on the same page</h3>
+        </div>
+        <div class="tabwrap" data-tabs>
+          <div class="tabs" role="tablist" aria-label="Ways to switch: shipped and before">
+            <button role="tab" aria-selected="true" aria-controls="d3a" id="d3a-tab">From the breadcrumb</button>
+            <button role="tab" aria-selected="false" aria-controls="d3b" id="d3b-tab" tabindex="-1">From the side menu</button>
+            <button role="tab" aria-selected="false" aria-controls="d3c" id="d3c-tab" tabindex="-1">Before</button>
+          </div>
+          <div class="tabpanel dpanel" id="d3a" role="tabpanel" aria-labelledby="d3a-tab">
+            <div class="shot"><figure>
+              <img src="img/2fb0631ada19.jpg" width="1496" height="794" alt="Environment menu open on the breadcrumb">
+              <span class="hs v side" data-n="1" style="left:14.6%;top:5%;width:22.4%;height:63.8%"><span class="hs-l">Pick another environment. You stay on Resource Center</span></span>
+            </figure><ol class="anno-legend"><li>Pick another environment. You stay on Resource Center</li></ol></div>
+          </div>
+          <div class="tabpanel dpanel" id="d3b" role="tabpanel" aria-labelledby="d3b-tab" hidden>
+            <div class="shot small-shot"><figure>
+              <img src="img/db9624629799.jpg" width="872" height="653" alt="The side menu's environment list, with one environment's pages open beside it">
+              <span class="hs v below" data-n="1" style="left:68.02%;top:54.31%;width:24.36%;height:43.19%"><span class="hs-l wrap">Any page of any environment, from the side menu</span></span>
+            </figure><ol class="anno-legend"><li>Any page of any environment, from the side menu</li></ol></div>
+          </div>
+          <div class="tabpanel dpanel" id="d3c" role="tabpanel" aria-labelledby="d3c-tab" hidden>
+            <div class="shot"><figure><img src="img/d2440d68692f.jpg" width="1503" height="812" alt="The original UI's panel with three lists and Apply"></figure></div>
+            <p class="why-dropped"><b>Before:</b> a panel with up to three lists and Apply. The earlier redesign added a second switcher with its own Apply.</p>
+          </div>
+        </div>
+        <div class="why-box">
+          <span class="k">Why this design</span>
+          <ul>
+            <li>People switch environments all the time, usually to check the same thing somewhere else, so the switch keeps you on the same page.</li>
+            <li>The original UI already kept your page when you switched. The panel, the extra lists and the Apply button made it slow, so I kept the behaviour and removed the form.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Goal 04 -->
+      <div class="decision">
+        <div class="col" style="margin:0;max-width:760px">
+          <span class="dl">Goal #04 · Common actions</span>
+          <h3>Project Overview puts common actions one click from the project</h3>
+        </div>
+        <div class="tabwrap" data-tabs>
+          <div class="tabs" role="tablist" aria-label="A project's first page: shipped and before">
+            <button role="tab" aria-selected="true" aria-controls="d4a" id="d4a-tab">Shipped</button>
+            <button role="tab" aria-selected="false" aria-controls="d4b" id="d4b-tab" tabindex="-1">Before</button>
+          </div>
+          <div class="tabpanel dpanel" id="d4a" role="tabpanel" aria-labelledby="d4a-tab">
+            <div class="shot"><figure>
+              <img src="img/5345c3e7760a.jpg" width="1512" height="794" alt="Project Overview with the blueprint, Resource Actions and Environment Actions">
+              <span class="pin" style="left:38.3%;top:24.5%">1</span>
+              <span class="pin" style="left:69.2%;top:25%">2</span>
+            </figure>
+            <ol class="legend">
+              <li>Resource Actions: pick a resource, then edit its settings, override it or release it</li>
+              <li>Environment Actions: pick an environment, launch or release it, or open one of its pages</li>
+            </ol></div>
+          </div>
+          <div class="tabpanel dpanel" id="d4b" role="tabpanel" aria-labelledby="d4b-tab" hidden>
+            <div class="shot"><figure><img src="img/c4b115e55238.jpg" width="1568" height="706" alt="The earlier redesign's project page: a list of environments"></figure></div>
+            <p class="why-dropped"><b>Before:</b> the project opened on a list of environments.</p>
+          </div>
+        </div>
+        <div class="mres"><span><b>Main way to navigate</b> for advanced users</span><span><b>61%</b> of visits to Project Overview go straight to an action</span></div>
+        <div class="why-box">
+          <span class="k">Why this design</span>
+          <ul>
+            <li>Advanced users were hunting through the navigation for routine actions, so I proposed a page that puts them up front: pick a resource or an environment and act on it.</li>
+            <li>It came after the environment pages on purpose. A shortcut only helps if it opens a complete page, and the earlier redesign had shortcuts without the pages.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Goal 05: header -->
+      <div class="decision">
+        <div class="col" style="margin:0;max-width:760px">
+          <span class="dl">Goal #05 · The same everywhere</span>
+          <h3>One header for projects, environments and resources</h3>
+          <p style="margin-top:10px">The hardest component in the web app. One design had to handle:</p>
+        </div>
+        <div class="hard">
+          <div><b>3 kinds of object</b><p>Projects, environments and resources</p></div>
+          <div><b>A state that changes</b><p>Running, stopped, launching, failed</p></div>
+          <div><b>Up to 12 actions</b><p>On a single environment</p></div>
+        </div>
+        <div class="hb">
+          <p class="needs-h">Before: each page had only some of the actions</p>
+          <div class="hb-strips">
+            <figure><span class="k">The earlier redesign · Releases tab</span><div class="frame"><div class="pinwrap">
+              <img src="img/cb1c220802b5.jpg" width="1433" height="230" alt="The earlier redesign's Releases tab: an environment picker, then Validations, Release, Scale down and a menu">
+              <span class="hs lft" data-n="1" style="left:74.1%;top:77.9%;width:24.8%;height:16.5%"><span class="hs-l">Only release actions here</span></span>
+            </div></div></figure>
+            <figure><span class="k">The earlier redesign · the environment's panel</span><div class="frame"><div class="pinwrap">
+              <img src="img/6c322adb5479.jpg" width="1328" height="237" alt="The environment's panel with its menu open: K8s Credentials, Renew Credentials, Download VPN Profile and Export Terraform">
+              <span class="hs lft" data-n="2" style="left:83.4%;top:24.1%;width:15.3%;height:70.9%"><span class="hs-l">Everything else: only in this panel</span></span>
+            </div></div></figure>
+          </div>
+          <ol class="anno-legend red"><li>Only release actions here</li><li>Everything else: only in this panel</li></ol>
+          <p class="hb-note">On Releases you got release actions. For anything else, like credentials or the VPN profile, you had to go to Environments and open the environment. People did this all the time, and it showed up in support tickets. The original UI split actions across pages the same way.</p>
+          <p class="hb-note"><b class="now">Now:</b> every action sits in the environment's header, on every one of its pages.</p>
+        </div>
+        <div class="anat">
+          <div><b>1 · Icon</b><p>The cloud for an environment, the resource type for a resource</p></div>
+          <div><b>2 · Name</b><p>The project, environment or resource you're on</p></div>
+          <div><b>3 · Status and context</b><p>State, stage, region, and whether it depends on another environment</p></div>
+          <div><b>4 · Actions</b><p>The one you need now, and everything else under More</p></div>
+        </div>
+        <div class="hstack">
+          <div class="hrow"><span class="k">Project</span><img src="img/b5bd12dbe4f7.jpg" width="1400" height="82" alt="Project header: iac-qa, Project Dashboard, Summarise Project"></div>
+          <div class="hrow"><span class="k">Environment</span><img src="img/584be4048fe6.jpg" width="1400" height="82" alt="Environment header: AWS logo, qa-aws, Stopped, QA, more actions and Launch"></div>
+          <div class="hrow"><span class="k">Resource</span><img src="img/c545f5f53e07.jpg" width="1400" height="82" alt="Resource header: legacy-app, the qa-aws environment, Disabled, and its actions"></div>
+        </div>
+        <p class="needs-h">The main button follows the environment's state</p>
+        <div class="tablewrap2"><table class="stable">
+          <tr><th>When the environment is</th><th>The header shows</th></tr>
+          <tr><td><span class="st run">Running</span></td><td><span class="pb">Release</span><span class="sb">Scale Down</span></td></tr>
+          <tr><td><span class="st">Stopped</span></td><td><span class="pb">Launch</span> Release moves into More</td></tr>
+          <tr><td><span class="st">Scaled down</span></td><td><span class="pb">Scale Up</span><span class="sb">Release</span></td></tr>
+          <tr><td><span class="st fail">Launch failed</span></td><td><span class="pb">Launch</span><span class="db">Destroy</span></td></tr>
+        </table></div>
+        <div class="shot"><figure><img src="img/9cdce51badc6.jpg" width="1496" height="517" alt="The More menu on the environment header, grouped into Environment and Releases, with unavailable actions greyed out"></figure>
+        <p class="wf-cap">Everything else sits under More, grouped by what it acts on. Actions that can't run right now stay visible, greyed out, and say why.</p></div>
+        <div class="cutwrap">
+          <span class="k">Explored and cut</span>
+          <details class="acc">
+            <summary>
+              <span class="acc-main"><b>Icon buttons under the name</b><span><em>Cut:</em> the description also had to fit under the name. With three icon buttons and a fourth holding more actions in the same small space, it got cluttered and confusing. The actions moved to the right: the one you need now, named, and the rest under More.</span></span>
+              <span class="acc-btn"><span class="o">See the designs</span><span class="c">Hide the designs</span></span>
+            </summary>
+            <div class="acc-body"><div class="figrows">
+              <figure><img src="img/9cdccc408d8b.jpg" width="759" height="105" alt="Explored: an environment header with icon-only actions under the name"><figcaption>An environment</figcaption></figure>
+              <figure><img src="img/0b6c2835bf2d.jpg" width="759" height="104" alt="Explored: a resource header with icon-only actions under the name"><figcaption>A resource in the blueprint</figcaption></figure>
+            </div></div>
+          </details>
+          <details class="acc">
+            <summary>
+              <span class="acc-main"><b>An environment switcher in the resource header</b><span><em>Cut:</em> the same problem: a dropdown, action icons and status in one place, with no hierarchy, and the description still had to fit. Switching moved to the breadcrumb, and the resource header just names its environment.</span></span>
+              <span class="acc-btn"><span class="o">See the design</span><span class="c">Hide the design</span></span>
+            </summary>
+            <div class="acc-body"><div class="figrows">
+              <figure><img src="img/93a5c981c4bd.jpg" width="760" height="104" alt="Explored: a resource header with an environment dropdown beside its actions"><figcaption>A resource inside an environment, with an environment dropdown</figcaption></figure>
+            </div></div>
+          </details>
+        </div>
+        <div class="mres"><span><b>3.6 → 1.2</b> page visits to see a resource's current state</span><span><b>2.4 → 0.7</b> page visits to act on a resource</span></div>
+        <div class="why-box">
+          <span class="k">Why this design</span>
+          <ul>
+            <li>Learn it once and it reads the same on every screen: what this is, what state it's in, what you can do.</li>
+            <li>The action you need right now is always visible, and twelve actions don't crowd the page.</li>
+            <li>New actions and states fit into the same layout, so adding one doesn't mean redesigning each page. It's one shared component across the web app.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Every other screen -->
+      <div class="decision">
+        <div class="col" style="margin:0;max-width:760px">
+          <span class="dl">Goal #05 · The same everywhere</span>
+          <h3>Every other screen was rebuilt on the same structure</h3>
+        </div>
+        <div class="tabwrap" data-tabs>
+          <div class="tabs" role="tablist" aria-label="Screens rebuilt on the new structure">
+            <button role="tab" aria-selected="true" aria-controls="g1" id="g1-tab">Blueprint</button>
+            <button role="tab" aria-selected="false" aria-controls="g2" id="g2-tab" tabindex="-1">Secrets &amp; Variables</button>
+            <button role="tab" aria-selected="false" aria-controls="g3" id="g3-tab" tabindex="-1">CI/CD</button>
+            <button role="tab" aria-selected="false" aria-controls="g6" id="g6-tab" tabindex="-1">Images</button>
+            <button role="tab" aria-selected="false" aria-controls="g5" id="g5-tab" tabindex="-1">Release</button>
+            <button role="tab" aria-selected="false" aria-controls="g7" id="g7-tab" tabindex="-1">Cost</button>
+            <button role="tab" aria-selected="false" aria-controls="g4" id="g4-tab" tabindex="-1">Module Registry</button>
+          </div>
+          <div class="tabpanel dpanel" id="g1" role="tabpanel" aria-labelledby="g1-tab">
+            <p class="gal-text">The canvas gets the whole page. Before, it sat under the project's row of nine tabs.</p>
+            <div class="tabwrap" data-tabs>
+              <div class="tabs" role="tablist" aria-label="After and before"><button role="tab" aria-selected="true" aria-controls="gx1a" id="gx1a-tab">After</button><button role="tab" aria-selected="false" aria-controls="gx1b" id="gx1b-tab" tabindex="-1">Before</button></div>
+              <div class="tabpanel" id="gx1a" role="tabpanel" aria-labelledby="gx1a-tab"><div class="shot"><figure><img src="img/06881106d86b.jpg" width="1600" height="900" alt="The redesigned blueprint canvas"></figure></div></div>
+              <div class="tabpanel" id="gx1b" role="tabpanel" aria-labelledby="gx1b-tab" hidden><div class="shot"><figure><img src="img/cb77b0a2fa49.jpg" width="1600" height="879" alt="The old blueprint page under a row of project tabs"></figure></div></div>
+            </div>
+          </div>
+          <div class="tabpanel dpanel" id="g2" role="tabpanel" aria-labelledby="g2-tab" hidden>
+            <p class="gal-text">Compare environments side by side, and see which resources use each value. Before, you saw one environment at a time, picked with Apply.</p>
+            <div class="mres"><span><b>95s → 20s</b> to compare a value across environments</span></div>
+            <div class="tabwrap" data-tabs>
+              <div class="tabs" role="tablist" aria-label="After and before"><button role="tab" aria-selected="true" aria-controls="gx2a" id="gx2a-tab">After</button><button role="tab" aria-selected="false" aria-controls="gx2b" id="gx2b-tab" tabindex="-1">Before</button></div>
+              <div class="tabpanel" id="gx2a" role="tabpanel" aria-labelledby="gx2a-tab"><div class="shot"><figure><img src="img/3a1227cdb15e.jpg" width="1496" height="763" alt="Secrets and Variables comparing an AWS and a Google Cloud environment side by side"></figure></div></div>
+              <div class="tabpanel" id="gx2b" role="tabpanel" aria-labelledby="gx2b-tab" hidden><div class="shot"><figure><img src="img/735edfeba822.jpg" width="1568" height="725" alt="The old Secrets and Variables page with an environment picker and Apply"></figure></div></div>
+            </div>
+          </div>
+          <div class="tabpanel dpanel" id="g3" role="tabpanel" aria-labelledby="g3-tab" hidden>
+            <p class="gal-text">One side panel: on the left, how builds move to environments; on the right, the rules that map git branches to environments. Before, it was three large cards inside project settings.</p>
+            <div class="mres"><span><b>95s → 52s</b> to save a CI/CD change</span></div>
+            <div class="tabwrap" data-tabs>
+              <div class="tabs" role="tablist" aria-label="After and before"><button role="tab" aria-selected="true" aria-controls="gx3a" id="gx3a-tab">After</button><button role="tab" aria-selected="false" aria-controls="gx3b" id="gx3b-tab" tabindex="-1">Before</button></div>
+              <div class="tabpanel" id="gx3a" role="tabpanel" aria-labelledby="gx3a-tab"><div class="shot"><figure class="vid"><video data-auto src="media/cicd.mp4" poster="media/cicd.jpg" width="1280" height="720" muted loop playsinline preload="none" aria-label="Screen recording: the CI/CD side panel, mapping git branches to environments and setting the order builds are promoted"></video><button class="vbtn" type="button" aria-label="Pause video" data-state="playing" hidden><svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="2" width="3.6" height="12" rx="1"/><rect x="9.4" y="2" width="3.6" height="12" rx="1"/></svg><svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.4v11.2a.8.8 0 0 0 1.2.7l9.3-5.6a.8.8 0 0 0 0-1.4L5.2 1.7A.8.8 0 0 0 4 2.4z"/></svg></button></figure></div></div>
+              <div class="tabpanel" id="gx3b" role="tabpanel" aria-labelledby="gx3b-tab" hidden><div class="shot"><figure><img src="img/d66a8d2a4dee.jpg" width="1600" height="844" alt="The old CI/CD settings with three large strategy cards"></figure></div></div>
+            </div>
+          </div>
+          <div class="tabpanel dpanel" id="g6" role="tabpanel" aria-labelledby="g6-tab" hidden>
+            <p class="gal-text">Which version of a service runs in each environment, in the order versions move from one environment to the next. From each card you can update the version, see its history or promote it to the next environment.</p>
+            <div class="shot"><figure class="vid"><video data-auto src="media/images.mp4" poster="media/images.jpg" width="1280" height="720" muted loop playsinline preload="none" aria-label="Screen recording: the Images tab, with each environment's image, its history, and promoting an image to the next environment"></video><button class="vbtn" type="button" aria-label="Pause video" data-state="playing" hidden><svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="2" width="3.6" height="12" rx="1"/><rect x="9.4" y="2" width="3.6" height="12" rx="1"/></svg><svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.4v11.2a.8.8 0 0 0 1.2.7l9.3-5.6a.8.8 0 0 0 0-1.4L5.2 1.7A.8.8 0 0 0 4 2.4z"/></svg></button></figure></div>
+          </div>
+          <div class="tabpanel dpanel" id="g5" role="tabpanel" aria-labelledby="g5-tab" hidden>
+            <p class="gal-text">Choose resources in a full panel, then review what will change before anything runs. Before, it was one small dialog with the resources in a dropdown. <a href="../release-flow/">Read the release flow case study ↗</a></p>
+            <div class="mres"><span><b>70s → 33s</b> to release a change, 53% less time</span></div>
+            <div class="tabwrap" data-tabs>
+              <div class="tabs" role="tablist" aria-label="After and before"><button role="tab" aria-selected="true" aria-controls="gx5a" id="gx5a-tab">After</button><button role="tab" aria-selected="false" aria-controls="gx5b" id="gx5b-tab" tabindex="-1">Before</button></div>
+              <div class="tabpanel" id="gx5a" role="tabpanel" aria-labelledby="gx5a-tab"><div class="shot"><figure><img src="img/8fcb32b19428.jpg" width="1600" height="897" alt="Step 1 of the redesigned release flow: release type on the left, the resources to choose in a table"></figure></div></div>
+              <div class="tabpanel" id="gx5b" role="tabpanel" aria-labelledby="gx5b-tab" hidden><div class="shot"><figure><img src="img/58a3234442ae.jpg" width="1600" height="828" alt="The old release dialog: release type on top and the resources in one dropdown"></figure></div></div>
+            </div>
+          </div>
+          <div class="tabpanel dpanel" id="g7" role="tabpanel" aria-labelledby="g7-tab" hidden>
+            <p class="gal-text">Cloud spend by environment and over time, with each resource's cost below.</p>
+            <div class="mres"><span><b>19% → 44%</b> of people came back to Cost within a week</span></div>
+            <div class="shot"><figure class="vid"><video data-auto src="media/cost.mp4" poster="media/cost.jpg" width="1280" height="720" muted loop playsinline preload="none" aria-label="Screen recording: the cost page, with spend by environment, the trend over time and each resource's cost"></video><button class="vbtn" type="button" aria-label="Pause video" data-state="playing" hidden><svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="2" width="3.6" height="12" rx="1"/><rect x="9.4" y="2" width="3.6" height="12" rx="1"/></svg><svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.4v11.2a.8.8 0 0 0 1.2.7l9.3-5.6a.8.8 0 0 0 0-1.4L5.2 1.7A.8.8 0 0 0 4 2.4z"/></svg></button></figure></div>
+          </div>
+          <div class="tabpanel dpanel" id="g4" role="tabpanel" aria-labelledby="g4-tab" hidden>
+            <p class="gal-text">Facets' own modules and the company's custom ones in one table, with each one's clouds, status and last change. Before, they were on separate tabs.</p>
+            <div class="tabwrap" data-tabs>
+              <div class="tabs" role="tablist" aria-label="After and before"><button role="tab" aria-selected="true" aria-controls="gx4a" id="gx4a-tab">After</button><button role="tab" aria-selected="false" aria-controls="gx4b" id="gx4b-tab" tabindex="-1">Before</button></div>
+              <div class="tabpanel" id="gx4a" role="tabpanel" aria-labelledby="gx4a-tab"><div class="shot"><figure><img src="img/7d4c8993bc0f.jpg" width="1600" height="892" alt="The redesigned Module Registry in one table"></figure></div></div>
+              <div class="tabpanel" id="gx4b" role="tabpanel" aria-labelledby="gx4b-tab" hidden><div class="shot"><figure><img src="img/69d04522fa0b.jpg" width="1600" height="911" alt="The old Module Registry with system and custom modules on separate tabs"></figure></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="patterns">
+          <div class="card"><span class="k">One side panel</span><h3>One pattern, not three</h3><p>CI/CD, Release and Roles each had their own side panel. Now they share one layout and one way to save, so learning one teaches you all three.</p></div>
+          <div class="card"><span class="k">Light and dark</span><h3>Colour tokens for both themes</h3><p>A full set for light and dark, built from scratch. Switching plays a circular reveal from where you click.</p></div>
+          <div class="card"><span class="k">Components</span><h3>Built on Ant Design</h3><p>Custom components only where it fell short, with one icon set across the web app, so the time went to the hard screens.</p></div>
+        </div>
+        <div class="shot"><figure class="vid"><video data-auto src="media/dark-mode.mp4" poster="media/dark-mode.jpg" width="1280" height="720" muted loop playsinline preload="none" aria-label="Screen recording: the blueprint switching from light to dark mode in a circle that grows from the toggle"></video><button class="vbtn" type="button" aria-label="Pause video" data-state="playing" hidden><svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="2" width="3.6" height="12" rx="1"/><rect x="9.4" y="2" width="3.6" height="12" rx="1"/></svg><svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.4v11.2a.8.8 0 0 0 1.2.7l9.3-5.6a.8.8 0 0 0 0-1.4L5.2 1.7A.8.8 0 0 0 4 2.4z"/></svg></button></figure></div>
+        <div class="mres"><span><b>70%</b> used dark mode within 30 days</span><span><b>91%</b> still used it after 7 days</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- METRICS -->
+  <section class="sec">
+    <div class="col">
+      <span class="label">Metrics</span>
+      <h2>I measured friction and satisfaction, because adoption couldn't show either</h2>
+      <p class="lede">Every customer had to move, and engineers release no matter how good the screens are, so adoption would look the same either way. I measured what the redesign could change instead.</p>
+    </div>
+    <div class="wide stack">
+      <div class="cards3">
+        <div class="metric"><span class="k">Friction</span><h3>Clicks on the most common task</h3><p>Counted step by step, in the old UI and the new one.</p></div>
+        <div class="metric"><span class="k">Confusion</span><h3>Satisfaction</h3><p>The same 14 people, interviewed before and after launch, scored out of 10.</p></div>
+        <div class="metric"><span class="k">Per screen</span><h3>Time and steps, screen by screen</h3><p>How long each screen's main task took, and how many pages it needed. For features nobody has to use, like the Cost page and dark mode, whether people kept using them.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="sec">
+    <div class="col">
+      <span class="label">Results</span>
+    </div>
+    <div class="wide stack">
+      <div class="results">
+        <div class="r-main">
+          <p class="big"><em>57% fewer clicks</em> on the most common daily task</p>
+          <small>14 clicks in the old UI, 6 in the new one.</small>
+        </div>
+        <div class="r-side">
+          <div class="r-card"><span class="v">5.8 → 8.4</span><p>satisfaction out of 10, from the same 14 people before and after.</p></div>
+          <div class="r-card"><span class="v">Every customer moved to the new web app</span><p>within four weeks of launch.</p></div>
+          <div class="r-card"><span class="v">Both older versions switched off</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer><span><b>Rohit Kumar</b> · Product designer · Bangalore</span><a href="../#work">← Back to all work</a></footer>
+</div>
+
+<script>
+document.querySelectorAll('[data-tabs]').forEach(function (group) {
+  var tabs = Array.prototype.slice.call(group.querySelectorAll(':scope > [role="tablist"] [role="tab"], :scope > .steps [role="tab"]'));
+  if (!tabs.length) tabs = Array.prototype.slice.call(group.querySelectorAll('[role="tab"]'));
+  function select(tab) {
+    tabs.forEach(function (t) {
+      var on = t === tab;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      var panel = document.getElementById(t.getAttribute('aria-controls'));
+      if (panel) panel.hidden = !on;
+    });
+  }
+  tabs.forEach(function (tab, i) {
+    tab.addEventListener('click', function () { select(tab); });
+    tab.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      var next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+      select(next); next.focus();
+    });
+  });
+});
+</script>
+<script>
+(function () {
+  var vids = Array.prototype.slice.call(document.querySelectorAll('video[data-auto]'));
+  vids.forEach(function (v) {
+    var btn = v.parentNode.querySelector('.vbtn');
+    function sync() { btn.dataset.state = v.paused ? 'paused' : 'playing'; btn.setAttribute('aria-label', v.paused ? 'Play video' : 'Pause video'); }
+    v.addEventListener('play', sync); v.addEventListener('pause', sync);
+    btn.hidden = false; sync();
+    btn.addEventListener('click', function () {
+      if (v.paused) { v.dataset.user = ''; var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+      else { v.dataset.user = 'paused'; v.pause(); }
+    });
+  });
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      var v = e.target;
+      if (e.isIntersecting && e.intersectionRatio >= 0.35) {
+        if (v.dataset.user !== 'paused') { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+      } else if (!v.paused) { v.pause(); }
+    });
+  }, { threshold: [0, 0.35] });
+  vids.forEach(function (v) { io.observe(v); });
+})();
+</script>
+</body>
+</html>
