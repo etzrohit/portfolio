@@ -793,6 +793,63 @@ footer b { color: var(--ink); font-weight: 600; }
 .cs-thumb.cs-hero .t-main { width: 84%; border-radius: 14px 14px 0 0; }
 @media (max-width: 760px) { .cs-thumb.cs-hero { border-radius: 20px; aspect-ratio: 16 / 10; } }
 
+/* ---------- Phones: app-style controls (18 Oct) ---------- */
+/* Rows that scroll sideways fade at the edge that has more (classes set by the script) */
+.x-scroll.can-scroll:not(.at-end) { -webkit-mask-image: linear-gradient(to right, #000 80%, transparent); mask-image: linear-gradient(to right, #000 80%, transparent); }
+.x-scroll.can-scroll.at-end:not(.at-start) { -webkit-mask-image: linear-gradient(to left, #000 80%, transparent); mask-image: linear-gradient(to left, #000 80%, transparent); }
+.x-scroll.can-scroll:not(.at-start):not(.at-end) { -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent); }
+.x-dots { display: none; }
+@media (max-width: 760px) {
+  /* columns that hold a sideways row must be allowed to shrink to the screen */
+  .stack, .decision, .vpanel, .dpanel, .tabwrap { grid-template-columns: minmax(0,1fr); }
+  .stack > *, .decision > *, .vpanel > *, .dpanel > *, .col > *, .wide > * { min-width: 0; }
+}
+@media (max-width: 760px) {
+  /* Tabs: one row that scrolls sideways */
+  .tabwrap { justify-items: stretch; }
+  .tabcenter { display: block; }
+  .tabwrap { min-width: 0; width: 100%; grid-template-columns: minmax(0,1fr); }
+  .tabwrap > .tabs, .tabcenter > .tabs { justify-self: center; }
+  .tabcenter { min-width: 0; width: 100%; }
+  .tabs { display: flex; flex-wrap: nowrap; width: max-content; max-width: 100%; margin-inline: auto; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tabs button { flex: none; white-space: nowrap; scroll-snap-align: start; min-height: 40px; }
+  /* Steppers: a row you swipe through */
+  .steps, .steps.n2, .steps.n3, .steps.n4 { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 2px 2px 8px; }
+  .steps::-webkit-scrollbar { display: none; }
+  .steps::before { display: none; }
+  .steps button { flex: 0 0 132px; scroll-snap-align: start; }
+  .journey { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 8px; }
+  .journey::-webkit-scrollbar { display: none; }
+  .jstep { flex: 0 0 140px; scroll-snap-align: start; }
+}
+@media (max-width: 860px) { .facts-grid { grid-template-columns: minmax(0,1fr) !important; } }
+@media (max-width: 600px) {
+  /* Card groups: swipe sideways, the next card peeks in */
+  .needs, .cards3, .opts, .proof, .parts, .hard, .patterns, .stakes, .cards2 { display: flex !important; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: -20px; padding: 2px 20px 8px; scroll-padding-inline: 20px; }
+  .needs::-webkit-scrollbar, .cards3::-webkit-scrollbar, .opts::-webkit-scrollbar, .proof::-webkit-scrollbar, .parts::-webkit-scrollbar, .hard::-webkit-scrollbar, .patterns::-webkit-scrollbar, .stakes::-webkit-scrollbar, .cards2::-webkit-scrollbar { display: none; }
+  .needs > *, .cards3 > *, .opts > *, .proof > *, .parts > *, .hard > *, .patterns > *, .stakes > *, .cards2 > * { flex: 0 0 84%; min-width: 0; scroll-snap-align: start; }
+  .x-scroll.cards.can-scroll { -webkit-mask-image: none; mask-image: none; }
+  .x-dots { display: flex; justify-content: center; gap: 6px; margin-top: 6px; }
+  .x-dots[hidden] { display: none; }
+  .x-dots i { width: 6px; height: 6px; border-radius: 3px; background: #d9d4f2; transition: width .2s ease, background .2s ease; }
+  .x-dots i.on { width: 18px; background: var(--accent); }
+}
+/* Tap a screenshot to see it full size */
+img.zoomable { cursor: zoom-in; }
+img.zoomable:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.lb { position: fixed; inset: 0; z-index: 1000; background: rgba(14,11,32,.94); }
+.lb[hidden] { display: none !important; }
+.lb-scroll { position: absolute; inset: 0; overflow: auto; display: grid; place-items: center; padding: 72px 20px 48px; -webkit-overflow-scrolling: touch; }
+.lb-scroll img { max-width: min(1600px, 100%); height: auto; border-radius: 10px; background: #fff; box-shadow: 0 20px 60px rgba(0,0,0,.4); }
+.lb-x { position: fixed; z-index: 1; top: calc(14px + env(safe-area-inset-top, 0px)); right: 14px; width: 44px; height: 44px; border: 0; border-radius: 50%; background: #fff; color: #16131f; font: 400 26px/1 var(--sans); cursor: pointer; }
+.lb-hint { display: none; }
+@media (max-width: 760px) {
+  .lb-scroll { place-items: start; padding: 76px 16px 56px; }
+  .lb-scroll img { max-width: none; }
+  .lb-hint { display: block; position: fixed; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); margin: 0; padding: 7px 13px; border-radius: 999px; background: rgba(255,255,255,.16); color: #fff; font: 600 13px/1.2 var(--sans); white-space: nowrap; }
+}
+
 /* Site navigation: back to the homepage */
 .topline a { color: inherit; text-decoration: none; }
 .topline .tl-home:hover b { color: var(--accent); }
@@ -1691,6 +1748,74 @@ document.querySelectorAll('[data-tabs]').forEach(function (group) {
     });
   }, { threshold: [0, 0.35] });
   vids.forEach(function (v) { io.observe(v); });
+})();
+</script>
+<script>
+/* Phones: sideways rows, swipe dots, and tap-to-zoom screenshots (18 Oct) */
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var phone = function () { return window.matchMedia('(max-width: 760px)').matches; };
+  var rows = document.querySelectorAll('.tabs, .steps, .journey, .needs, .cards3, .opts, .proof, .parts, .hard, .patterns, .stakes, .cards2');
+  Array.prototype.forEach.call(rows, function (el) {
+    el.classList.add('x-scroll');
+    for (var up = el.parentElement; up && !up.classList.contains('page'); up = up.parentElement) up.style.minWidth = '0';
+    var isCards = !el.matches('.tabs, .steps, .journey');
+    var dots = null;
+    if (isCards) {
+      el.classList.add('cards');
+      dots = document.createElement('div'); dots.className = 'x-dots'; dots.setAttribute('aria-hidden', 'true');
+      for (var i = 0; i < el.children.length; i++) dots.appendChild(document.createElement('i'));
+      el.insertAdjacentElement('afterend', dots);
+    }
+    function upd() {
+      var max = el.scrollWidth - el.clientWidth;
+      el.classList.toggle('can-scroll', max > 2);
+      el.classList.toggle('at-start', el.scrollLeft <= 2);
+      el.classList.toggle('at-end', el.scrollLeft >= max - 2);
+      if (dots) {
+        dots.hidden = max <= 2;
+        var kids = el.children, idx = 0, best = 1e9, left = el.getBoundingClientRect().left + 20;
+        for (var j = 0; j < kids.length; j++) { var d = Math.abs(kids[j].getBoundingClientRect().left - left); if (d < best) { best = d; idx = j; } }
+        if (el.scrollLeft >= max - 2 && max > 2) idx = kids.length - 1;
+        for (var k = 0; k < dots.children.length; k++) dots.children[k].classList.toggle('on', k === idx);
+      }
+    }
+    var raf = 0;
+    el.addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(function () { raf = 0; upd(); }); }, { passive: true });
+    window.addEventListener('resize', upd);
+    upd();
+  });
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('.tabs button, .steps button');
+    if (b && b.parentElement.scrollWidth > b.parentElement.clientWidth + 2) b.scrollIntoView({ block: 'nearest', inline: 'center', behavior: reduce ? 'auto' : 'smooth' });
+  });
+
+  var lb = document.createElement('div');
+  lb.className = 'lb'; lb.hidden = true;
+  lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', 'Screenshot, full size');
+  lb.innerHTML = '<button class="lb-x" type="button" aria-label="Close">×</button><div class="lb-scroll"><img alt=""></div><p class="lb-hint">Drag to look around</p>';
+  document.body.appendChild(lb);
+  var lbImg = lb.querySelector('img'), lbScroll = lb.querySelector('.lb-scroll'), lbClose = lb.querySelector('.lb-x'), last = null;
+  function open(im) {
+    last = im;
+    lbImg.src = im.currentSrc || im.src; lbImg.alt = im.alt || '';
+    var w = parseInt(im.getAttribute('width'), 10) || im.naturalWidth || 960;
+    lbImg.style.width = phone() ? Math.min(960, w) + 'px' : '';
+    lb.hidden = false; document.documentElement.style.overflow = 'hidden';
+    lbScroll.scrollTop = 0; lbScroll.scrollLeft = 0; lbClose.focus();
+  }
+  function close() { lb.hidden = true; document.documentElement.style.overflow = ''; if (last) last.focus(); }
+  var sel = '.shot img, .frame img, .frame2 img, .explored img, .evo img, .dropped img, .dropped-one img, .ba img, .tabpanel img, .small-shot img, figure img';
+  Array.prototype.forEach.call(document.querySelectorAll(sel), function (im) {
+    if (im.closest('.cs-thumb, a, button, .lb')) return;
+    if ((parseInt(im.getAttribute('width'), 10) || 0) < 480) return;
+    im.classList.add('zoomable'); im.setAttribute('tabindex', '0'); im.setAttribute('role', 'button');
+    im.setAttribute('aria-label', (im.alt ? im.alt + '. ' : '') + 'Open full size');
+    im.addEventListener('click', function () { open(im); });
+    im.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(im); } });
+  });
+  lb.addEventListener('click', function (e) { if (e.target === lb || e.target === lbScroll || e.target === lbClose) close(); });
+  document.addEventListener('keydown', function (e) { if (!lb.hidden && e.key === 'Escape') close(); });
 })();
 </script>
 </body>
